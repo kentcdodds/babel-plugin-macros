@@ -1,14 +1,34 @@
 const babylon = require('babylon')
 // const printAST = require('ast-pretty-print')
 
-module.exports = evalMacros
+module.exports = {
+  asTag,
+  asFunction,
+  asJSX,
+}
 
-function evalMacros(path) {
-  const value = path.parentPath.get('quasi').evaluate().value
+function asTag(quasiPath) {
+  const value = quasiPath.parentPath.get('quasi').evaluate().value
+  quasiPath.parentPath.replaceWith(evalToAST(value))
+}
+
+function asFunction(argumentsPaths) {
+  const value = argumentsPaths[0].evaluate().value
+  argumentsPaths[0].parentPath.replaceWith(evalToAST(value))
+}
+
+// eslint-disable-next-line no-unused-vars
+function asJSX({attributes, children}) {
+  // It's a shame you cannot use evaluate() with JSX
+  const value = children[0].node.value
+  children[0].parentPath.replaceWith(evalToAST(value))
+}
+
+function evalToAST(value) {
   let x
   // eslint-disable-next-line
   eval(`x = ${value}`);
-  path.parentPath.replaceWith(thingToAST(x))
+  return thingToAST(x)
 }
 
 function thingToAST(object) {

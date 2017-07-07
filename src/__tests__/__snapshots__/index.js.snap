@@ -3,7 +3,6 @@
 exports[`2. does nothing but remove macros if it is unused 1`] = `
 
 import foo from "./some-macros-that-doesnt-even-need-to-exist.macros"
-
 export default "something else"
 
       ↓ ↓ ↓ ↓ ↓ ↓
@@ -12,11 +11,43 @@ export default "something else";
 
 `;
 
-exports[`3. macros 1`] = `
+exports[`3. works with import 1`] = `
 
 import myEval from './fixtures/eval.macros'
-
 const x = myEval\`34 + 45\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const x = 79;
+
+`;
+
+exports[`4. works with require 1`] = `
+
+const evaler = require('./fixtures/eval.macros')
+const x = evaler\`34 + 45\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const x = 79;
+
+`;
+
+exports[`5. works with function calls 1`] = `
+
+import myEval from './fixtures/eval.macros'
+const x = myEval('34 + 45')
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const x = 79;
+
+`;
+
+exports[`6. Works as a JSXElement 1`] = `
+
+import MyEval from './fixtures/eval.macros'
+const x = <MyEval>34 + 45</MyEval>
 
       ↓ ↓ ↓ ↓ ↓ ↓
 

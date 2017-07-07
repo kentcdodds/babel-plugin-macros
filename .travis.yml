@@ -1,19 +1,19 @@
 sudo: false
 language: node_js
 cache:
-  yarn: true
   directories:
     - node_modules
 notifications:
   email: false
 node_js:
-  - '6'
+  - '8'
 script:
-  - yarn start validate
+  - npm start validate
 after_success:
-  - yarn global add codecov semantic-release
+  - npm install -g codecov semantic-release
   - codecov
-  - semantic-release pre && npm publish && semantic-release post
+  # disable auto-releasing until we're ready for this thing to go live
+  # - semantic-release pre && npm publish && semantic-release post
 branches:
   only:
     - master
