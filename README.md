@@ -1,7 +1,7 @@
 <div style="text-align:center">
-# babel-macros 🎣
+<h1>babel-macros 🎣</h1>
 
-**Enables zero-config, importable babel plugins**
+<strong>Enables zero-config, importable babel plugins</strong>
 </div>
 
 <hr />
@@ -34,7 +34,8 @@
 
 ## This solution
 
-// TODO
+This is a work in progress and the form of the solution will likely change a lot
+before `1.0.0` is released. Collaboration is welcome!
 
 ## Installation
 
