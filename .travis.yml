@@ -1,0 +1,19 @@
+sudo: false
+language: node_js
+cache:
+  yarn: true
+  directories:
+    - node_modules
+notifications:
+  email: false
+node_js:
+  - '6'
+script:
+  - yarn start validate
+after_success:
+  - yarn global add codecov semantic-release
+  - codecov
+  - semantic-release pre && npm publish && semantic-release post
+branches:
+  only:
+    - master

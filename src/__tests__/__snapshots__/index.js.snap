@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`2. does nothing but remove macros if it is unused 1`] = `
+
+import foo from "./some-macros-that-doesnt-even-need-to-exist.macros"
+
+export default "something else"
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+export default "something else";
+
+`;
+
+exports[`3. macros 1`] = `
+
+import myEval from './fixtures/eval.macros'
+
+const x = myEval\`34 + 45\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const x = 79;
+
+`;
