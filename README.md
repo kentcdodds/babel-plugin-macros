@@ -1,7 +1,7 @@
 <div style="text-align:center">
-<h1>babel-macros 🎣</h1>
+<h1 style="text-align:center">babel-macros 🎣</h1>
 
-<strong>Enables zero-config, importable babel plugins</strong>
+<strong style="text-align:center;display:block">Enables zero-config, importable babel plugins</strong>
 </div>
 
 <hr />
