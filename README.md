@@ -30,11 +30,11 @@ Enables zero-config, importable babel plugins
 
 ## The problem
 
-
+// TODO
 
 ## This solution
 
-
+// TODO
 
 ## Installation
 
@@ -47,16 +47,17 @@ npm install --save-dev babel-macros
 
 ## Usage
 
-
+// TODO
 
 ## Inspiration
 
-
+- [threepointone/babel-macros](https://github.com/threepointone/babel-macros)
+- [facebookincubator/create-react-app#2730](https://github.com/facebookincubator/create-react-app/issues/2730)
 
 ## Other Solutions
 
-I'm not aware of any, if you are please [make a pull request][prs] and add it
-here!
+- [sweetjs](http://sweetjs.org/)
+- [babel-plugin-macros](https://github.com/codemix/babel-plugin-macros)
 
 ## Contributors
 
