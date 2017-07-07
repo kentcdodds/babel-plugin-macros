@@ -7,7 +7,7 @@ function macrosPlugin() {
   return {
     name: 'macros',
     visitor: {
-      ImportDeclaration(path, {file: {opts: {filename}}}) {
+      ImportDeclaration(path, state) {
         const isMacros = looksLike(path, {
           node: {
             source: {
@@ -20,10 +20,10 @@ function macrosPlugin() {
         }
         const name = path.node.specifiers[0].local.name
         const source = path.node.source.value
-        applyMacros({path, name, source, filename})
+        applyMacros({path, name, source, state})
         path.remove()
       },
-      CallExpression(path, {file: {opts: {filename}}}) {
+      CallExpression(path, state) {
         const isMacros = looksLike(path, {
           node: {
             callee: {
@@ -42,14 +42,15 @@ function macrosPlugin() {
         }
         const name = path.parent.id.name
         const source = path.node.arguments[0].value
-        applyMacros({path, name, source, filename})
+        applyMacros({path, name, source, state})
         path.parentPath.remove()
       },
     },
   }
 }
 
-function applyMacros({path, name, source, filename}) {
+function applyMacros({path, name, source, state}) {
+  const {file: {opts: {filename}}} = state
   const referencePaths = path.scope.getBinding(name).referencePaths
   if (referencePaths && referencePaths.length) {
     const requirePath = p.join(p.dirname(filename), source)
@@ -60,14 +61,17 @@ function applyMacros({path, name, source, filename}) {
       // and someone tries to use it that way, then throw a helpful
       // error message
       if (ref.parentPath.type === 'TaggedTemplateExpression') {
-        macros.asTag(ref.parentPath.get('quasi'))
+        macros.asTag(ref.parentPath.get('quasi'), state)
       } else if (ref.parentPath.type === 'CallExpression') {
-        macros.asFunction(ref.parentPath.get('arguments'))
+        macros.asFunction(ref.parentPath.get('arguments'), state)
       } else if (ref.parentPath.type === 'JSXOpeningElement') {
-        macros.asJSX({
-          attributes: ref.parentPath.get('attributes'),
-          children: ref.parentPath.parentPath.get('children'),
-        })
+        macros.asJSX(
+          {
+            attributes: ref.parentPath.get('attributes'),
+            children: ref.parentPath.parentPath.get('children'),
+          },
+          state,
+        )
       } else {
         // TODO: throw a helpful error message
       }
