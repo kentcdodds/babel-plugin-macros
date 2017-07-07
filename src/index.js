@@ -1,6 +1,8 @@
 const p = require('path')
 // const printAST = require('ast-pretty-print')
 
+const macrosRegex = /[./]macros(\.js)?$/
+
 module.exports = macrosPlugin
 
 function macrosPlugin() {
@@ -11,7 +13,7 @@ function macrosPlugin() {
         const isMacros = looksLike(path, {
           node: {
             source: {
-              value: v => v.endsWith('.macros'),
+              value: v => macrosRegex.test(v),
             },
           },
         })
@@ -31,7 +33,7 @@ function macrosPlugin() {
               name: 'require',
             },
             arguments: args =>
-              args.length === 1 && args[0].value.endsWith('.macros'),
+              args.length === 1 && macrosRegex.test(args[0].value),
           },
           parent: {
             type: 'VariableDeclarator',
