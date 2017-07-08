@@ -29,9 +29,16 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-babel-macros defines a standard interface for libraries that want to use compile-time code transformation without requiring the user to add a babel plugin to their build system (other than babel-macros, which is ideally already in place).
+## The problem
+
+Currently, each babel plugin in the babel ecosystem requires that you configure it individually. This is fine for things like language features, but can be frustrating overhead for libraries that allow for compile-time code transformation as an optimization.
+
+## This solution
+
+babel-macros defines a standard interface for libraries that want to use compile-time code transformation without requiring the user to add a babel plugin to their build system (other than `babel-macros`, which is ideally already in place).
 
 For instance, many css-in-js libraries have a css tagged template string function:
+
 ```js
 const styles = css`
   .red {
@@ -41,6 +48,7 @@ const styles = css`
 ```
 
 The function compiles your css into (for example) an object with generated class names for each of the classes you defined in your css:
+
 ```js
 console.log(styles); // { red: "1f-d34j8rn43y587t" }
 ```
@@ -50,6 +58,7 @@ This class name can be generated at runtime (in the browser), but this has some 
 * There is code bundle size overhead; the client needs to receive a CSS parser in order to generate these class names, and shipping this makes the amount of js the client needs to parse larger.
 
 To help solve those issues, many css-in-js libraries write their own babel plugin that generates the class names at compile-time instead of runtime:
+
 ```js
 // Before running through babel:
 const styles = css`
