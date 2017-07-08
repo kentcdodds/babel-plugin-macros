@@ -18,6 +18,23 @@
         "infra",
         "test"
       ]
+    },
+    {
+      "login": "threepointone",
+      "name": "Sunil Pai",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/18808?v=3",
+      "profile": "https://github.com/threepointone",
+      "contributions": []
+    },
+    {
+      "login": "suchipi",
+      "name": "Stephen Scott",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1341513?v=3",
+      "profile": "http://suchipi.com/",
+      "contributions": [
+        "question",
+        "doc"
+      ]
     }
   ]
 }
