@@ -31,12 +31,50 @@
 
 ## The problem
 
-// TODO
+Currently, each babel plugin in the babel ecosystem requires that you configure it individually. This is fine for things like language features, but can be frustrating overhead for libraries that allow for compile-time code transformation as an optimization.
 
 ## This solution
 
-This is a work in progress and the form of the solution will likely change a lot
-before `1.0.0` is released. Collaboration is welcome!
+babel-macros defines a standard interface for libraries that want to use compile-time code transformation without requiring the user to add a babel plugin to their build system (other than `babel-macros`, which is ideally already in place).
+
+For instance, many css-in-js libraries have a css tagged template string function:
+
+```js
+const styles = css`
+  .red {
+    color: red;
+  }
+`;
+```
+
+The function compiles your css into (for example) an object with generated class names for each of the classes you defined in your css:
+
+```js
+console.log(styles); // { red: "1f-d34j8rn43y587t" }
+```
+
+This class name can be generated at runtime (in the browser), but this has some disadvantages:
+* There is cpu usage/time overhead; the client needs to run the code to generate these classes every time the page loads
+* There is code bundle size overhead; the client needs to receive a CSS parser in order to generate these class names, and shipping this makes the amount of js the client needs to parse larger.
+
+To help solve those issues, many css-in-js libraries write their own babel plugin that generates the class names at compile-time instead of runtime:
+
+```js
+// Before running through babel:
+const styles = css`
+  .red {
+    color: red;
+  }
+`;
+// After running through babel, with the library-specific plugin:
+const styles = { red: "1f-d34j8rn43y587t" };
+```
+
+If the css-in-js library supported babel-macros instead, then they wouldn't need their own babel plugin to compile these out; they could instead rely on babel-macros to do it for them. So if a user already had babel-macros installed and configured with babel, then they wouldn't need to change their babel configuration to get the compile-time benefits of the library. This would be most useful if the boilerplate they were using came with babel-macros out of the box, which is what we're hoping will be true for create-react-app in the future. 
+
+Although css-in-js is the most common example, there are lots of other things you could use babel-macros for, like:
+* Compiling GraphQL fragments into objects so that the client doesn't need a GraphQL parser
+* Eval-ing out code at compile time that will be baked into the runtime code, for instance to get a list of directories in the filesystem (see [preval](https://github.com/kentcdodds/babel-plugin-preval))
 
 ## Installation
 
