@@ -62,6 +62,20 @@ pluginTester({
         const x = <MyEval>34 + 45</MyEval>
       `,
     },
+    {
+      title: 'Supports named imports',
+      code: `
+        import {css as CSS, styled as STYLED} from './fixtures/emotion.macros'
+        const red = CSS\`
+          background-color: red;
+        \`
+
+        const Div = STYLED.div\`
+          composes: \${red}
+          color: blue;
+        \`
+      `,
+    },
   ]),
 })
 

@@ -54,3 +54,23 @@ const x = <MyEval>34 + 45</MyEval>
 const x = 79;
 
 `;
+
+exports[`7. Supports named imports 1`] = `
+
+import {css as CSS, styled as STYLED} from './fixtures/emotion.macros'
+const red = CSS\`
+  background-color: red;
+\`
+
+const Div = STYLED.div\`
+  composes: \${red}
+  color: blue;
+\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const red = 'background-color: red;';
+
+const Div = STYLED.div\`undefined\`;
+
+`;

@@ -1,10 +1,24 @@
 const babylon = require('babylon')
 // const printAST = require('ast-pretty-print')
 
-module.exports = {
-  asTag,
-  asFunction,
-  asJSX,
+module.exports = function emotionMacros({references, state}) {
+  references.default.forEach(referencePath => {
+    if (referencePath.parentPath.type === 'TaggedTemplateExpression') {
+      asTag(referencePath.parentPath.get('quasi'), state)
+    } else if (referencePath.parentPath.type === 'CallExpression') {
+      asFunction(referencePath.parentPath.get('arguments'), state)
+    } else if (referencePath.parentPath.type === 'JSXOpeningElement') {
+      asJSX(
+        {
+          attributes: referencePath.parentPath.get('attributes'),
+          children: referencePath.parentPath.parentPath.get('children'),
+        },
+        state,
+      )
+    } else {
+      // TODO: throw a helpful error message
+    }
+  })
 }
 
 function asTag(quasiPath) {
