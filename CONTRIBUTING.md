@@ -36,16 +36,10 @@ too, just run `npm start contributors.generate` to regenerate the table.
 
 This project uses [`semantic-release`][semantic-release] to do automatic releases and generate a changelog based on the
 commit history. So we follow [a convention][convention] for commit messages. Please follow this convention for your
-commit messages.
+commit messages. If you don't, it's not a huge deal because we can change your commit message when we merge anyway.
 
-You can use `commitizen` to help you to follow [the convention][convention]
-
-Once you are ready to commit the changes, please use the below commands
-
-1. `git add <files to be comitted>`
-2. `$ npm start commit`
-
-... and follow the instruction of the interactive prompt.
+Please make sure to run the tests before you commit your changes. You can run `npm start test.update` which will
+update any snapshots that need updating. Make sure to include those changes in your commit.
 
 ### opt into git hooks
 
@@ -54,7 +48,6 @@ really handy, but are turned off by default (so as to not hinder new contributor
 a file called `.opt-in` at the root of the project and putting this inside:
 
 ```
-commit-msg
 pre-commit
 ```
 
