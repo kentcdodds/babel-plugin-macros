@@ -9,7 +9,6 @@
 
 [![Build Status][build-badge]][build]
 [![Code Coverage][coverage-badge]][coverage]
-[![Dependencies][dependencyci-badge]][dependencyci]
 [![version][version-badge]][package]
 [![downloads][downloads-badge]][npm-stat]
 [![MIT License][license-badge]][LICENSE]
@@ -157,8 +156,6 @@ MIT
 [build]: https://travis-ci.org/kentcdodds/babel-macros
 [coverage-badge]: https://img.shields.io/codecov/c/github/kentcdodds/babel-macros.svg?style=flat-square
 [coverage]: https://codecov.io/github/kentcdodds/babel-macros
-[dependencyci-badge]: https://dependencyci.com/github/kentcdodds/babel-macros/badge?style=flat-square
-[dependencyci]: https://dependencyci.com/github/kentcdodds/babel-macros
 [version-badge]: https://img.shields.io/npm/v/babel-macros.svg?style=flat-square
 [package]: https://www.npmjs.com/package/babel-macros
 [downloads-badge]: https://img.shields.io/npm/dm/babel-macros.svg?style=flat-square
