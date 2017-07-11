@@ -1,7 +1,9 @@
 const babylon = require('babylon')
 // const printAST = require('ast-pretty-print')
 
-module.exports = function emotionMacros({references, state}) {
+module.exports = evalMacros
+
+function evalMacros({references, state}) {
   references.default.forEach(referencePath => {
     if (referencePath.parentPath.type === 'TaggedTemplateExpression') {
       asTag(referencePath.parentPath.get('quasi'), state)
