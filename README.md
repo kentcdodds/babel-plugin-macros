@@ -119,10 +119,10 @@ npm install --save-dev babel-macros
 ## Usage
 
 Are you trying to use `babel-macros`? Go to
-[`other/docs/user.md`](https://github.com/kentcdodds/babel-macros/blob/other/docs/user.md).
+[`other/docs/user.md`](https://github.com/kentcdodds/babel-macros/blob/master/other/docs/user.md).
 
 Are you trying to make your own macros that works with `babel-macros`? Go to
-[`other/docs/author.md`](https://github.com/kentcdodds/babel-macros/blob/other/docs/author.md).
+[`other/docs/author.md`](https://github.com/kentcdodds/babel-macros/blob/master/other/docs/author.md).
 (you should probably read the user docs too).
 
 ## Inspiration

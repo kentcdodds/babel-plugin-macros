@@ -1,5 +1,7 @@
 # `babel-macros` Usage for macros authors
 
+> See also: [the `user` docs](https://github.com/kentcdodds/babel-macros/blob/master/other/docs/user.md).
+
 ## Writing a macros
 
 A macros is a JavaScript module that exports a function. It can be published to

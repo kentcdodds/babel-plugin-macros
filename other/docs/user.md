@@ -1,6 +1,6 @@
 # `babel-macros` Usage for users
 
-> See also: [the `author` docs](https://github.com/kentcdodds/babel-macros/blob/other/docs/author.md).
+> See also: [the `author` docs](https://github.com/kentcdodds/babel-macros/blob/master/other/docs/author.md).
 
 ## Adding the plugin to your config
 
