@@ -128,42 +128,44 @@ Are you trying to make your own macros that works with `babel-macros`? Go to
 
 ### What's the difference between babel plugins and macros?
 
-Suppose we have a plugin `eval`, which evaluates expression at compile time.
+Suppose we have a plugin `node-eval`, which evaluates a node expression at compile time.
 
-If we used `babel-plugin-eval`, it would look like this:
+If we used `babel-plugin-node-eval`, it would look like this:
 
-1. Add `babel-plugin-eval` to `.babelrc`
+1. Add `babel-plugin-node-eval` to `.babelrc`
 2. Use it in a code:
 
 ```js
-const val = eval`7 * 6`
+const val = nodeEval`fs.readDirSync('./fleet')`
 
 // ↓ ↓ ↓  compiles to  ↓ ↓ ↓
 
-const val = 42
+const val = ['red_leader', 'blue_leader']
 ```
 
-Instead, if there were a macro called `eval.macro`, we could use
+Instead, if there were a macro called `node-eval.macro`, we could use
 it like this:
 
 1. Add `babel-macros` to `.babelrc` (only once for all macros)
 2. Use it in a code:
 
 ```js
-import eval from 'eval.macro'
-const val = eval`7 * 6`
+import nodeEval from 'node-eval.macro'
+const val = nodeEval`fs.readDirSync('./fleet')`
 
 // ↓ ↓ ↓  compiles to  ↓ ↓ ↓
 
-const val = 42
+const val = ['red_leader', 'blue_leader']
 ```
 
 Advantages:
 
 - requires only one entry in `.babelrc` for all macros used in project
 - boilerplates, like Create React App ([soon hopefully][cra-issue]), might already support `babel-macros`, so no configuration is needed
-- it's explicit, that `eval` is macro and does sth with the code at compile time
+- it's explicit, that `node-eval` is macro and does something with the code at compile time
 - macros are safer and easier to write, because they receive exactly the AST node to process
+
+> By the way, something like `node-eval` actually exists and it's called [babel-plugin-preval][preval].
 
 ### In what order are macros executed?
 
@@ -171,10 +173,10 @@ In the same order as imported. The order of execution is clear, explicit
 and in full control of the user:
 
 ```js
-import eval from 'eval.macro'
+import nodeEval from 'node-eval.macro'
 import css from 'css-in-js.macro'
 
-# First are evaluated `eval` macros, then `css` macros
+# First are evaluated `node-eval` macros, then `css` macros
 ```
 
 This differs from the current situation with babel plugins where
