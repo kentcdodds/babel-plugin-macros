@@ -20,52 +20,52 @@ pluginTester({
   snapshot: true,
   tests: withFilename([
     {
-      title: 'does nothing to code that does not import macros',
+      title: 'does nothing to code that does not import macro',
       snapshot: false,
       code: `
-        import foo from './some-file-without-macros';
-        const bar = require('./some-other-file-without-macros');
+        import foo from './some-file-without-macro';
+        const bar = require('./some-other-file-without-macro');
       `,
     },
     {
       title: 'does nothing but remove macros if it is unused',
       code: `
-        import foo from "./some-macros-that-doesnt-even-need-to-exist.macros"
-        export default "something else"
+        import foo from './some-macros-that-doesnt-even-need-to-exist.macro'
+        export default 'something else'
       `,
     },
     {
       title: 'works with import',
       code: `
-        import myEval from './fixtures/eval.macros'
+        import myEval from './fixtures/eval.macro'
         const x = myEval\`34 + 45\`
       `,
     },
     {
       title: 'works with require',
       code: `
-        const evaler = require('./fixtures/eval.macros')
+        const evaler = require('./fixtures/eval.macro')
         const x = evaler\`34 + 45\`
       `,
     },
     {
       title: 'works with function calls',
       code: `
-        import myEval from './fixtures/eval.macros'
+        import myEval from './fixtures/eval.macro'
         const x = myEval('34 + 45')
       `,
     },
     {
       title: 'Works as a JSXElement',
       code: `
-        import MyEval from './fixtures/eval.macros'
+        import MyEval from './fixtures/eval.macro'
         const x = <MyEval>34 + 45</MyEval>
       `,
     },
     {
       title: 'Supports named imports',
       code: `
-        import {css as CSS, styled as STYLED} from './fixtures/emotion.macros'
+        import {css as CSS, styled as STYLED} from './fixtures/emotion.macro'
         const red = CSS\`
           background-color: red;
         \`

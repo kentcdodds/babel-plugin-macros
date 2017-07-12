@@ -1,7 +1,7 @@
 const p = require('path')
 // const printAST = require('ast-pretty-print')
 
-const macrosRegex = /[./]macros(\.js)?$/
+const macrosRegex = /[./]macro(\.js)?$/
 
 module.exports = macrosPlugin
 

@@ -30,25 +30,25 @@ require('babel-core').transform('code', {
 
 ## Using a macros
 
-With the `babel-macros` plugin added to your config, we can now use a macros
+With the `babel-macros` plugin added to your config, we can now use a macro
 that works with the `babel-macros` API. Let's assume we have such a module
-in our project called `eval.macros.js`. To use it, we `import` or `require`
-the macros module in our code like so:
+in our project called `eval.macro.js`. To use it, we `import` or `require`
+the macro module in our code like so:
 
 ```javascript
-import MyEval from './eval.macros'
+import MyEval from './eval.macro'
 // or
-const MyEval = require('./eval.macros')
+const MyEval = require('./eval.macro')
 ```
 
-Then we use that variable however the documentation for the macros says.
-Incidentally, `eval.macros.js` actually exists in the tests for `babel-macros`
-[here][eval-macros] and you can see how it transforms our code in
+Then we use that variable however the documentation for the macro says.
+Incidentally, `eval.macro.js` actually exists in the tests for `babel-macros`
+[here][eval-macro] and you can see how it transforms our code in
 [the `babel-macros` snapshots][eval-snapshots].
 
 > Note here that the real benefit is that we don't need to configure anything
-> for every macros you add. We simply configure `babel-macros`, then we can
-> use any macros available. This is part of the benefit of using `babel-macros`.
+> for every macro you add. We simply configure `babel-macros`, then we can
+> use any macro available. This is part of the benefit of using `babel-macros`.
 
-[eval-macros]: https://github.com/kentcdodds/babel-macros/blob/master/src/__tests__/fixtures/eval.macros.js
+[eval-macro]: https://github.com/kentcdodds/babel-macros/blob/master/src/__tests__/fixtures/eval.macro.js
 [eval-snapshots]: https://github.com/kentcdodds/babel-macros/blob/master/src/__tests__/__snapshots__/index.js.snap

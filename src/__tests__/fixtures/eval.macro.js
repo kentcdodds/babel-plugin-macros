@@ -1,9 +1,9 @@
 const babylon = require('babylon')
 // const printAST = require('ast-pretty-print')
 
-module.exports = evalMacros
+module.exports = evalMacro
 
-function evalMacros({references, state}) {
+function evalMacro({references, state}) {
   references.default.forEach(referencePath => {
     if (referencePath.parentPath.type === 'TaggedTemplateExpression') {
       asTag(referencePath.parentPath.get('quasi'), state)
