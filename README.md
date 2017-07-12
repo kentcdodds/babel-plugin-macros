@@ -136,11 +136,15 @@ If we used `babel-plugin-eval`, it would look like this:
 2. Use it in a code:
 
 ```js
-import eval from 'babel-plugin-eval/eval'  # or sth similar
 const val = eval`7 * 6`
+
+// ↓ ↓ ↓  compiles to  ↓ ↓ ↓
+
+const val = 42
 ```
 
-Using babel macro, it would look like this:
+Instead, if there were a macro called `eval.macro`, we could use
+it like this:
 
 1. Add `babel-macros` to `.babelrc` (only once for all macros)
 2. Use it in a code:
@@ -148,18 +152,23 @@ Using babel macro, it would look like this:
 ```js
 import eval from 'eval.macro'
 const val = eval`7 * 6`
+
+// ↓ ↓ ↓  compiles to  ↓ ↓ ↓
+
+const val 42
 ```
 
 Advantages:
 
 - requires only one entry in `.babelrc` for all macros used in project
-- boilerplates, like Create React App, might already support `babel-macros`, so no configuration is needed
+- boilerplates, like Create React App ([soon hopefully][cra-issue]), might already support `babel-macros`, so no configuration is needed
 - it's explicit, that `eval` is macro and does sth with the code at compile time
 - macros are safer and easier to write, because they receive exactly the AST node to process
 
 ### In what order are macros executed?
 
-In the same order as imported. The order of execution is clear, explicit and in full control of user:
+In the same order as imported. The order of execution is clear, explicit
+and in full control of the user:
 
 ```js
 import eval from 'eval.macro'
@@ -168,6 +177,10 @@ import css from 'css-in-js.macro'
 # First are evaluated `eval` macros, then `css` macros
 ```
 
+This differs from the current situation with babel plugins where
+it's prohibitvely difficult to control the order plugins run in
+a particular file.
+
 ### Does it work with tagged template literals only?
 
 No! Any AST node type is supported.
@@ -175,20 +188,25 @@ No! Any AST node type is supported.
 It can be tagged template literal:
 
 ```js
+import eval from 'eval.macro'
 const val = eval`7 * 6`
 ```
 
 A function:
 
 ```js
+import eval from 'eval.macro'
 const val = eval('7 * 6')
 ```
 
 JSX Element:
 
 ```js
-const val = <Translate>Hello World</Translate>
+import Eval from 'eval.macro'
+const val = <Eval>7 * 6</Eval>
 ```
+
+Really, anything...
 
 See the [testing snapshot](https://github.com/kentcdodds/babel-macros/blob/master/src/__tests__/__snapshots__/index.js.snap) for more examples.
 
@@ -201,13 +219,15 @@ Completely different story are *implicit* babel plugins, like
 [transform-react-constant-elements](https://babeljs.io/docs/plugins/transform-react-constant-elements/),
 which process whole AST tree. 
 
-Explicit is bettern than implicit, and in this spirit are `babel-macros` designed.
-*Implicit* babel plugins can't be turned into macros.
+Explicit is often a better pattern than implicit because it requires others to understand
+how things are globally configured. This is in this spirit are `babel-macros` designed.
+However, some things _do_ need to be implicit, and those kinds of babel plugins can't be
+turned into macros.
 
 ## Inspiration
 
 - [threepointone/babel-macros](https://github.com/threepointone/babel-macros)
-- [facebookincubator/create-react-app#2730](https://github.com/facebookincubator/create-react-app/issues/2730)
+- [facebookincubator/create-react-app#2730][cra-issue]
 
 ## Other Solutions
 
@@ -261,3 +281,4 @@ MIT
 [emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
 [all-contributors]: https://github.com/kentcdodds/all-contributors
 [preval]: https://github.com/kentcdodds/babel-plugin-preval
+[cra-issue]: https://github.com/facebookincubator/create-react-app/issues/2730
