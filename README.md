@@ -155,7 +155,7 @@ const val = eval`7 * 6`
 
 // ↓ ↓ ↓  compiles to  ↓ ↓ ↓
 
-const val 42
+const val = 42
 ```
 
 Advantages:
