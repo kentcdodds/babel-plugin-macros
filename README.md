@@ -124,6 +124,86 @@ Are you trying to make your own macros that works with `babel-macros`? Go to
 [`other/docs/author.md`](https://github.com/kentcdodds/babel-macros/blob/master/other/docs/author.md).
 (you should probably read the user docs too).
 
+## FAQ
+
+### What's the difference between babel plugins and macros?
+
+Suppose we have a plugin `eval`, which evaluates expression at compile time.
+
+If we used `babel-plugin-eval`, it would look like this:
+
+1. Add `babel-plugin-eval` to `.babelrc`
+2. Use it in a code:
+
+```js
+import eval from 'babel-plugin-eval/eval'  # or sth similar
+const val = eval`7 * 6`
+```
+
+Using babel macro, it would look like this:
+
+1. Add `babel-macros` to `.babelrc` (only once for all macros)
+2. Use it in a code:
+
+```js
+import eval from 'eval.macro'
+const val = eval`7 * 6`
+```
+
+Advantages:
+
+- requires only one entry in `.babelrc` for all macros used in project
+- boilerplates, like Create React App, might already support `babel-macros`, so no configuration is needed
+- it's explicit, that `eval` is macro and does sth with the code at compile time
+- macros are safer and easier to write, because they receive exactly the AST node to process
+
+### In what order are macros executed?
+
+In the same order as imported. The order of execution is clear, explicit and in full control of user:
+
+```js
+import eval from 'eval.macro'
+import css from 'css-in-js.macro'
+
+# First are evaluated `eval` macros, then `css` macros
+```
+
+### Does it work with tagged template literals only?
+
+No! Any AST node type is supported.
+
+It can be tagged template literal:
+
+```js
+const val = eval`7 * 6`
+```
+
+A function:
+
+```js
+const val = eval('7 * 6')
+```
+
+JSX Element:
+
+```js
+const val = <Translate>Hello World</Translate>
+```
+
+See the [testing snapshot](https://github.com/kentcdodds/babel-macros/blob/master/src/__tests__/__snapshots__/index.js.snap) for more examples.
+
+### How about implicit optimizations at compile time?
+
+All examples above were *explicit* - a macro was imported and then evaluated
+with a specific AST node.
+
+Completely different story are *implicit* babel plugins, like 
+[transform-react-constant-elements](https://babeljs.io/docs/plugins/transform-react-constant-elements/),
+which process whole AST tree. 
+
+Explicit is bettern than implicit, and in this spirit are `babel-macros` designed.
+*Implicit* babel plugins can't be turned into macros.
+
 ## Inspiration
 
 - [threepointone/babel-macros](https://github.com/threepointone/babel-macros)
