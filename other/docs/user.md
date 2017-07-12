@@ -43,9 +43,12 @@ const MyEval = require('./eval.macros')
 
 Then we use that variable however the documentation for the macros says.
 Incidentally, `eval.macros.js` actually exists in the tests for `babel-macros`
-[here](eval-macros) and you can see how it transforms our code in
+[here][eval-macros] and you can see how it transforms our code in
 [the `babel-macros` snapshots][eval-snapshots].
 
 > Note here that the real benefit is that we don't need to configure anything
 > for every macros you add. We simply configure `babel-macros`, then we can
 > use any macros available. This is part of the benefit of using `babel-macros`.
+
+[eval-macros]: https://github.com/kentcdodds/babel-macros/blob/master/src/__tests__/fixtures/eval.macros.js
+[eval-snapshots]: https://github.com/kentcdodds/babel-macros/blob/master/src/__tests__/__snapshots__/index.js.snap
