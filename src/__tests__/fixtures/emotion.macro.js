@@ -2,7 +2,9 @@ const t = require('babel-types')
 // this is a fake version of emotion
 // const printAST = require('ast-pretty-print')
 
-module.exports = function emotionMacros({references}) {
+module.exports = emotionMacro
+
+function emotionMacro({references}) {
   references.css.forEach(cssRef => {
     if (cssRef.parentPath.type === 'TaggedTemplateExpression') {
       cssRef.parentPath.replaceWith(

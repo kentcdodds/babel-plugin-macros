@@ -2,18 +2,18 @@
 
 exports[`2. does nothing but remove macros if it is unused 1`] = `
 
-import foo from "./some-macros-that-doesnt-even-need-to-exist.macros"
-export default "something else"
+import foo from './some-macros-that-doesnt-even-need-to-exist.macro'
+export default 'something else'
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-export default "something else";
+export default 'something else';
 
 `;
 
 exports[`3. works with import 1`] = `
 
-import myEval from './fixtures/eval.macros'
+import myEval from './fixtures/eval.macro'
 const x = myEval\`34 + 45\`
 
       ↓ ↓ ↓ ↓ ↓ ↓
@@ -24,7 +24,7 @@ const x = 79;
 
 exports[`4. works with require 1`] = `
 
-const evaler = require('./fixtures/eval.macros')
+const evaler = require('./fixtures/eval.macro')
 const x = evaler\`34 + 45\`
 
       ↓ ↓ ↓ ↓ ↓ ↓
@@ -35,7 +35,7 @@ const x = 79;
 
 exports[`5. works with function calls 1`] = `
 
-import myEval from './fixtures/eval.macros'
+import myEval from './fixtures/eval.macro'
 const x = myEval('34 + 45')
 
       ↓ ↓ ↓ ↓ ↓ ↓
@@ -46,7 +46,7 @@ const x = 79;
 
 exports[`6. Works as a JSXElement 1`] = `
 
-import MyEval from './fixtures/eval.macros'
+import MyEval from './fixtures/eval.macro'
 const x = <MyEval>34 + 45</MyEval>
 
       ↓ ↓ ↓ ↓ ↓ ↓
@@ -57,7 +57,7 @@ const x = 79;
 
 exports[`7. Supports named imports 1`] = `
 
-import {css as CSS, styled as STYLED} from './fixtures/emotion.macros'
+import {css as CSS, styled as STYLED} from './fixtures/emotion.macro'
 const red = CSS\`
   background-color: red;
 \`
