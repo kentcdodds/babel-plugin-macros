@@ -10,7 +10,7 @@
 [![Build Status][build-badge]][build]
 [![Code Coverage][coverage-badge]][coverage]
 [![version][version-badge]][package]
-[![downloads][downloads-badge]][npm-stat]
+[![downloads][downloads-badge]][npmchart]
 [![MIT License][license-badge]][LICENSE]
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
@@ -159,7 +159,7 @@ MIT
 [version-badge]: https://img.shields.io/npm/v/babel-macros.svg?style=flat-square
 [package]: https://www.npmjs.com/package/babel-macros
 [downloads-badge]: https://img.shields.io/npm/dm/babel-macros.svg?style=flat-square
-[npm-stat]: http://npm-stat.com/charts.html?package=babel-macros&from=2016-04-01
+[npmchart]: http://npmcharts.com/compare/babel-macros
 [license-badge]: https://img.shields.io/npm/l/babel-macros.svg?style=flat-square
 [license]: https://github.com/kentcdodds/babel-macros/blob/master/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
