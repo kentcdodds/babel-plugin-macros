@@ -136,11 +136,13 @@ If we used `babel-plugin-eval`, it would look like this:
 2. Use it in a code:
 
 ```js
-const val = eval`7 * 6`
+// compile time, in Node.JS
+const val = eval`fs.readDirSync(‘./fleet’)`
 
 // ↓ ↓ ↓  compiles to  ↓ ↓ ↓
 
-const val = 42
+// runtime, in browser
+const val = [‘red_leader’, ‘blue_leader’]
 ```
 
 Instead, if there were a macro called `eval.macro`, we could use
@@ -151,11 +153,14 @@ it like this:
 
 ```js
 import eval from 'eval.macro'
-const val = eval`7 * 6`
+
+// compile time, in Node.JS
+const val = eval`fs.readDirSync(‘./fleet’)`
 
 // ↓ ↓ ↓  compiles to  ↓ ↓ ↓
 
-const val = 42
+// runtime, in browser
+const val = [‘red_leader’, ‘blue_leader’]
 ```
 
 Advantages:
