@@ -180,3 +180,4 @@ MIT
 [twitter-badge]: https://img.shields.io/twitter/url/https/github.com/kentcdodds/babel-macros.svg?style=social
 [emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
 [all-contributors]: https://github.com/kentcdodds/all-contributors
+[preval]: https://github.com/kentcdodds/babel-plugin-preval
