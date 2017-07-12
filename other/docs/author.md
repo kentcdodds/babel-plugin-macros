@@ -152,3 +152,5 @@ function withFilename(tests) {
 There is currently no way to get code coverage for your macros this way however.
 If you want code coverage, you'll have to call your macros yourself.
 Contributions to improve this experience are definitely welcome!
+
+[tester]: https://github.com/babel-utils/babel-plugin-tester
