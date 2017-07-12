@@ -180,8 +180,3 @@ MIT
 [twitter-badge]: https://img.shields.io/twitter/url/https/github.com/kentcdodds/babel-macros.svg?style=social
 [emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
 [all-contributors]: https://github.com/kentcdodds/all-contributors
-[eval-macros]: https://github.com/kentcdodds/babel-macros/blob/master/src/__tests__/fixtures/eval.macros.js
-[eval-snapshots]: https://github.com/kentcdodds/babel-macros/blob/master/src/__tests__/__snapshots__/index.js.snap
-[preval]: https://github.com/kentcdodds/babel-plugin-preval
-[tester]: https://github.com/babel-utils/babel-plugin-tester
-[babel-handbook]: https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md
