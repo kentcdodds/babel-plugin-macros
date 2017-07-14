@@ -1,6 +1,12 @@
 import path from 'path'
+// eslint-disable-next-line
+import fakeMacro from 'fake/macro';
 import pluginTester from 'babel-plugin-tester'
 import plugin from '../'
+
+afterEach(() => {
+  fakeMacro.mockClear()
+})
 
 const projectRoot = path.join(__dirname, '../../')
 
@@ -75,6 +81,22 @@ pluginTester({
           color: blue;
         \`
       `,
+    },
+    {
+      title: 'supports macros from node_modules',
+      code: `
+        import fakeMacro from 'fake/macro'
+        fakeMacro('hi')
+      `,
+      teardown() {
+        // kinda abusing the babel-plugin-tester API here
+        // to make an extra assertion
+        expect(fakeMacro).toHaveBeenCalledTimes(1)
+        expect(fakeMacro).toHaveBeenCalledWith({
+          references: expect.any(Object),
+          state: expect.any(Object),
+        })
+      },
     },
   ]),
 })
