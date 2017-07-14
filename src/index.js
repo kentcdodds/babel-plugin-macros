@@ -5,7 +5,7 @@ const macrosRegex = /[./]macro(\.js)?$/
 
 module.exports = macrosPlugin
 
-function macrosPlugin() {
+function macrosPlugin(babel) {
   return {
     name: 'macros',
     visitor: {
@@ -26,7 +26,7 @@ function macrosPlugin() {
             s.type === 'ImportDefaultSpecifier' ? 'default' : s.imported.name,
         }))
         const source = path.node.source.value
-        applyMacros({path, imports, source, state})
+        applyMacros({path, imports, source, state, babel})
         path.remove()
       },
       CallExpression(path, state) {
@@ -53,6 +53,7 @@ function macrosPlugin() {
           imports: [{localName: name, importedName: 'default'}],
           source,
           state,
+          babel,
         })
         path.parentPath.remove()
       },
@@ -60,7 +61,7 @@ function macrosPlugin() {
   }
 }
 
-function applyMacros({path, imports, source, state}) {
+function applyMacros({path, imports, source, state, babel}) {
   const {file: {opts: {filename}}} = state
   let hasReferences = false
   const referencePathsByImportName = imports.reduce(
@@ -84,6 +85,7 @@ function applyMacros({path, imports, source, state}) {
   macros({
     references: referencePathsByImportName,
     state,
+    babel,
   })
 }
 
