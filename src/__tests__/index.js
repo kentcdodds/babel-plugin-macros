@@ -1,6 +1,7 @@
 import path from 'path'
 // eslint-disable-next-line
 import fakeMacro from 'fake/macro';
+import babel from 'babel-core'
 import pluginTester from 'babel-plugin-tester'
 import plugin from '../'
 
@@ -95,7 +96,9 @@ pluginTester({
         expect(fakeMacro).toHaveBeenCalledWith({
           references: expect.any(Object),
           state: expect.any(Object),
+          babel: expect.any(Object),
         })
+        expect(fakeMacro.mock.calls[0].babel).toBe(babel)
       },
     },
   ]),

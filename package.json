@@ -8,19 +8,18 @@
     "test": "nps test",
     "precommit": "lint-staged && opt --in pre-commit --exec \"npm start validate\""
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "keywords": [],
   "author": "Kent C. Dodds <kent@doddsfamily.us> (http://kentcdodds.com/)",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
     "all-contributors-cli": "^4.3.0",
-    "ast-pretty-print": "2.0.0",
+    "ast-pretty-print": "^2.0.0",
     "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
     "babel-jest": "^20.0.3",
-    "babel-plugin-tester": "3.2.2",
+    "babel-plugin-tester": "^3.2.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.5.1",
@@ -39,17 +38,11 @@
     "prettier-eslint-cli": "^4.0.2"
   },
   "lint-staged": {
-    "*.js": [
-      "prettier-eslint --write",
-      "git add"
-    ]
+    "*.js": ["prettier-eslint --write", "git add"]
   },
   "jest": {
     "testEnvironment": "node",
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/fixtures/"
-    ],
+    "testPathIgnorePatterns": ["/node_modules/", "/fixtures/"],
     "coverageThreshold": {
       "global": {
         "branches": 100,

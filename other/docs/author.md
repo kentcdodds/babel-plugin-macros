@@ -18,7 +18,7 @@ There are two parts to the `babel-macros` API:
 1. The filename convention
 2. The function you export
 
-**Filename**:
+### Filename
 
 The way that `babel-macros` determines whether to run a macro is based on the
 source string of the `import` or `require` statement. It must match this regex:
@@ -56,15 +56,24 @@ import Nice from 'nice.macro'
 import Sweet from 'sweet/macro'
 ```
 
-**Function API**:
+### Function API
 
 The macro you create should export a function. That function accepts a single
 parameter which is an object with the following properties:
 
-**state**: The state of the file being traversed. It's the second argument
+#### state
+
+The state of the file being traversed. It's the second argument
 you receive in a visitor function in a normal babel plugin.
 
-**references**: This is an object that contains arrays of all the references to
+#### babel
+
+This is the same thing you get as an argument to normal babel plugins.
+It is also the same thing you get if you `require('babel-core')`.
+
+#### references
+
+This is an object that contains arrays of all the references to
 things imported from macro keyed based on the name of the import. The items
 in each array are the paths to the references.
 
