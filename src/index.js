@@ -74,7 +74,11 @@ function applyMacros({path, imports, source, state}) {
   if (!hasReferences) {
     return
   }
-  const requirePath = p.join(p.dirname(filename), source)
+  let requirePath = source
+  const isRelative = source.indexOf('.') === 0
+  if (isRelative) {
+    requirePath = p.join(p.dirname(filename), source)
+  }
   // eslint-disable-next-line import/no-dynamic-require
   const macros = require(requirePath)
   macros({

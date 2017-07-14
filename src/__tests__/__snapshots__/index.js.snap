@@ -74,3 +74,14 @@ const red = 'background-color: red;';
 const Div = STYLED.div\`undefined\`;
 
 `;
+
+exports[`8. supports macros from node_modules 1`] = `
+
+import fakeMacro from 'fake/macro'
+fakeMacro('hi')
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+fakeMacro('hi');
+
+`;
