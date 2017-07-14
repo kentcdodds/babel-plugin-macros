@@ -78,7 +78,7 @@ function applyMacros({path, imports, source, state, babel}) {
   let requirePath = source
   const isRelative = source.indexOf('.') === 0
   if (isRelative) {
-    requirePath = p.join(p.dirname(filename), source)
+    requirePath = p.join(p.dirname(getFullFilename(filename)), source)
   }
   // eslint-disable-next-line import/no-dynamic-require
   const macros = require(requirePath)
@@ -87,6 +87,18 @@ function applyMacros({path, imports, source, state, babel}) {
     state,
     babel,
   })
+}
+
+/*
+ istanbul ignore next
+ because this is hard to test
+ and not worth it...
+ */
+function getFullFilename(filename) {
+  if (p.isAbsolute(filename)) {
+    return filename
+  }
+  return p.join(process.cwd(), filename)
 }
 
 function looksLike(a, b) {
