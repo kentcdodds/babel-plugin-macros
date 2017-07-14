@@ -1,6 +1,6 @@
 {
   "name": "babel-macros",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Enables zero-config, importable babel plugins",
   "main": "dist/index.js",
   "scripts": {
@@ -8,7 +8,9 @@
     "test": "nps test",
     "precommit": "lint-staged && opt --in pre-commit --exec \"npm start validate\""
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [],
   "author": "Kent C. Dodds <kent@doddsfamily.us> (http://kentcdodds.com/)",
   "license": "MIT",
@@ -38,11 +40,17 @@
     "prettier-eslint-cli": "^4.0.2"
   },
   "lint-staged": {
-    "*.js": ["prettier-eslint --write", "git add"]
+    "*.js": [
+      "prettier-eslint --write",
+      "git add"
+    ]
   },
   "jest": {
     "testEnvironment": "node",
-    "testPathIgnorePatterns": ["/node_modules/", "/fixtures/"],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/fixtures/"
+    ],
     "coverageThreshold": {
       "global": {
         "branches": 100,
