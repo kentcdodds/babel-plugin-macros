@@ -28,7 +28,7 @@ require('babel-core').transform('code', {
 })
 ```
 
-## Using a macros
+## Using a macro
 
 With the `babel-macros` plugin added to your config, we can now use a macro
 that works with the `babel-macros` API. Let's assume we have such a module
