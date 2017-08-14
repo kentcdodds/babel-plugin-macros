@@ -56,6 +56,17 @@ import Nice from 'nice.macro'
 import Sweet from 'sweet/macro'
 ```
 
+In addition, please publish your macro with the [`keyword`][keyword] of
+`babel-macros` (note the "s"). That way folks can easily find macros by
+searching for the [`babel-macros` keyword on npm][npm-babel-macros]. In
+addition, and you can add this badge to the top of your README:
+
+[![Babel Macro](https://img.shields.io/badge/babel--macro-%F0%9F%8E%A3-f5da55.svg?style=flat-square)](https://github.com/kentcdodds/babel-macros)
+
+```
+[![Babel Macro](https://img.shields.io/badge/babel--macro-%F0%9F%8E%A3-f5da55.svg?style=flat-square)](https://github.com/kentcdodds/babel-macros)
+```
+
 ### Function API
 
 The macro you create should export a function. That function accepts a single
@@ -165,3 +176,5 @@ Contributions to improve this experience are definitely welcome!
 [preval]: https://github.com/kentcdodds/babel-plugin-preval
 [babel-handbook]: https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md
 [tester]: https://github.com/babel-utils/babel-plugin-tester
+[keyword]: https://docs.npmjs.com/files/package.json#keywords
+[npm-babel-macros]: https://www.npmjs.com/browse/keyword/babel-macros
