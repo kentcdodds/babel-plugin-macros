@@ -24,6 +24,8 @@
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
 
+<a href="https://app.codesponsor.io/link/PKGFLnhDiFvsUA5P4kAXfiPs/kentcdodds/babel-macros" rel="nofollow"><img src="https://app.codesponsor.io/embed/PKGFLnhDiFvsUA5P4kAXfiPs/kentcdodds/babel-macros.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
+
 ## The problem
 
 Currently, each babel plugin in the babel ecosystem requires that you configure
