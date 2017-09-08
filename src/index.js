@@ -4,6 +4,24 @@ const p = require('path')
 const macrosRegex = /[./]macro(\.js)?$/
 
 module.exports = macrosPlugin
+module.exports.createMacro = createMacro
+
+function createMacro(macro) {
+  return macroWrapper
+
+  function macroWrapper(options) {
+    const {source, isBabelMacrosCall} = options
+    if (!isBabelMacrosCall) {
+      throw new Error(
+        `The macro you imported from "${source}" is being executed outside the context of compilation with babel-macros. ` +
+          `This indicates that you don't have the babel plugin "babel-macros" configured correctly. ` +
+          `Please see the documentation for how to configure babel-macros properly: ` +
+          'https://github.com/kentcdodds/babel-macros/blob/master/other/docs/user.md',
+      )
+    }
+    return macro(options)
+  }
+}
 
 function macrosPlugin(babel) {
   return {
@@ -26,7 +44,13 @@ function macrosPlugin(babel) {
             s.type === 'ImportDefaultSpecifier' ? 'default' : s.imported.name,
         }))
         const source = path.node.source.value
-        applyMacros({path, imports, source, state, babel})
+        applyMacros({
+          path,
+          imports,
+          source,
+          state,
+          babel,
+        })
         path.remove()
       },
       CallExpression(path, state) {
@@ -86,6 +110,7 @@ function applyMacros({path, imports, source, state, babel}) {
     references: referencePathsByImportName,
     state,
     babel,
+    isBabelMacrosCall: true,
   })
 }
 
@@ -118,5 +143,5 @@ function looksLike(a, b) {
 
 function isPrimitive(val) {
   // eslint-disable-next-line
-  return val == null || /^[sbn]/.test(typeof val);
+  return val == null || /^[sbn]/.test(typeof val)
 }

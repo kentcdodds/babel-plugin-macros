@@ -1,14 +1,20 @@
-const t = require('babel-types')
 // this is a fake version of emotion
 // const printAST = require('ast-pretty-print')
+const {createMacro} = require('../../')
 
-module.exports = emotionMacro
+module.exports = createMacro(emotionMacro)
 
-function emotionMacro({references}) {
+function emotionMacro({references, babel}) {
+  const {types: t} = babel
   references.css.forEach(cssRef => {
     if (cssRef.parentPath.type === 'TaggedTemplateExpression') {
       cssRef.parentPath.replaceWith(
-        t.stringLiteral(cssRef.parentPath.get('quasi').evaluate().value.trim()),
+        t.stringLiteral(
+          cssRef.parentPath
+            .get('quasi')
+            .evaluate()
+            .value.trim(),
+        ),
       )
     }
   })

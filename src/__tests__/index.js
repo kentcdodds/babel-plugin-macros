@@ -1,6 +1,6 @@
 import path from 'path'
 // eslint-disable-next-line
-import fakeMacro from 'fake/macro';
+import fakeMacro from 'fake/macro'
 import babel from 'babel-core'
 import pluginTester from 'babel-plugin-tester'
 import plugin from '../'
@@ -25,7 +25,8 @@ expect.addSnapshotSerializer({
 pluginTester({
   plugin,
   snapshot: true,
-  tests: withFilename([
+  babelOptions: {filename: __filename, parserOpts: {plugins: ['jsx']}},
+  tests: [
     {
       title: 'does nothing to code that does not import macro',
       snapshot: false,
@@ -97,30 +98,17 @@ pluginTester({
           references: expect.any(Object),
           state: expect.any(Object),
           babel: expect.any(Object),
+          isBabelMacrosCall: true,
         })
         expect(fakeMacro.mock.calls[0].babel).toBe(babel)
       },
     },
-  ]),
+  ],
 })
 
-/*
- * This adds the filename to each test so you can do require/import relative
- * to this test file.
- */
-function withFilename(tests) {
-  return tests.map(t => {
-    const test = {babelOptions: {filename: __filename}}
-    if (typeof t === 'string') {
-      test.code = t
-    } else {
-      Object.assign(test, t)
-      test.babelOptions.parserOpts = test.babelOptions.parserOpts || {}
-    }
-    Object.assign(test.babelOptions.parserOpts, {
-      // add the jsx plugin to all tests because why not?
-      plugins: ['jsx'],
-    })
-    return test
-  })
-}
+test('throws error if it is not transpiled', () => {
+  const untranspiledMacro = plugin.createMacro(() => {})
+  expect(() =>
+    untranspiledMacro({source: 'untranspiled.macro'}),
+  ).toThrowErrorMatchingSnapshot()
+})

@@ -1,9 +1,5 @@
 # Contributing
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 Thanks for being willing to contribute!
 
 **Working on your first Pull Request?** You can learn how from this *free* series

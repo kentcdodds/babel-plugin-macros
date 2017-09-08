@@ -2,18 +2,15 @@ sudo: false
 language: node_js
 cache:
   directories:
-    - node_modules
+    - ~/.npm
 notifications:
   email: false
-node_js:
-  - '8'
-script:
-  - npm start validate
+node_js: '8'
+install: npm install
+script: npm run validate
 after_success:
-  - npm install -g codecov semantic-release
-  - codecov
+  - npx codecov
   # disable auto-releasing until we're ready for this thing to go live
-  # - semantic-release pre && npm publish && semantic-release post
+  # - npx -p semantic-release@7 -c "semantic-release pre && npm publish && semantic-release post"
 branches:
-  only:
-    - master
+  only: master
