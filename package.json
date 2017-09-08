@@ -12,7 +12,7 @@
     "validate": "kcd-scripts validate",
     "precommit": "kcd-scripts precommit"
   },
-  "files": ["dist", "create.js", "error.js"],
+  "files": ["dist"],
   "keywords": [
     "babel-plugin",
     "macros",
