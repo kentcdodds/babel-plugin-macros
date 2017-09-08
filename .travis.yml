@@ -10,7 +10,6 @@ install: npm install
 script: npm run validate
 after_success:
   - npx codecov
-  # disable auto-releasing until we're ready for this thing to go live
-  # - npx -p semantic-release@7 -c "semantic-release pre && npm publish && semantic-release post"
+  - npx -p semantic-release@7 -c "semantic-release pre && npm publish && semantic-release post"
 branches:
   only: master
