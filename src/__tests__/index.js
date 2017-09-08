@@ -103,6 +103,30 @@ pluginTester({
         expect(fakeMacro.mock.calls[0].babel).toBe(babel)
       },
     },
+    {
+      title: 'forwards MacroErrors thrown by the macro',
+      error: true,
+      code: `
+        import errorThrower from './fixtures/macro-error-thrower.macro'
+        errorThrower('hey')
+      `,
+    },
+    {
+      title: 'prepends the relative path for errors thrown by the macro',
+      error: true,
+      code: `
+        import errorThrower from './fixtures/error-thrower.macro'
+        errorThrower('hey')
+      `,
+    },
+    {
+      title: 'appends the npm URL for errors thrown by node modules',
+      error: true,
+      code: `
+        import errorThrower from 'error-thrower.macro'
+        errorThrower('hi')
+      `,
+    },
   ],
 })
 

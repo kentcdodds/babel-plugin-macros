@@ -7,7 +7,7 @@
 A macro is a JavaScript module that exports a function. Here's a simple example:
 
 ```javascript
-const createMacro = require('babel-macros/create')
+const {create: createMacro} = require('babel-macros')
 
 // `createMacros` is simply a function that ensures your macro is only
 // called in the context of a babel transpilation and will throw an
@@ -146,6 +146,32 @@ you're given. For that check out [the babel handbook][babel-handbook].
 > One other thing to note is that after your macro has run, babel-macros will
 > remove the import/require statement for you.
 
+## Throwing Helpful Errors
+
+Debugging stuff that transpiles your code is the worst, especially for
+beginners. That's why it's important that you make assertions, and catch errors
+to throw more meaningful errors with helpful information for the developer to
+know what to do to resolve the issue.
+
+In an effort to make this easier for you, `babel-macros` will wrap the
+invocation of your plugin in a `try/catch` and throw as helpful an error message
+as possible for you.
+
+To make it even better, you can throw your own with more context. For example:
+
+```javascript
+const {create: createMacro, MacroError} = require('babel-macros')
+
+module.exports = createMacro(myMacro)
+
+function myMacro({references, state, babel}) {
+  // something unexpected happens:
+  throw new MacroError(
+    'Some helpful and contextual message. Learn more: ' +
+      'https://github.com/your-org/your-repo/blob/master/docs/errors.md#learn-more-about-eror-title'
+  )
+}
+```
 
 ## Testing your macro
 
