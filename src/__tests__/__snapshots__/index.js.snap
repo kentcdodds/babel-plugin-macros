@@ -86,6 +86,17 @@ fakeMacro('hi');
 
 `;
 
+exports[`throws an error if the macro is not properly wrapped 1`] = `
+
+import unwrapped from './fixtures/non-wrapped.macro'
+unwrapped('hey')
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+Error: <PROJECT_ROOT>/src/__tests__/index.js: The macro imported from "./fixtures/non-wrapped.macro" must be wrapped in "createMacro" which you can get from "babel-macros". Please refer to the documentation to see how to do this properly: https://github.com/kentcdodds/babel-macros/blob/master/other/docs/author.md#writing-a-macro
+
+`;
+
 exports[`throws error if it is not transpiled 1`] = `The macro you imported from "untranspiled.macro" is being executed outside the context of compilation with babel-macros. This indicates that you don't have the babel plugin "babel-macros" configured correctly. Please see the documentation for how to configure babel-macros properly: https://github.com/kentcdodds/babel-macros/blob/master/other/docs/user.md`;
 
 exports[`works with function calls 1`] = `

@@ -6,7 +6,7 @@ import pluginTester from 'babel-plugin-tester'
 import plugin from '../'
 
 afterEach(() => {
-  fakeMacro.mockClear()
+  fakeMacro.innerFn.mockClear()
 })
 
 const projectRoot = path.join(__dirname, '../../')
@@ -93,15 +93,23 @@ pluginTester({
       teardown() {
         // kinda abusing the babel-plugin-tester API here
         // to make an extra assertion
-        expect(fakeMacro).toHaveBeenCalledTimes(1)
-        expect(fakeMacro).toHaveBeenCalledWith({
+        expect(fakeMacro.innerFn).toHaveBeenCalledTimes(1)
+        expect(fakeMacro.innerFn).toHaveBeenCalledWith({
           references: expect.any(Object),
           state: expect.any(Object),
           babel: expect.any(Object),
           isBabelMacrosCall: true,
         })
-        expect(fakeMacro.mock.calls[0].babel).toBe(babel)
+        expect(fakeMacro.innerFn.mock.calls[0].babel).toBe(babel)
       },
+    },
+    {
+      title: 'throws an error if the macro is not properly wrapped',
+      error: true,
+      code: `
+        import unwrapped from './fixtures/non-wrapped.macro'
+        unwrapped('hey')
+      `,
     },
     {
       title: 'forwards MacroErrors thrown by the macro',

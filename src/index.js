@@ -118,6 +118,14 @@ function applyMacros({path, imports, source, state, babel}) {
   }
   // eslint-disable-next-line import/no-dynamic-require
   const macro = require(requirePath)
+  if (macro.name !== 'macroWrapper') {
+    throw new Error(
+      // eslint-disable-next-line prefer-template
+      `The macro imported from "${source}" must be wrapped in "createMacro" ` +
+        `which you can get from "babel-macros". ` +
+        `Please refer to the documentation to see how to do this properly: https://github.com/kentcdodds/babel-macros/blob/master/other/docs/author.md#writing-a-macro`,
+    )
+  }
   try {
     macro({
       references: referencePathsByImportName,
