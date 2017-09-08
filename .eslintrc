@@ -1,7 +1,0 @@
-{
-  "extends": [
-    "kentcdodds",
-    "kentcdodds/jest",
-    "kentcdodds/prettier"
-  ]
-}

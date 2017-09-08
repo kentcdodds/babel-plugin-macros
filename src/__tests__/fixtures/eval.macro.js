@@ -1,7 +1,8 @@
 const babylon = require('babylon')
 // const printAST = require('ast-pretty-print')
+const {createMacro} = require('../../')
 
-module.exports = evalMacro
+module.exports = createMacro(evalMacro)
 
 function evalMacro({references, state}) {
   references.default.forEach(referencePath => {
@@ -43,7 +44,7 @@ function asJSX({attributes, children}) {
 function evalToAST(value) {
   let x
   // eslint-disable-next-line
-  eval(`x = ${value}`);
+  eval(`x = ${value}`)
   return thingToAST(x)
 }
 

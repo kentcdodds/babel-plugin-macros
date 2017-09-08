@@ -1,7 +1,7 @@
 <div align="center">
 <h1>babel-macros 🎣</h1>
 
-**Enables zero-config, importable babel plugins**
+Enables zero-config, importable babel plugins
 
 </div>
 
@@ -17,8 +17,6 @@
 [![PRs Welcome][prs-badge]][prs]
 [![Donate][donate-badge]][donate]
 [![Code of Conduct][coc-badge]][coc]
-[![Roadmap][roadmap-badge]][roadmap]
-[![Examples][examples-badge]][examples]
 
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
@@ -215,9 +213,9 @@ See the [testing snapshot](https://github.com/kentcdodds/babel-macros/blob/maste
 All examples above were *explicit* - a macro was imported and then evaluated
 with a specific AST node.
 
-Completely different story are *implicit* babel plugins, like 
+Completely different story are *implicit* babel plugins, like
 [transform-react-constant-elements](https://babeljs.io/docs/plugins/transform-react-constant-elements/),
-which process whole AST tree. 
+which process whole AST tree.
 
 Explicit is often a better pattern than implicit because it requires others to understand
 how things are globally configured. This is in this spirit are `babel-macros` designed.
@@ -268,10 +266,6 @@ MIT
 [donate]: http://kcd.im/donate
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
 [coc]: https://github.com/kentcdodds/babel-macros/blob/master/other/CODE_OF_CONDUCT.md
-[roadmap-badge]: https://img.shields.io/badge/%F0%9F%93%94-roadmap-CD9523.svg?style=flat-square
-[roadmap]: https://github.com/kentcdodds/babel-macros/blob/master/other/ROADMAP.md
-[examples-badge]: https://img.shields.io/badge/%F0%9F%92%A1-examples-8C8E93.svg?style=flat-square
-[examples]: https://github.com/kentcdodds/babel-macros/blob/master/other/EXAMPLES.md
 [github-watch-badge]: https://img.shields.io/github/watchers/kentcdodds/babel-macros.svg?style=social
 [github-watch]: https://github.com/kentcdodds/babel-macros/watchers
 [github-star-badge]: https://img.shields.io/github/stars/kentcdodds/babel-macros.svg?style=social

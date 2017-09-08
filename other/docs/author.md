@@ -4,10 +4,28 @@
 
 ## Writing a macro
 
-A macro is a JavaScript module that exports a function. It can be published to
-the npm registry (for generic macros, like a css-in-js library) or used locally
-(for domain-specific macros, like handling some special case for your company's
-localization efforts).
+A macro is a JavaScript module that exports a function. Here's a simple example:
+
+```javascript
+const createMacro = require('babel-macros/create')
+
+// `createMacros` is simply a function that ensures your macro is only
+// called in the context of a babel transpilation and will throw an
+// error with a helpful message if someone does not have babel-macros
+// configured correctly
+module.exports = createMacro(myMacro)
+
+function myMacro({references, state, babel}) {
+  // state is the second argument you're passed to a visitor in a
+  // normal babel plugin. `babel` is the `babel-macros` module.
+  // do whatever you like to the AST paths you find in `renferences`
+  // read more below...
+}
+```
+
+It can be published to the npm registry (for generic macros, like a css-in-js
+library) or used locally (for domain-specific macros, like handling some special
+case for your company's localization efforts).
 
 > Before you write a custom macro, you might consider whether
 > [`babel-plugin-preval`][preval] help you do what you want as it's pretty

@@ -85,3 +85,5 @@ fakeMacro('hi')
 fakeMacro('hi');
 
 `;
+
+exports[`throws error if it is not transpiled 1`] = `The macro you imported from "untranspiled.macro" is being executed outside the context of compilation with babel-macros. This indicates that you don't have the babel plugin "babel-macros" configured correctly. Please see the documentation for how to configure babel-macros properly: https://github.com/kentcdodds/babel-macros/blob/master/other/docs/user.md`;

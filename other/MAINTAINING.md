@@ -1,17 +1,5 @@
 # Maintaining
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**
-
-- [Code of Conduct](#code-of-conduct)
-- [Issues](#issues)
-- [Pull Requests](#pull-requests)
-- [Release](#release)
-- [Thanks!](#thanks)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 This is documentation for maintainers of this project.
 
 ## Code of Conduct
