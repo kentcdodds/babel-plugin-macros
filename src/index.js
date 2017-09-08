@@ -3,8 +3,19 @@ const p = require('path')
 
 const macrosRegex = /[./]macro(\.js)?$/
 
-module.exports = macrosPlugin
-module.exports.createMacro = createMacro
+// https://stackoverflow.com/a/32749533/971592
+class MacroError extends Error {
+  constructor(message) {
+    super(message)
+    this.name = 'MacroError'
+    /* istanbul ignore else */
+    if (typeof Error.captureStackTrace === 'function') {
+      Error.captureStackTrace(this, this.constructor)
+    } else if (!this.stack) {
+      this.stack = new Error(message).stack
+    }
+  }
+}
 
 function createMacro(macro) {
   return macroWrapper
@@ -12,7 +23,7 @@ function createMacro(macro) {
   function macroWrapper(options) {
     const {source, isBabelMacrosCall} = options
     if (!isBabelMacrosCall) {
-      throw new Error(
+      throw new MacroError(
         `The macro you imported from "${source}" is being executed outside the context of compilation with babel-macros. ` +
           `This indicates that you don't have the babel plugin "babel-macros" configured correctly. ` +
           `Please see the documentation for how to configure babel-macros properly: ` +
@@ -85,6 +96,7 @@ function macrosPlugin(babel) {
   }
 }
 
+// eslint-disable-next-line complexity
 function applyMacros({path, imports, source, state, babel}) {
   const {file: {opts: {filename}}} = state
   let hasReferences = false
@@ -105,13 +117,24 @@ function applyMacros({path, imports, source, state, babel}) {
     requirePath = p.join(p.dirname(getFullFilename(filename)), source)
   }
   // eslint-disable-next-line import/no-dynamic-require
-  const macros = require(requirePath)
-  macros({
-    references: referencePathsByImportName,
-    state,
-    babel,
-    isBabelMacrosCall: true,
-  })
+  const macro = require(requirePath)
+  try {
+    macro({
+      references: referencePathsByImportName,
+      state,
+      babel,
+      isBabelMacrosCall: true,
+    })
+  } catch (error) {
+    if (error.name === 'MacroError') {
+      throw error
+    }
+    error.message = `${source}: ${error.message}`
+    if (!isRelative) {
+      error.message = `${error.message} Learn more: https://www.npmjs.com/package/${source}`
+    }
+    throw error
+  }
 }
 
 /*
@@ -145,3 +168,9 @@ function isPrimitive(val) {
   // eslint-disable-next-line
   return val == null || /^[sbn]/.test(typeof val)
 }
+
+module.exports = macrosPlugin
+Object.assign(module.exports, {
+  createMacro,
+  MacroError,
+})

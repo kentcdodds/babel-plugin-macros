@@ -1,61 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`2. does nothing but remove macros if it is unused 1`] = `
-
-import foo from './some-macros-that-doesnt-even-need-to-exist.macro'
-export default 'something else'
-
-      ↓ ↓ ↓ ↓ ↓ ↓
-
-export default 'something else';
-
-`;
-
-exports[`3. works with import 1`] = `
-
-import myEval from './fixtures/eval.macro'
-const x = myEval\`34 + 45\`
-
-      ↓ ↓ ↓ ↓ ↓ ↓
-
-const x = 79;
-
-`;
-
-exports[`4. works with require 1`] = `
-
-const evaler = require('./fixtures/eval.macro')
-const x = evaler\`34 + 45\`
-
-      ↓ ↓ ↓ ↓ ↓ ↓
-
-const x = 79;
-
-`;
-
-exports[`5. works with function calls 1`] = `
-
-import myEval from './fixtures/eval.macro'
-const x = myEval('34 + 45')
-
-      ↓ ↓ ↓ ↓ ↓ ↓
-
-const x = 79;
-
-`;
-
-exports[`6. Works as a JSXElement 1`] = `
-
-import MyEval from './fixtures/eval.macro'
-const x = <MyEval>34 + 45</MyEval>
-
-      ↓ ↓ ↓ ↓ ↓ ↓
-
-const x = 79;
-
-`;
-
-exports[`7. Supports named imports 1`] = `
+exports[`Supports named imports 1`] = `
 
 import {css as CSS, styled as STYLED} from './fixtures/emotion.macro'
 const red = CSS\`
@@ -75,7 +20,62 @@ const Div = STYLED.div\`undefined\`;
 
 `;
 
-exports[`8. supports macros from node_modules 1`] = `
+exports[`Works as a JSXElement 1`] = `
+
+import MyEval from './fixtures/eval.macro'
+const x = <MyEval>34 + 45</MyEval>
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const x = 79;
+
+`;
+
+exports[`appends the npm URL for errors thrown by node modules 1`] = `
+
+import errorThrower from 'error-thrower.macro'
+errorThrower('hi')
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+Error: <PROJECT_ROOT>/src/__tests__/index.js: error-thrower.macro: not helpful Learn more: https://www.npmjs.com/package/error-thrower.macro
+
+`;
+
+exports[`does nothing but remove macros if it is unused 1`] = `
+
+import foo from './some-macros-that-doesnt-even-need-to-exist.macro'
+export default 'something else'
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+export default 'something else';
+
+`;
+
+exports[`forwards MacroErrors thrown by the macro 1`] = `
+
+import errorThrower from './fixtures/macro-error-thrower.macro'
+errorThrower('hey')
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+MacroError: <PROJECT_ROOT>/src/__tests__/index.js: very helpful
+
+`;
+
+exports[`prepends the relative path for errors thrown by the macro 1`] = `
+
+import errorThrower from './fixtures/error-thrower.macro'
+errorThrower('hey')
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+Error: <PROJECT_ROOT>/src/__tests__/index.js: ./fixtures/error-thrower.macro: very unhelpful
+
+`;
+
+exports[`supports macros from node_modules 1`] = `
 
 import fakeMacro from 'fake/macro'
 fakeMacro('hi')
@@ -87,3 +87,36 @@ fakeMacro('hi');
 `;
 
 exports[`throws error if it is not transpiled 1`] = `The macro you imported from "untranspiled.macro" is being executed outside the context of compilation with babel-macros. This indicates that you don't have the babel plugin "babel-macros" configured correctly. Please see the documentation for how to configure babel-macros properly: https://github.com/kentcdodds/babel-macros/blob/master/other/docs/user.md`;
+
+exports[`works with function calls 1`] = `
+
+import myEval from './fixtures/eval.macro'
+const x = myEval('34 + 45')
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const x = 79;
+
+`;
+
+exports[`works with import 1`] = `
+
+import myEval from './fixtures/eval.macro'
+const x = myEval\`34 + 45\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const x = 79;
+
+`;
+
+exports[`works with require 1`] = `
+
+const evaler = require('./fixtures/eval.macro')
+const x = evaler\`34 + 45\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const x = 79;
+
+`;

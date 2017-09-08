@@ -24,7 +24,9 @@
       "name": "Sunil Pai",
       "avatar_url": "https://avatars1.githubusercontent.com/u/18808?v=3",
       "profile": "https://github.com/threepointone",
-      "contributions": []
+      "contributions": [
+        "ideas"
+      ]
     },
     {
       "login": "suchipi",
@@ -34,6 +36,24 @@
       "contributions": [
         "question",
         "doc"
+      ]
+    },
+    {
+      "login": "dralletje",
+      "name": "Michiel Dral",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/767261?v=4",
+      "profile": "http://twitter.com/dralletje",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "tkh44",
+      "name": "Kye Hohenberger",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/662750?v=4",
+      "profile": "https://github.com/tkh44",
+      "contributions": [
+        "ideas"
       ]
     }
   ]
