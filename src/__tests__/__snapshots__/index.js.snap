@@ -42,6 +42,17 @@ Error: <PROJECT_ROOT>/src/__tests__/index.js: error-thrower.macro: not helpful L
 
 `;
 
+exports[`appends the npm URL for errors thrown by node modules with a slash 1`] = `
+
+import errorThrower from 'error-thrower/macro'
+errorThrower('hi')
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+Error: <PROJECT_ROOT>/src/__tests__/index.js: error-thrower/macro: not helpful Learn more: https://www.npmjs.com/package/error-thrower
+
+`;
+
 exports[`does nothing but remove macros if it is unused 1`] = `
 
 import foo from './some-macros-that-doesnt-even-need-to-exist.macro'

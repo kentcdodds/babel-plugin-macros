@@ -135,6 +135,15 @@ pluginTester({
         errorThrower('hi')
       `,
     },
+    {
+      title:
+        'appends the npm URL for errors thrown by node modules with a slash',
+      error: true,
+      code: `
+        import errorThrower from 'error-thrower/macro'
+        errorThrower('hi')
+      `,
+    },
   ],
 })
 

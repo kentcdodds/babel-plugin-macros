@@ -139,7 +139,10 @@ function applyMacros({path, imports, source, state, babel}) {
     }
     error.message = `${source}: ${error.message}`
     if (!isRelative) {
-      error.message = `${error.message} Learn more: https://www.npmjs.com/package/${source}`
+      error.message = `${error.message} Learn more: https://www.npmjs.com/package/${source.replace(
+        /(\/.*)/g,
+        '',
+      )}`
     }
     throw error
   }
