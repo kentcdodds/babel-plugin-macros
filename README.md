@@ -176,7 +176,7 @@ import css from 'css-in-js.macro'
 ```
 
 This differs from the current situation with babel plugins where
-it's prohibitvely difficult to control the order plugins run in
+it's prohibitively difficult to control the order plugins run in
 a particular file.
 
 ### Does it work with tagged template literals only?
