@@ -26,7 +26,7 @@ Enables zero-config, importable babel plugins
 
 ## The problem
 
-Check out<a href="https://babeljs.io/blog/2017/09/11/zero-config-with-babel-macros">this guest post</a> on the babel blog for a complete write up on the problem, motivation, and solution. 
+Check out <a target="_blank" rel="noopener noreferrer" href="https://babeljs.io/blog/2017/09/11/zero-config-with-babel-macros"> this guest post</a> on the babel blog for a complete write up on the problem, motivation, and solution. 
 
 Currently, each babel plugin in the babel ecosystem requires that you configure
 it individually. This is fine for things like language features, but can be
