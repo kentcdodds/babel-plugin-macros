@@ -38,6 +38,8 @@ compile-time code transformation without requiring the user to add a babel
 plugin to their build system (other than `babel-macros`, which is ideally
 already in place).
 
+See [Zero-config code transformation with babel-macros](https://babeljs.io/blog/2017/09/11/zero-config-with-babel-macros) for more benefits of this solution.
+
 <details>
 
 <summary>Expand for more details on the motivation</summary>
