@@ -1,5 +1,5 @@
 // const printAST = require('ast-pretty-print')
-const {createMacro} = require('../src')
+const {createMacro} = require('../../src')
 
 module.exports = createMacro(evalMacro)
 

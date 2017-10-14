@@ -1,21 +1,32 @@
 import path from 'path'
-// eslint-disable-next-line
-import fakeMacro from 'fake/macro'
+import cpy from 'cpy'
 import babel from 'babel-core'
 import pluginTester from 'babel-plugin-tester'
 import plugin from '../'
 
-afterEach(() => {
-  fakeMacro.innerFn.mockClear()
-})
-
 const projectRoot = path.join(__dirname, '../../')
 
-// we don't actually need this,
-// but I found that it removes double escaping when I include it...
+beforeAll(() => {
+  // copy our mock modules to the node_modules directory
+  // so we can test how things work when importing a macro
+  // from the node_modules directory.
+  return cpy(['**/*.js'], path.join('..', '..', 'node_modules'), {
+    parents: true,
+    cwd: path.join(projectRoot, 'other', 'mock-modules'),
+  })
+})
+
+afterEach(() => {
+  // eslint-disable-next-line
+  require('babel-macros-test-fake/macro').innerFn.mockClear()
+})
+
 expect.addSnapshotSerializer({
   print(val) {
-    return val.split(projectRoot).join('<PROJECT_ROOT>/')
+    return val
+      .split(projectRoot)
+      .join('<PROJECT_ROOT>/')
+      .replace(/\\/g, '/')
   },
   test(val) {
     return typeof val === 'string'
@@ -87,12 +98,14 @@ pluginTester({
     {
       title: 'supports macros from node_modules',
       code: `
-        import fakeMacro from 'fake/macro'
+        import fakeMacro from 'babel-macros-test-fake/macro'
         fakeMacro('hi')
       `,
       teardown() {
         // kinda abusing the babel-plugin-tester API here
         // to make an extra assertion
+        // eslint-disable-next-line
+        const fakeMacro = require('babel-macros-test-fake/macro')
         expect(fakeMacro.innerFn).toHaveBeenCalledTimes(1)
         expect(fakeMacro.innerFn).toHaveBeenCalledWith({
           references: expect.any(Object),
@@ -131,7 +144,7 @@ pluginTester({
       title: 'appends the npm URL for errors thrown by node modules',
       error: true,
       code: `
-        import errorThrower from 'error-thrower.macro'
+        import errorThrower from 'babel-macros-test-error-thrower.macro'
         errorThrower('hi')
       `,
     },
@@ -140,7 +153,7 @@ pluginTester({
         'appends the npm URL for errors thrown by node modules with a slash',
       error: true,
       code: `
-        import errorThrower from 'error-thrower/macro'
+        import errorThrower from 'babel-macros-test-error-thrower/macro'
         errorThrower('hi')
       `,
     },

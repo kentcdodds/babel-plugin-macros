@@ -18,6 +18,7 @@ class MacroError extends Error {
 }
 
 function createMacro(macro) {
+  macroWrapper.isBabelMacro = true
   return macroWrapper
 
   function macroWrapper(options) {
@@ -118,7 +119,7 @@ function applyMacros({path, imports, source, state, babel}) {
   }
   // eslint-disable-next-line import/no-dynamic-require
   const macro = require(requirePath)
-  if (macro.name !== 'macroWrapper') {
+  if (!macro.isBabelMacro) {
     throw new Error(
       // eslint-disable-next-line prefer-template
       `The macro imported from "${source}" must be wrapped in "createMacro" ` +

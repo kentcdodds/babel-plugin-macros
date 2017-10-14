@@ -33,23 +33,23 @@ const x = 79;
 
 exports[`appends the npm URL for errors thrown by node modules 1`] = `
 
-import errorThrower from 'error-thrower.macro'
+import errorThrower from 'babel-macros-test-error-thrower.macro'
 errorThrower('hi')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-Error: <PROJECT_ROOT>/src/__tests__/index.js: error-thrower.macro: not helpful Learn more: https://www.npmjs.com/package/error-thrower.macro
+Error: <PROJECT_ROOT>/src/__tests__/index.js: babel-macros-test-error-thrower.macro: not helpful Learn more: https://www.npmjs.com/package/babel-macros-test-error-thrower.macro
 
 `;
 
 exports[`appends the npm URL for errors thrown by node modules with a slash 1`] = `
 
-import errorThrower from 'error-thrower/macro'
+import errorThrower from 'babel-macros-test-error-thrower/macro'
 errorThrower('hi')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-Error: <PROJECT_ROOT>/src/__tests__/index.js: error-thrower/macro: not helpful Learn more: https://www.npmjs.com/package/error-thrower
+Error: <PROJECT_ROOT>/src/__tests__/index.js: babel-macros-test-error-thrower/macro: not helpful Learn more: https://www.npmjs.com/package/babel-macros-test-error-thrower
 
 `;
 
@@ -88,7 +88,7 @@ Error: <PROJECT_ROOT>/src/__tests__/index.js: ./fixtures/error-thrower.macro: ve
 
 exports[`supports macros from node_modules 1`] = `
 
-import fakeMacro from 'fake/macro'
+import fakeMacro from 'babel-macros-test-fake/macro'
 fakeMacro('hi')
 
       ↓ ↓ ↓ ↓ ↓ ↓

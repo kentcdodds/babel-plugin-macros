@@ -10,6 +10,7 @@
     "test": "kcd-scripts test",
     "test:update": "npm test -- --updateSnapshot --coverage",
     "validate": "kcd-scripts validate",
+    "setup": "npm install && npm run validate -s",
     "precommit": "kcd-scripts precommit"
   },
   "files": ["dist"],
@@ -24,16 +25,20 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "ast-pretty-print": "^2.0.0",
+    "ast-pretty-print": "2.0.1",
     "babel-core": "^6.25.0",
     "babel-plugin-tester": "^4.0.0",
-    "babylon": "6.17.4",
-    "kcd-scripts": "0.3.4"
+    "babylon": "6.18.0",
+    "cpy": "6.0.0",
+    "kcd-scripts": "0.27.0"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js"
   },
   "eslintIgnore": ["node_modules", "coverage", "dist"],
+  "babel": {
+    "presets": ["./.babelrc.js"]
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/kentcdodds/babel-macros.git"
