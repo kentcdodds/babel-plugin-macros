@@ -75,6 +75,24 @@ MacroError: <PROJECT_ROOT>/src/__tests__/index.js: very helpful
 
 `;
 
+exports[`macros can set their configName and get their config 1`] = `
+
+import configured from './configurable.macro'
+
+configured\`stuff\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+configured\`stuff\`;
+
+`;
+
+exports[`macros when there is an error reading the config, a helpful message is logged 1`] = `
+Array [
+  There was an error trying to load the config "configurableMacro" for the macro imported from "./configurable.macro. Please see the error thrown for more information.,
+]
+`;
+
 exports[`prepends the relative path for errors thrown by the macro 1`] = `
 
 import errorThrower from './fixtures/error-thrower.macro'
@@ -108,7 +126,29 @@ Error: <PROJECT_ROOT>/src/__tests__/index.js: The macro imported from "./fixture
 
 `;
 
-exports[`throws error if it is not transpiled 1`] = `The macro you imported from "untranspiled.macro" is being executed outside the context of compilation with babel-macros. This indicates that you don't have the babel plugin "babel-macros" configured correctly. Please see the documentation for how to configure babel-macros properly: https://github.com/kentcdodds/babel-macros/blob/master/other/docs/user.md`;
+exports[`when there is an error reading the config, a helpful message is logged 1`] = `
+
+import configured from './configurable.macro'
+
+configured\`stuff\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+Error: <PROJECT_ROOT>/src/__tests__/fixtures/config/code.js: this is a cosmiconfig error
+
+`;
+
+exports[`when there is no config to load, then no config is passed 1`] = `
+
+import configured from './configurable.macro'
+
+configured\`stuff\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+configured\`stuff\`;
+
+`;
 
 exports[`works with function calls 1`] = `
 
