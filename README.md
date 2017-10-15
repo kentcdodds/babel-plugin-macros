@@ -13,7 +13,7 @@ Enables zero-config, importable babel plugins
 [![downloads][downloads-badge]][npmchart]
 [![MIT License][license-badge]][LICENSE]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome][prs-badge]][prs]
 [![Donate][donate-badge]][donate]
 [![Code of Conduct][coc-badge]][coc]
@@ -103,6 +103,21 @@ you could use `babel-macros` for, like:
   [preval][preval])
 
 </details>
+
+## Table of Contents
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [FAQ](#faq)
+- [Inspiration](#inspiration)
+- [Other Solutions](#other-solutions)
+- [Contributors](#contributors)
+- [LICENSE](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Installation
 
@@ -239,8 +254,8 @@ turned into macros.
 Thanks goes to these people ([emoji key][emojis]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub>Kent C. Dodds</sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/babel-macros/commits?author=kentcdodds "Code") [📖](https://github.com/kentcdodds/babel-macros/commits?author=kentcdodds "Documentation") [🚇](#infra-kentcdodds "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/kentcdodds/babel-macros/commits?author=kentcdodds "Tests") | [<img src="https://avatars1.githubusercontent.com/u/18808?v=3" width="100px;"/><br /><sub>Sunil Pai</sub>](https://github.com/threepointone)<br />[🤔](#ideas-threepointone "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/1341513?v=3" width="100px;"/><br /><sub>Stephen Scott</sub>](http://suchipi.com/)<br />[💬](#question-suchipi "Answering Questions") [📖](https://github.com/kentcdodds/babel-macros/commits?author=suchipi "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/767261?v=4" width="100px;"/><br /><sub>Michiel Dral</sub>](http://twitter.com/dralletje)<br />[🤔](#ideas-dralletje "Ideas, Planning, & Feedback") | [<img src="https://avatars2.githubusercontent.com/u/662750?v=4" width="100px;"/><br /><sub>Kye Hohenberger</sub>](https://github.com/tkh44)<br />[🤔](#ideas-tkh44 "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/11481355?v=4" width="100px;"/><br /><sub>Mitchell Hamilton</sub>](https://hamil.town)<br />[💻](https://github.com/kentcdodds/babel-macros/commits?author=mitchellhamilton "Code") [⚠️](https://github.com/kentcdodds/babel-macros/commits?author=mitchellhamilton "Tests") |
-| :---: | :---: | :---: | :---: | :---: | :---: |
+| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub>Kent C. Dodds</sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/babel-macros/commits?author=kentcdodds "Code") [📖](https://github.com/kentcdodds/babel-macros/commits?author=kentcdodds "Documentation") [🚇](#infra-kentcdodds "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/kentcdodds/babel-macros/commits?author=kentcdodds "Tests") | [<img src="https://avatars1.githubusercontent.com/u/18808?v=3" width="100px;"/><br /><sub>Sunil Pai</sub>](https://github.com/threepointone)<br />[🤔](#ideas-threepointone "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/1341513?v=3" width="100px;"/><br /><sub>Stephen Scott</sub>](http://suchipi.com/)<br />[💬](#question-suchipi "Answering Questions") [📖](https://github.com/kentcdodds/babel-macros/commits?author=suchipi "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/767261?v=4" width="100px;"/><br /><sub>Michiel Dral</sub>](http://twitter.com/dralletje)<br />[🤔](#ideas-dralletje "Ideas, Planning, & Feedback") | [<img src="https://avatars2.githubusercontent.com/u/662750?v=4" width="100px;"/><br /><sub>Kye Hohenberger</sub>](https://github.com/tkh44)<br />[🤔](#ideas-tkh44 "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/11481355?v=4" width="100px;"/><br /><sub>Mitchell Hamilton</sub>](https://hamil.town)<br />[💻](https://github.com/kentcdodds/babel-macros/commits?author=mitchellhamilton "Code") [⚠️](https://github.com/kentcdodds/babel-macros/commits?author=mitchellhamilton "Tests") | [<img src="https://avatars1.githubusercontent.com/u/1288694?v=4" width="100px;"/><br /><sub>Justin Hall</sub>](https://github.com/wKovacs64)<br />[📖](https://github.com/kentcdodds/babel-macros/commits?author=wKovacs64 "Documentation") |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
