@@ -9,7 +9,7 @@ A macro is a JavaScript module that exports a function. Here's a simple example:
 ```javascript
 const {createMacro} = require('babel-macros')
 
-// `createMacros` is simply a function that ensures your macro is only
+// `createMacro` is simply a function that ensures your macro is only
 // called in the context of a babel transpilation and will throw an
 // error with a helpful message if someone does not have babel-macros
 // configured correctly
