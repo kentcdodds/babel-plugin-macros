@@ -17,12 +17,18 @@ class MacroError extends Error {
   }
 }
 
-function createMacro(macro) {
+function createMacro(macro, options = {}) {
+  if (options.configName === 'options') {
+    throw new Error(
+      `You cannot use the configName "options". It is reserved for babel-macros.`,
+    )
+  }
   macroWrapper.isBabelMacro = true
+  macroWrapper.options = options
   return macroWrapper
 
-  function macroWrapper(options) {
-    const {source, isBabelMacrosCall} = options
+  function macroWrapper(args) {
+    const {source, isBabelMacrosCall} = args
     if (!isBabelMacrosCall) {
       throw new MacroError(
         `The macro you imported from "${source}" is being executed outside the context of compilation with babel-macros. ` +
@@ -31,7 +37,7 @@ function createMacro(macro) {
           'https://github.com/kentcdodds/babel-macros/blob/master/other/docs/user.md',
       )
     }
-    return macro(options)
+    return macro(args)
   }
 }
 
@@ -127,11 +133,13 @@ function applyMacros({path, imports, source, state, babel}) {
         `Please refer to the documentation to see how to do this properly: https://github.com/kentcdodds/babel-macros/blob/master/other/docs/author.md#writing-a-macro`,
     )
   }
+  const config = getConfig(macro, filename, source)
   try {
     macro({
       references: referencePathsByImportName,
       state,
       babel,
+      config,
       isBabelMacrosCall: true,
     })
   } catch (error) {
@@ -146,6 +154,37 @@ function applyMacros({path, imports, source, state, babel}) {
       )}`
     }
     throw error
+  }
+}
+
+// eslint-disable-next-line consistent-return
+function getConfig(macro, filename, source) {
+  if (macro.configName) {
+    try {
+      // lazy-loading it here to avoid perf issues of loading it up front.
+      // No I did not measure. Yes I'm a bad person.
+      // FWIW, this thing told me that cosmiconfig is 227.1 kb of minified JS
+      // so that's probably significant... https://bundlephobia.com/result?p=cosmiconfig@3.1.0
+      // Note that cosmiconfig will cache the babel-macros config 👍
+      const loaded = require('cosmiconfig')('babel-macros', {
+        packageProp: 'babelMacros',
+        rc: '.babel-macrosrc',
+        js: 'babel-macros.config.js',
+        rcExtensions: true,
+        sync: true,
+      }).load(filename)
+      if (loaded) {
+        return loaded.config[macro.configName]
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(
+        `There was an error trying to load the config "${macro.configName}" ` +
+          `for the macro imported from "${source}. ` +
+          `Please see the error thrown for more information.`,
+      )
+      throw error
+    }
   }
 }
 

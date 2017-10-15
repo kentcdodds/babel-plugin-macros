@@ -23,7 +23,9 @@
   ],
   "author": "Kent C. Dodds <kent@doddsfamily.us> (http://kentcdodds.com/)",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "cosmiconfig": "3.1.0"
+  },
   "devDependencies": {
     "ast-pretty-print": "2.0.1",
     "babel-core": "^6.25.0",

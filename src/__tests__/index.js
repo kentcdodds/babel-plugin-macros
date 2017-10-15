@@ -1,10 +1,14 @@
+/* eslint no-console:0 */
 import path from 'path'
+import cosmiconfigMock from 'cosmiconfig'
 import cpy from 'cpy'
 import babel from 'babel-core'
 import pluginTester from 'babel-plugin-tester'
 import plugin from '../'
 
 const projectRoot = path.join(__dirname, '../../')
+
+jest.mock('cosmiconfig', () => jest.fn(require.requireActual('cosmiconfig')))
 
 beforeAll(() => {
   // copy our mock modules to the node_modules directory
@@ -157,12 +161,55 @@ pluginTester({
         errorThrower('hi')
       `,
     },
+    {
+      title: 'macros can set their configName and get their config',
+      fixture: path.join(__dirname, 'fixtures/config/code.js'),
+      teardown() {
+        const babelMacrosConfig = require('./fixtures/config/babel-macros.config')
+        const configurableMacro = require('./fixtures/config/configurable.macro')
+        expect(configurableMacro.realMacro).toHaveBeenCalledTimes(1)
+        expect(configurableMacro.realMacro).toHaveBeenCalledWith(
+          expect.objectContaining({
+            config: babelMacrosConfig[configurableMacro.configName],
+          }),
+        )
+        configurableMacro.realMacro.mockClear()
+      },
+    },
+    {
+      title:
+        'when there is an error reading the config, a helpful message is logged',
+      error: true,
+      fixture: path.join(__dirname, 'fixtures/config/code.js'),
+      setup() {
+        cosmiconfigMock.mockImplementationOnce(() => {
+          throw new Error('this is a cosmiconfig error')
+        })
+        const originalError = console.error
+        console.error = jest.fn()
+        return function teardown() {
+          expect(console.error).toHaveBeenCalledTimes(1)
+          expect(console.error.mock.calls[0]).toMatchSnapshot()
+          console.error = originalError
+        }
+      },
+    },
+    {
+      title: 'when there is no config to load, then no config is passed',
+      fixture: path.join(__dirname, 'fixtures/config/code.js'),
+      setup() {
+        cosmiconfigMock.mockImplementationOnce(() => ({load: () => null}))
+        return function teardown() {
+          const configurableMacro = require('./fixtures/config/configurable.macro')
+          expect(configurableMacro.realMacro).toHaveBeenCalledTimes(1)
+          expect(configurableMacro.realMacro).not.toHaveBeenCalledWith(
+            expect.objectContaining({
+              config: expect.any,
+            }),
+          )
+          configurableMacro.realMacro.mockClear()
+        }
+      },
+    },
   ],
-})
-
-test('throws error if it is not transpiled', () => {
-  const untranspiledMacro = plugin.createMacro(() => {})
-  expect(() =>
-    untranspiledMacro({source: 'untranspiled.macro'}),
-  ).toThrowErrorMatchingSnapshot()
 })
