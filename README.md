@@ -1,20 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-
-- [babel-macros 🎣](#babel-macros-)
-  - [The problem](#the-problem)
-  - [This solution](#this-solution)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [FAQ](#faq)
-  - [Inspiration](#inspiration)
-  - [Other Solutions](#other-solutions)
-  - [Contributors](#contributors)
-  - [LICENSE](#license)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 <div align="center">
 <h1>babel-macros 🎣</h1>
 
@@ -120,6 +103,21 @@ you could use `babel-macros` for, like:
   [preval][preval])
 
 </details>
+
+## Table of Contents
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [FAQ](#faq)
+- [Inspiration](#inspiration)
+- [Other Solutions](#other-solutions)
+- [Contributors](#contributors)
+- [LICENSE](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Installation
 
