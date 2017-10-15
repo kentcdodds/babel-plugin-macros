@@ -18,7 +18,7 @@ module.exports = createMacro(myMacro)
 function myMacro({references, state, babel}) {
   // state is the second argument you're passed to a visitor in a
   // normal babel plugin. `babel` is the `babel-macros` module.
-  // do whatever you like to the AST paths you find in `renferences`
+  // do whatever you like to the AST paths you find in `references`
   // read more below...
 }
 ```
