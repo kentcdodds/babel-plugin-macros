@@ -74,6 +74,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "PiereDome",
+      "name": "Brian Pedersen",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1903016?v=4",
+      "profile": "https://github.com/PiereDome",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ]
 }

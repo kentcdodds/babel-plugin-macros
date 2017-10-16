@@ -25,6 +25,7 @@ function createMacro(macro, options = {}) {
   }
   macroWrapper.isBabelMacro = true
   macroWrapper.options = options
+  macroWrapper.configName = options.configName
   return macroWrapper
 
   function macroWrapper(args) {
