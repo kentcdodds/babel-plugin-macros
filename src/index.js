@@ -159,7 +159,7 @@ function applyMacros({path, imports, source, state, babel}) {
 
 // eslint-disable-next-line consistent-return
 function getConfig(macro, filename, source) {
-  if (macro.configName) {
+  if (macro.options.configName) {
     try {
       // lazy-loading it here to avoid perf issues of loading it up front.
       // No I did not measure. Yes I'm a bad person.
@@ -174,12 +174,13 @@ function getConfig(macro, filename, source) {
         sync: true,
       }).load(filename)
       if (loaded) {
-        return loaded.config[macro.configName]
+        return loaded.config[macro.options.configName]
       }
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(
-        `There was an error trying to load the config "${macro.configName}" ` +
+        `There was an error trying to load the config "${macro.options
+          .configName}" ` +
           `for the macro imported from "${source}. ` +
           `Please see the error thrown for more information.`,
       )
