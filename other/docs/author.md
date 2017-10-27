@@ -225,7 +225,8 @@ import plugin from 'babel-macros'
 pluginTester({
   plugin,
   snapshot: true,
-  tests: withFilename([
+  babelOptions: {filename: __filename},
+  tests: [
     `
       import MyMacro from '../my.macro'
 
@@ -233,24 +234,8 @@ pluginTester({
         some stuff
       \`)
     `
-  ]),
+  ],
 })
-
-/*
- * This adds the filename to each test so you can do require/import relative
- * to this test file.
- */
-function withFilename(tests) {
-  return tests.map(t => {
-    const test = {babelOptions: {filename: __filename}}
-    if (typeof t === 'string') {
-      test.code = t
-    } else {
-      Object.assign(test, t)
-    }
-    return test
-  })
-}
 ```
 
 There is currently no way to get code coverage for your macro this way however.
