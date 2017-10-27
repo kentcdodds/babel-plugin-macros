@@ -84,6 +84,15 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "apalm",
+      "name": "Andrew Palm",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/4495237?v=4",
+      "profile": "https://github.com/apalm",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
