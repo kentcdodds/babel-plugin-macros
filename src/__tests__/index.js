@@ -72,6 +72,34 @@ pluginTester({
       `,
     },
     {
+      title: 'works with require destructuring',
+      code: `
+        const {css, styled} = require('./fixtures/emotion.macro')
+        const red = css\`
+          background-color: red;
+        \`
+
+        const Div = styled.div\`
+          composes: \${red}
+          color: blue;
+        \`
+      `,
+    },
+    {
+      title: 'works with require destructuring and aliasing',
+      code: `
+        const {css: CSS, styled: STYLED} = require('./fixtures/emotion.macro')
+        const red = CSS\`
+          background-color: red;
+        \`
+
+        const Div = STYLED.div\`
+          composes: \${red}
+          color: blue;
+        \`
+      `,
+    },
+    {
       title: 'works with function calls',
       code: `
         import myEval from './fixtures/eval.macro'

@@ -182,3 +182,43 @@ const x = evaler\`34 + 45\`
 const x = 79;
 
 `;
+
+exports[`works with require destructuring 1`] = `
+
+const {css, styled} = require('./fixtures/emotion.macro')
+const red = css\`
+  background-color: red;
+\`
+
+const Div = styled.div\`
+  composes: \${red}
+  color: blue;
+\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const red = 'background-color: red;';
+
+const Div = styled.div\`undefined\`;
+
+`;
+
+exports[`works with require destructuring and aliasing 1`] = `
+
+const {css: CSS, styled: STYLED} = require('./fixtures/emotion.macro')
+const red = CSS\`
+  background-color: red;
+\`
+
+const Div = STYLED.div\`
+  composes: \${red}
+  color: blue;
+\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const red = 'background-color: red;';
+
+const Div = STYLED.div\`undefined\`;
+
+`;

@@ -88,11 +88,16 @@ function macrosPlugin(babel) {
         if (!isMacros) {
           return
         }
-        const name = path.parent.id.name
+        const imports = path.parent.id.name
+          ? [{localName: path.parent.id.name, importedName: 'default'}]
+          : path.parent.id.properties.map(property => ({
+              localName: property.value.name,
+              importedName: property.key.name,
+            }))
         const source = path.node.arguments[0].value
         applyMacros({
           path,
-          imports: [{localName: name, importedName: 'default'}],
+          imports,
           source,
           state,
           babel,
