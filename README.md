@@ -1,5 +1,5 @@
 <div align="center">
-<h1>babel-macros 🎣</h1>
+<h1>babel-plugin-macros 🎣</h1>
 
 Enables zero-config, importable babel plugins
 
@@ -22,11 +22,11 @@ Enables zero-config, importable babel plugins
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
 
-<a href="https://app.codesponsor.io/link/PKGFLnhDiFvsUA5P4kAXfiPs/kentcdodds/babel-macros" rel="nofollow"><img src="https://app.codesponsor.io/embed/PKGFLnhDiFvsUA5P4kAXfiPs/kentcdodds/babel-macros.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
+<a href="https://app.codesponsor.io/link/PKGFLnhDiFvsUA5P4kAXfiPs/kentcdodds/babel-plugin-macros" rel="nofollow"><img src="https://app.codesponsor.io/embed/PKGFLnhDiFvsUA5P4kAXfiPs/kentcdodds/babel-plugin-macros.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
 
 ## The problem
 
-Check out <a href="https://babeljs.io/blog/2017/09/11/zero-config-with-babel-macros" rel="nofollow">this guest post</a> on the Babel.js blog for a complete write up on the problem, motivation, and solution.
+Check out <a href="https://babeljs.io/blog/2017/09/11/zero-config-with-babel-plugin-macros" rel="nofollow">this guest post</a> on the Babel.js blog for a complete write up on the problem, motivation, and solution.
 
 Currently, each babel plugin in the babel ecosystem requires that you configure
 it individually. This is fine for things like language features, but can be
@@ -35,9 +35,9 @@ transformation as an optimization.
 
 ## This solution
 
-babel-macros defines a standard interface for libraries that want to use
+babel-plugin-macros defines a standard interface for libraries that want to use
 compile-time code transformation without requiring the user to add a babel
-plugin to their build system (other than `babel-macros`, which is ideally
+plugin to their build system (other than `babel-plugin-macros`, which is ideally
 already in place).
 
 <details>
@@ -85,16 +85,16 @@ const styles = css`
 const styles = {red: '1f-d34j8rn43y587t'}
 ```
 
-If the css-in-js library supported babel-macros instead, then they wouldn't need
+If the css-in-js library supported babel-plugin-macros instead, then they wouldn't need
 their own babel plugin to compile these out; they could instead rely on
-babel-macros to do it for them. So if a user already had babel-macros installed
+babel-plugin-macros to do it for them. So if a user already had babel-plugin-macros installed
 and configured with babel, then they wouldn't need to change their babel
 configuration to get the compile-time benefits of the library. This would be
-most useful if the boilerplate they were using came with babel-macros out of the
+most useful if the boilerplate they were using came with babel-plugin-macros out of the
 box, which is what we're hoping will be true for create-react-app in the future.
 
 Although css-in-js is the most common example, there are lots of other things
-you could use `babel-macros` for, like:
+you could use `babel-plugin-macros` for, like:
 
 * Compiling GraphQL fragments into objects so that the client doesn't need a
   GraphQL parser
@@ -130,16 +130,16 @@ This module is distributed via [npm][npm] which is bundled with [node][node] and
 should be installed as one of your project's `devDependencies`:
 
 ```
-npm install --save-dev babel-macros
+npm install --save-dev babel-plugin-macros
 ```
 
 ## Usage
 
-Are you trying to use `babel-macros`? Go to
-[`other/docs/user.md`](https://github.com/kentcdodds/babel-macros/blob/master/other/docs/user.md).
+Are you trying to use `babel-plugin-macros`? Go to
+[`other/docs/user.md`](https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/user.md).
 
-Are you trying to make your own macros that works with `babel-macros`? Go to
-[`other/docs/author.md`](https://github.com/kentcdodds/babel-macros/blob/master/other/docs/author.md).
+Are you trying to make your own macros that works with `babel-plugin-macros`? Go to
+[`other/docs/author.md`](https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/author.md).
 (you should probably read the user docs too).
 
 ## FAQ
@@ -164,7 +164,7 @@ const val = ['red_leader', 'blue_leader']
 Instead, if there were a macro called `node-eval.macro`, we could use
 it like this:
 
-1. Add `babel-macros` to `.babelrc` (only once for all macros)
+1. Add `babel-plugin-macros` to `.babelrc` (only once for all macros)
 2. Use it in a code:
 
 ```js
@@ -179,7 +179,7 @@ const val = ['red_leader', 'blue_leader']
 Advantages:
 
 * requires only one entry in `.babelrc` for all macros used in project
-* boilerplates, like Create React App ([soon hopefully][cra-issue]), might already support `babel-macros`, so no configuration is needed
+* boilerplates, like Create React App ([soon hopefully][cra-issue]), might already support `babel-plugin-macros`, so no configuration is needed
 * it's explicit, that `node-eval` is macro and does something with the code at compile time
 * macros are safer and easier to write, because they receive exactly the AST node to process
 
@@ -228,7 +228,7 @@ const val = <Eval>7 * 6</Eval>
 
 Really, anything...
 
-See the [testing snapshot](https://github.com/kentcdodds/babel-macros/blob/master/src/__tests__/__snapshots__/index.js.snap) for more examples.
+See the [testing snapshot](https://github.com/kentcdodds/babel-plugin-macros/blob/master/src/__tests__/__snapshots__/index.js.snap) for more examples.
 
 ### How about implicit optimizations at compile time?
 
@@ -240,13 +240,13 @@ Completely different story are _implicit_ babel plugins, like
 which process whole AST tree.
 
 Explicit is often a better pattern than implicit because it requires others to understand
-how things are globally configured. This is in this spirit are `babel-macros` designed.
+how things are globally configured. This is in this spirit are `babel-plugin-macros` designed.
 However, some things _do_ need to be implicit, and those kinds of babel plugins can't be
 turned into macros.
 
 ## Inspiration
 
-* [threepointone/babel-macros](https://github.com/threepointone/babel-macros)
+* [threepointone/babel-plugin-macros](https://github.com/threepointone/babel-plugin-macros)
 * [facebookincubator/create-react-app#2730][cra-issue]
 
 ## Other Solutions
@@ -261,9 +261,9 @@ Thanks goes to these people ([emoji key][emojis]):
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 
 <!-- prettier-ignore -->
-| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub><b>Kent C. Dodds</b></sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/babel-macros/commits?author=kentcdodds "Code") [📖](https://github.com/kentcdodds/babel-macros/commits?author=kentcdodds "Documentation") [🚇](#infra-kentcdodds "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/kentcdodds/babel-macros/commits?author=kentcdodds "Tests") | [<img src="https://avatars1.githubusercontent.com/u/18808?v=3" width="100px;"/><br /><sub><b>Sunil Pai</b></sub>](https://github.com/threepointone)<br />[🤔](#ideas-threepointone "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/1341513?v=3" width="100px;"/><br /><sub><b>Stephen Scott</b></sub>](http://suchipi.com/)<br />[💬](#question-suchipi "Answering Questions") [📖](https://github.com/kentcdodds/babel-macros/commits?author=suchipi "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/767261?v=4" width="100px;"/><br /><sub><b>Michiel Dral</b></sub>](http://twitter.com/dralletje)<br />[🤔](#ideas-dralletje "Ideas, Planning, & Feedback") | [<img src="https://avatars2.githubusercontent.com/u/662750?v=4" width="100px;"/><br /><sub><b>Kye Hohenberger</b></sub>](https://github.com/tkh44)<br />[🤔](#ideas-tkh44 "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/11481355?v=4" width="100px;"/><br /><sub><b>Mitchell Hamilton</b></sub>](https://hamil.town)<br />[💻](https://github.com/kentcdodds/babel-macros/commits?author=mitchellhamilton "Code") [⚠️](https://github.com/kentcdodds/babel-macros/commits?author=mitchellhamilton "Tests") | [<img src="https://avatars1.githubusercontent.com/u/1288694?v=4" width="100px;"/><br /><sub><b>Justin Hall</b></sub>](https://github.com/wKovacs64)<br />[📖](https://github.com/kentcdodds/babel-macros/commits?author=wKovacs64 "Documentation") |
+| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub><b>Kent C. Dodds</b></sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/babel-plugin-macros/commits?author=kentcdodds "Code") [📖](https://github.com/kentcdodds/babel-plugin-macros/commits?author=kentcdodds "Documentation") [🚇](#infra-kentcdodds "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/kentcdodds/babel-plugin-macros/commits?author=kentcdodds "Tests") | [<img src="https://avatars1.githubusercontent.com/u/18808?v=3" width="100px;"/><br /><sub><b>Sunil Pai</b></sub>](https://github.com/threepointone)<br />[🤔](#ideas-threepointone "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/1341513?v=3" width="100px;"/><br /><sub><b>Stephen Scott</b></sub>](http://suchipi.com/)<br />[💬](#question-suchipi "Answering Questions") [📖](https://github.com/kentcdodds/babel-plugin-macros/commits?author=suchipi "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/767261?v=4" width="100px;"/><br /><sub><b>Michiel Dral</b></sub>](http://twitter.com/dralletje)<br />[🤔](#ideas-dralletje "Ideas, Planning, & Feedback") | [<img src="https://avatars2.githubusercontent.com/u/662750?v=4" width="100px;"/><br /><sub><b>Kye Hohenberger</b></sub>](https://github.com/tkh44)<br />[🤔](#ideas-tkh44 "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/11481355?v=4" width="100px;"/><br /><sub><b>Mitchell Hamilton</b></sub>](https://hamil.town)<br />[💻](https://github.com/kentcdodds/babel-plugin-macros/commits?author=mitchellhamilton "Code") [⚠️](https://github.com/kentcdodds/babel-plugin-macros/commits?author=mitchellhamilton "Tests") | [<img src="https://avatars1.githubusercontent.com/u/1288694?v=4" width="100px;"/><br /><sub><b>Justin Hall</b></sub>](https://github.com/wKovacs64)<br />[📖](https://github.com/kentcdodds/babel-plugin-macros/commits?author=wKovacs64 "Documentation") |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| [<img src="https://avatars3.githubusercontent.com/u/1903016?v=4" width="100px;"/><br /><sub><b>Brian Pedersen</b></sub>](https://github.com/PiereDome)<br />[💻](https://github.com/kentcdodds/babel-macros/commits?author=PiereDome "Code") [📖](https://github.com/kentcdodds/babel-macros/commits?author=PiereDome "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/4495237?v=4" width="100px;"/><br /><sub><b>Andrew Palm</b></sub>](https://github.com/apalm)<br />[💻](https://github.com/kentcdodds/babel-macros/commits?author=apalm "Code") |
+| [<img src="https://avatars3.githubusercontent.com/u/1903016?v=4" width="100px;"/><br /><sub><b>Brian Pedersen</b></sub>](https://github.com/PiereDome)<br />[💻](https://github.com/kentcdodds/babel-plugin-macros/commits?author=PiereDome "Code") [📖](https://github.com/kentcdodds/babel-plugin-macros/commits?author=PiereDome "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/4495237?v=4" width="100px;"/><br /><sub><b>Andrew Palm</b></sub>](https://github.com/apalm)<br />[💻](https://github.com/kentcdodds/babel-plugin-macros/commits?author=apalm "Code") |
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
@@ -276,28 +276,28 @@ MIT
 
 [npm]: https://www.npmjs.com/
 [node]: https://nodejs.org
-[build-badge]: https://img.shields.io/travis/kentcdodds/babel-macros.svg?style=flat-square
-[build]: https://travis-ci.org/kentcdodds/babel-macros
-[coverage-badge]: https://img.shields.io/codecov/c/github/kentcdodds/babel-macros.svg?style=flat-square
-[coverage]: https://codecov.io/github/kentcdodds/babel-macros
-[version-badge]: https://img.shields.io/npm/v/babel-macros.svg?style=flat-square
-[package]: https://www.npmjs.com/package/babel-macros
-[downloads-badge]: https://img.shields.io/npm/dm/babel-macros.svg?style=flat-square
-[npmchart]: http://npmcharts.com/compare/babel-macros
-[license-badge]: https://img.shields.io/npm/l/babel-macros.svg?style=flat-square
-[license]: https://github.com/kentcdodds/babel-macros/blob/master/LICENSE
+[build-badge]: https://img.shields.io/travis/kentcdodds/babel-plugin-macros.svg?style=flat-square
+[build]: https://travis-ci.org/kentcdodds/babel-plugin-macros
+[coverage-badge]: https://img.shields.io/codecov/c/github/kentcdodds/babel-plugin-macros.svg?style=flat-square
+[coverage]: https://codecov.io/github/kentcdodds/babel-plugin-macros
+[version-badge]: https://img.shields.io/npm/v/babel-plugin-macros.svg?style=flat-square
+[package]: https://www.npmjs.com/package/babel-plugin-macros
+[downloads-badge]: https://img.shields.io/npm/dm/babel-plugin-macros.svg?style=flat-square
+[npmchart]: http://npmcharts.com/compare/babel-plugin-macros
+[license-badge]: https://img.shields.io/npm/l/babel-plugin-macros.svg?style=flat-square
+[license]: https://github.com/kentcdodds/babel-plugin-macros/blob/master/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
 [donate-badge]: https://img.shields.io/badge/$-support-green.svg?style=flat-square
 [donate]: http://kcd.im/donate
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
-[coc]: https://github.com/kentcdodds/babel-macros/blob/master/other/CODE_OF_CONDUCT.md
-[github-watch-badge]: https://img.shields.io/github/watchers/kentcdodds/babel-macros.svg?style=social
-[github-watch]: https://github.com/kentcdodds/babel-macros/watchers
-[github-star-badge]: https://img.shields.io/github/stars/kentcdodds/babel-macros.svg?style=social
-[github-star]: https://github.com/kentcdodds/babel-macros/stargazers
-[twitter]: https://twitter.com/intent/tweet?text=Check%20out%20babel-macros!%20https://github.com/kentcdodds/babel-macros%20%F0%9F%91%8D
-[twitter-badge]: https://img.shields.io/twitter/url/https/github.com/kentcdodds/babel-macros.svg?style=social
+[coc]: https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/CODE_OF_CONDUCT.md
+[github-watch-badge]: https://img.shields.io/github/watchers/kentcdodds/babel-plugin-macros.svg?style=social
+[github-watch]: https://github.com/kentcdodds/babel-plugin-macros/watchers
+[github-star-badge]: https://img.shields.io/github/stars/kentcdodds/babel-plugin-macros.svg?style=social
+[github-star]: https://github.com/kentcdodds/babel-plugin-macros/stargazers
+[twitter]: https://twitter.com/intent/tweet?text=Check%20out%20babel-plugin-macros!%20https://github.com/kentcdodds/babel-plugin-macros%20%F0%9F%91%8D
+[twitter-badge]: https://img.shields.io/twitter/url/https/github.com/kentcdodds/babel-plugin-macros.svg?style=social
 [emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
 [all-contributors]: https://github.com/kentcdodds/all-contributors
 [preval]: https://github.com/kentcdodds/babel-plugin-preval

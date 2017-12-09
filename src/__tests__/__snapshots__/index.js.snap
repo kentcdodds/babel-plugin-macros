@@ -14,8 +14,7 @@ const Div = STYLED.div\`
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const red = 'background-color: red;';
-
+const red = "background-color: red;";
 const Div = STYLED.div\`undefined\`;
 
 `;
@@ -33,23 +32,23 @@ const x = 79;
 
 exports[`appends the npm URL for errors thrown by node modules 1`] = `
 
-import errorThrower from 'babel-macros-test-error-thrower.macro'
+import errorThrower from 'babel-plugin-macros-test-error-thrower.macro'
 errorThrower('hi')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-Error: <PROJECT_ROOT>/src/__tests__/index.js: babel-macros-test-error-thrower.macro: not helpful Learn more: https://www.npmjs.com/package/babel-macros-test-error-thrower.macro
+Error: babel-plugin-macros-test-error-thrower.macro: not helpful Learn more: https://www.npmjs.com/package/babel-plugin-macros-test-error-thrower.macro
 
 `;
 
 exports[`appends the npm URL for errors thrown by node modules with a slash 1`] = `
 
-import errorThrower from 'babel-macros-test-error-thrower/macro'
+import errorThrower from 'babel-plugin-macros-test-error-thrower/macro'
 errorThrower('hi')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-Error: <PROJECT_ROOT>/src/__tests__/index.js: babel-macros-test-error-thrower/macro: not helpful Learn more: https://www.npmjs.com/package/babel-macros-test-error-thrower
+Error: babel-plugin-macros-test-error-thrower/macro: not helpful Learn more: https://www.npmjs.com/package/babel-plugin-macros-test-error-thrower
 
 `;
 
@@ -71,7 +70,7 @@ errorThrower('hey')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-MacroError: <PROJECT_ROOT>/src/__tests__/index.js: very helpful
+MacroError: very helpful
 
 `;
 
@@ -100,13 +99,13 @@ errorThrower('hey')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-Error: <PROJECT_ROOT>/src/__tests__/index.js: ./fixtures/error-thrower.macro: very unhelpful
+Error: ./fixtures/error-thrower.macro: very unhelpful
 
 `;
 
 exports[`supports macros from node_modules 1`] = `
 
-import fakeMacro from 'babel-macros-test-fake/macro'
+import fakeMacro from 'babel-plugin-macros-test-fake/macro'
 fakeMacro('hi')
 
       ↓ ↓ ↓ ↓ ↓ ↓
@@ -122,7 +121,7 @@ unwrapped('hey')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-Error: <PROJECT_ROOT>/src/__tests__/index.js: The macro imported from "./fixtures/non-wrapped.macro" must be wrapped in "createMacro" which you can get from "babel-macros". Please refer to the documentation to see how to do this properly: https://github.com/kentcdodds/babel-macros/blob/master/other/docs/author.md#writing-a-macro
+Error: The macro imported from "./fixtures/non-wrapped.macro" must be wrapped in "createMacro" which you can get from "babel-plugin-macros". Please refer to the documentation to see how to do this properly: https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/author.md#writing-a-macro
 
 `;
 
@@ -134,7 +133,7 @@ configured\`stuff\`
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-Error: <PROJECT_ROOT>/src/__tests__/fixtures/config/code.js: this is a cosmiconfig error
+Error: this is a cosmiconfig error
 
 `;
 
@@ -197,8 +196,7 @@ const Div = styled.div\`
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const red = 'background-color: red;';
-
+const red = "background-color: red;";
 const Div = styled.div\`undefined\`;
 
 `;
@@ -217,8 +215,7 @@ const Div = STYLED.div\`
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const red = 'background-color: red;';
-
+const red = "background-color: red;";
 const Div = STYLED.div\`undefined\`;
 
 `;

@@ -20,7 +20,7 @@ class MacroError extends Error {
 function createMacro(macro, options = {}) {
   if (options.configName === 'options') {
     throw new Error(
-      `You cannot use the configName "options". It is reserved for babel-macros.`,
+      `You cannot use the configName "options". It is reserved for babel-plugin-macros.`,
     )
   }
   macroWrapper.isBabelMacro = true
@@ -31,10 +31,10 @@ function createMacro(macro, options = {}) {
     const {source, isBabelMacrosCall} = args
     if (!isBabelMacrosCall) {
       throw new MacroError(
-        `The macro you imported from "${source}" is being executed outside the context of compilation with babel-macros. ` +
-          `This indicates that you don't have the babel plugin "babel-macros" configured correctly. ` +
-          `Please see the documentation for how to configure babel-macros properly: ` +
-          'https://github.com/kentcdodds/babel-macros/blob/master/other/docs/user.md',
+        `The macro you imported from "${source}" is being executed outside the context of compilation with babel-plugin-macros. ` +
+          `This indicates that you don't have the babel plugin "babel-plugin-macros" configured correctly. ` +
+          `Please see the documentation for how to configure babel-plugin-macros properly: ` +
+          'https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/user.md',
       )
     }
     return macro(args)
@@ -134,8 +134,8 @@ function applyMacros({path, imports, source, state, babel}) {
     throw new Error(
       // eslint-disable-next-line prefer-template
       `The macro imported from "${source}" must be wrapped in "createMacro" ` +
-        `which you can get from "babel-macros". ` +
-        `Please refer to the documentation to see how to do this properly: https://github.com/kentcdodds/babel-macros/blob/master/other/docs/author.md#writing-a-macro`,
+        `which you can get from "babel-plugin-macros". ` +
+        `Please refer to the documentation to see how to do this properly: https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/author.md#writing-a-macro`,
     )
   }
   const config = getConfig(macro, filename, source)
@@ -172,11 +172,11 @@ function getConfig(macro, filename, source) {
       // No I did not measure. Yes I'm a bad person.
       // FWIW, this thing told me that cosmiconfig is 227.1 kb of minified JS
       // so that's probably significant... https://bundlephobia.com/result?p=cosmiconfig@3.1.0
-      // Note that cosmiconfig will cache the babel-macros config 👍
-      const loaded = require('cosmiconfig')('babel-macros', {
+      // Note that cosmiconfig will cache the babel-plugin-macros config 👍
+      const loaded = require('cosmiconfig')('babel-plugin-macros', {
         packageProp: 'babelMacros',
-        rc: '.babel-macrosrc',
-        js: 'babel-macros.config.js',
+        rc: '.babel-plugin-macrosrc',
+        js: 'babel-plugin-macros.config.js',
         rcExtensions: true,
         sync: true,
       }).load(filename)

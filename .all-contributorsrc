@@ -1,5 +1,5 @@
 {
-  "projectName": "babel-macros",
+  "projectName": "babel-plugin-macros",
   "projectOwner": "kentcdodds",
   "files": [
     "README.md"
