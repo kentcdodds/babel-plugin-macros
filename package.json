@@ -29,10 +29,10 @@
   "devDependencies": {
     "ast-pretty-print": "2.0.1",
     "babel-core": "^6.25.0",
-    "babel-plugin-tester": "^4.0.0",
+    "babel-plugin-tester": "5.0.0",
     "babylon": "6.18.0",
     "cpy": "6.0.0",
-    "kcd-scripts": "0.27.0"
+    "kcd-scripts": "0.30.4"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js"

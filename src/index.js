@@ -153,7 +153,9 @@ function applyMacros({path, imports, source, state, babel}) {
     }
     error.message = `${source}: ${error.message}`
     if (!isRelative) {
-      error.message = `${error.message} Learn more: https://www.npmjs.com/package/${source.replace(
+      error.message = `${
+        error.message
+      } Learn more: https://www.npmjs.com/package/${source.replace(
         /(\/.*)/g,
         '',
       )}`
@@ -184,8 +186,9 @@ function getConfig(macro, filename, source) {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(
-        `There was an error trying to load the config "${macro.options
-          .configName}" ` +
+        `There was an error trying to load the config "${
+          macro.options.configName
+        }" ` +
           `for the macro imported from "${source}. ` +
           `Please see the error thrown for more information.`,
       )

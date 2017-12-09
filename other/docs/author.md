@@ -113,9 +113,12 @@ in each array are the paths to the references.
 ```javascript
 import MyMacro from './my.macro'
 
-MyMacro({someOption: true}, `
+MyMacro(
+  {someOption: true},
+  `
   some stuff
-`)
+`,
+)
 
 // references: { default: [BabelPath] }
 ```
@@ -123,9 +126,12 @@ MyMacro({someOption: true}, `
 ```javascript
 import {foo as FooMacro} from './my.macro'
 
-FooMacro({someOption: true}, `
+FooMacro(
+  {someOption: true},
+  `
   some stuff
-`)
+`,
+)
 
 // references: { foo: [BabelPath] }
 ```
@@ -153,13 +159,13 @@ use [`cosmiconfig`][cosmiconfig] to read a `babel-macros` configuration which
 can be located in any of the following files up the directories from the
 importing file:
 
-- `.babel-macrosrc`
-- `.babel-macrosrc.json`
-- `.babel-macrosrc.yaml`
-- `.babel-macrosrc.yml`
-- `.babel-macrosrc.js`
-- `babel-macros.config.js`
-- `babelMacros` in `package.json`
+* `.babel-macrosrc`
+* `.babel-macrosrc.json`
+* `.babel-macrosrc.yaml`
+* `.babel-macrosrc.yml`
+* `.babel-macrosrc.js`
+* `babel-macros.config.js`
+* `babelMacros` in `package.json`
 
 To specify that your plugin is configurable, you pass a `configName` to
 `createMacro`:
@@ -179,8 +185,8 @@ Then to configure this, users would do something like this:
 // babel-macros.config.js
 module.exports = {
   taggedTranslations: {
-    someConfig: {}
-  }
+    someConfig: {},
+  },
 }
 ```
 
@@ -208,7 +214,7 @@ function myMacro({references, state, babel}) {
   // something unexpected happens:
   throw new MacroError(
     'Some helpful and contextual message. Learn more: ' +
-      'https://github.com/your-org/your-repo/blob/master/docs/errors.md#learn-more-about-eror-title'
+      'https://github.com/your-org/your-repo/blob/master/docs/errors.md#learn-more-about-eror-title',
   )
 }
 ```
@@ -233,7 +239,7 @@ pluginTester({
       MyMacro({someOption: true}, \`
         some stuff
       \`)
-    `
+    `,
   ],
 })
 ```

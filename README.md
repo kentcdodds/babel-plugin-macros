@@ -11,7 +11,7 @@ Enables zero-config, importable babel plugins
 [![Code Coverage][coverage-badge]][coverage]
 [![version][version-badge]][package]
 [![downloads][downloads-badge]][npmchart]
-[![MIT License][license-badge]][LICENSE]
+[![MIT License][license-badge]][license]
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome][prs-badge]][prs]
@@ -26,7 +26,7 @@ Enables zero-config, importable babel plugins
 
 ## The problem
 
-Check out <a href="https://babeljs.io/blog/2017/09/11/zero-config-with-babel-macros" rel="nofollow">this guest post</a> on the Babel.js blog for a complete write up on the problem, motivation, and solution. 
+Check out <a href="https://babeljs.io/blog/2017/09/11/zero-config-with-babel-macros" rel="nofollow">this guest post</a> on the Babel.js blog for a complete write up on the problem, motivation, and solution.
 
 Currently, each babel plugin in the babel ecosystem requires that you configure
 it individually. This is fine for things like language features, but can be
@@ -52,14 +52,14 @@ const styles = css`
   .red {
     color: red;
   }
-`;
+`
 ```
 
 The function compiles your css into (for example) an object with generated class
 names for each of the classes you defined in your css:
 
 ```js
-console.log(styles); // { red: "1f-d34j8rn43y587t" }
+console.log(styles) // { red: "1f-d34j8rn43y587t" }
 ```
 
 This class name can be generated at runtime (in the browser), but this has some
@@ -80,9 +80,9 @@ const styles = css`
   .red {
     color: red;
   }
-`;
+`
 // After running through babel, with the library-specific plugin:
-const styles = { red: "1f-d34j8rn43y587t" };
+const styles = {red: '1f-d34j8rn43y587t'}
 ```
 
 If the css-in-js library supported babel-macros instead, then they wouldn't need
@@ -105,17 +105,22 @@ you could use `babel-macros` for, like:
 </details>
 
 ## Table of Contents
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
+
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [FAQ](#faq)
-- [Inspiration](#inspiration)
-- [Other Solutions](#other-solutions)
-- [Contributors](#contributors)
-- [LICENSE](#license)
+* [Installation](#installation)
+* [Usage](#usage)
+* [FAQ](#faq)
+  * [What's the difference between babel plugins and macros?](#whats-the-difference-between-babel-plugins-and-macros)
+  * [In what order are macros executed?](#in-what-order-are-macros-executed)
+  * [Does it work with tagged template literals only?](#does-it-work-with-tagged-template-literals-only)
+  * [How about implicit optimizations at compile time?](#how-about-implicit-optimizations-at-compile-time)
+* [Inspiration](#inspiration)
+* [Other Solutions](#other-solutions)
+* [Contributors](#contributors)
+* [LICENSE](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -173,10 +178,10 @@ const val = ['red_leader', 'blue_leader']
 
 Advantages:
 
-- requires only one entry in `.babelrc` for all macros used in project
-- boilerplates, like Create React App ([soon hopefully][cra-issue]), might already support `babel-macros`, so no configuration is needed
-- it's explicit, that `node-eval` is macro and does something with the code at compile time
-- macros are safer and easier to write, because they receive exactly the AST node to process
+* requires only one entry in `.babelrc` for all macros used in project
+* boilerplates, like Create React App ([soon hopefully][cra-issue]), might already support `babel-macros`, so no configuration is needed
+* it's explicit, that `node-eval` is macro and does something with the code at compile time
+* macros are safer and easier to write, because they receive exactly the AST node to process
 
 > By the way, something like `node-eval` actually exists and it's called [babel-plugin-preval][preval].
 
@@ -227,10 +232,10 @@ See the [testing snapshot](https://github.com/kentcdodds/babel-macros/blob/maste
 
 ### How about implicit optimizations at compile time?
 
-All examples above were *explicit* - a macro was imported and then evaluated
+All examples above were _explicit_ - a macro was imported and then evaluated
 with a specific AST node.
 
-Completely different story are *implicit* babel plugins, like
+Completely different story are _implicit_ babel plugins, like
 [transform-react-constant-elements](https://babeljs.io/docs/plugins/transform-react-constant-elements/),
 which process whole AST tree.
 
@@ -241,22 +246,25 @@ turned into macros.
 
 ## Inspiration
 
-- [threepointone/babel-macros](https://github.com/threepointone/babel-macros)
-- [facebookincubator/create-react-app#2730][cra-issue]
+* [threepointone/babel-macros](https://github.com/threepointone/babel-macros)
+* [facebookincubator/create-react-app#2730][cra-issue]
 
 ## Other Solutions
 
-- [sweetjs](http://sweetjs.org/)
-- [babel-plugin-macros](https://github.com/codemix/babel-plugin-macros)
+* [sweetjs](http://sweetjs.org/)
+* [babel-plugin-macros](https://github.com/codemix/babel-plugin-macros)
 
 ## Contributors
 
 Thanks goes to these people ([emoji key][emojis]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub>Kent C. Dodds</sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/babel-macros/commits?author=kentcdodds "Code") [📖](https://github.com/kentcdodds/babel-macros/commits?author=kentcdodds "Documentation") [🚇](#infra-kentcdodds "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/kentcdodds/babel-macros/commits?author=kentcdodds "Tests") | [<img src="https://avatars1.githubusercontent.com/u/18808?v=3" width="100px;"/><br /><sub>Sunil Pai</sub>](https://github.com/threepointone)<br />[🤔](#ideas-threepointone "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/1341513?v=3" width="100px;"/><br /><sub>Stephen Scott</sub>](http://suchipi.com/)<br />[💬](#question-suchipi "Answering Questions") [📖](https://github.com/kentcdodds/babel-macros/commits?author=suchipi "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/767261?v=4" width="100px;"/><br /><sub>Michiel Dral</sub>](http://twitter.com/dralletje)<br />[🤔](#ideas-dralletje "Ideas, Planning, & Feedback") | [<img src="https://avatars2.githubusercontent.com/u/662750?v=4" width="100px;"/><br /><sub>Kye Hohenberger</sub>](https://github.com/tkh44)<br />[🤔](#ideas-tkh44 "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/11481355?v=4" width="100px;"/><br /><sub>Mitchell Hamilton</sub>](https://hamil.town)<br />[💻](https://github.com/kentcdodds/babel-macros/commits?author=mitchellhamilton "Code") [⚠️](https://github.com/kentcdodds/babel-macros/commits?author=mitchellhamilton "Tests") | [<img src="https://avatars1.githubusercontent.com/u/1288694?v=4" width="100px;"/><br /><sub>Justin Hall</sub>](https://github.com/wKovacs64)<br />[📖](https://github.com/kentcdodds/babel-macros/commits?author=wKovacs64 "Documentation") |
+
+<!-- prettier-ignore -->
+| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub><b>Kent C. Dodds</b></sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/babel-macros/commits?author=kentcdodds "Code") [📖](https://github.com/kentcdodds/babel-macros/commits?author=kentcdodds "Documentation") [🚇](#infra-kentcdodds "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/kentcdodds/babel-macros/commits?author=kentcdodds "Tests") | [<img src="https://avatars1.githubusercontent.com/u/18808?v=3" width="100px;"/><br /><sub><b>Sunil Pai</b></sub>](https://github.com/threepointone)<br />[🤔](#ideas-threepointone "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/1341513?v=3" width="100px;"/><br /><sub><b>Stephen Scott</b></sub>](http://suchipi.com/)<br />[💬](#question-suchipi "Answering Questions") [📖](https://github.com/kentcdodds/babel-macros/commits?author=suchipi "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/767261?v=4" width="100px;"/><br /><sub><b>Michiel Dral</b></sub>](http://twitter.com/dralletje)<br />[🤔](#ideas-dralletje "Ideas, Planning, & Feedback") | [<img src="https://avatars2.githubusercontent.com/u/662750?v=4" width="100px;"/><br /><sub><b>Kye Hohenberger</b></sub>](https://github.com/tkh44)<br />[🤔](#ideas-tkh44 "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/11481355?v=4" width="100px;"/><br /><sub><b>Mitchell Hamilton</b></sub>](https://hamil.town)<br />[💻](https://github.com/kentcdodds/babel-macros/commits?author=mitchellhamilton "Code") [⚠️](https://github.com/kentcdodds/babel-macros/commits?author=mitchellhamilton "Tests") | [<img src="https://avatars1.githubusercontent.com/u/1288694?v=4" width="100px;"/><br /><sub><b>Justin Hall</b></sub>](https://github.com/wKovacs64)<br />[📖](https://github.com/kentcdodds/babel-macros/commits?author=wKovacs64 "Documentation") |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| [<img src="https://avatars3.githubusercontent.com/u/1903016?v=4" width="100px;"/><br /><sub>Brian Pedersen</sub>](https://github.com/PiereDome)<br />[💻](https://github.com/kentcdodds/babel-macros/commits?author=PiereDome "Code") [📖](https://github.com/kentcdodds/babel-macros/commits?author=PiereDome "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/4495237?v=4" width="100px;"/><br /><sub>Andrew Palm</sub>](https://github.com/apalm)<br />[💻](https://github.com/kentcdodds/babel-macros/commits?author=apalm "Code") |
+| [<img src="https://avatars3.githubusercontent.com/u/1903016?v=4" width="100px;"/><br /><sub><b>Brian Pedersen</b></sub>](https://github.com/PiereDome)<br />[💻](https://github.com/kentcdodds/babel-macros/commits?author=PiereDome "Code") [📖](https://github.com/kentcdodds/babel-macros/commits?author=PiereDome "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/4495237?v=4" width="100px;"/><br /><sub><b>Andrew Palm</b></sub>](https://github.com/apalm)<br />[💻](https://github.com/kentcdodds/babel-macros/commits?author=apalm "Code") |
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
