@@ -22,8 +22,6 @@ Enables zero-config, importable babel plugins
 [![Star on GitHub][github-star-badge]][github-star]
 [![Tweet][twitter-badge]][twitter]
 
-<a href="https://app.codesponsor.io/link/PKGFLnhDiFvsUA5P4kAXfiPs/kentcdodds/babel-plugin-macros" rel="nofollow"><img src="https://app.codesponsor.io/embed/PKGFLnhDiFvsUA5P4kAXfiPs/kentcdodds/babel-plugin-macros.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
-
 ## The problem
 
 Check out <a href="https://babeljs.io/blog/2017/09/11/zero-config-with-babel-plugin-macros" rel="nofollow">this guest post</a> on the Babel.js blog for a complete write up on the problem, motivation, and solution.
@@ -249,10 +247,11 @@ turned into macros.
 * [threepointone/babel-plugin-macros](https://github.com/threepointone/babel-plugin-macros)
 * [facebookincubator/create-react-app#2730][cra-issue]
 
+Thank you to [@phpnode](https://github.com/phpnode) for donating the npm package `babel-plugin-macros`.
+
 ## Other Solutions
 
 * [sweetjs](http://sweetjs.org/)
-* [babel-plugin-macros](https://github.com/codemix/babel-plugin-macros)
 
 ## Contributors
 
