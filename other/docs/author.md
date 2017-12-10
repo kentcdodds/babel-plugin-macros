@@ -1,23 +1,23 @@
-# `babel-macros` Usage for macros authors
+# `babel-plugin-macros` Usage for macros authors
 
-> See also: [the `user` docs](https://github.com/kentcdodds/babel-macros/blob/master/other/docs/user.md).
+> See also: [the `user` docs](https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/user.md).
 
 ## Writing a macro
 
 A macro is a JavaScript module that exports a function. Here's a simple example:
 
 ```javascript
-const {createMacro} = require('babel-macros')
+const {createMacro} = require('babel-plugin-macros')
 
 // `createMacro` is simply a function that ensures your macro is only
 // called in the context of a babel transpilation and will throw an
-// error with a helpful message if someone does not have babel-macros
+// error with a helpful message if someone does not have babel-plugin-macros
 // configured correctly
 module.exports = createMacro(myMacro)
 
 function myMacro({references, state, babel}) {
   // state is the second argument you're passed to a visitor in a
-  // normal babel plugin. `babel` is the `babel-macros` module.
+  // normal babel plugin. `babel` is the `babel-plugin-macros` module.
   // do whatever you like to the AST paths you find in `references`
   // read more below...
 }
@@ -31,14 +31,14 @@ case for your company's localization efforts).
 > [`babel-plugin-preval`][preval] help you do what you want as it's pretty
 > powerful.
 
-There are two parts to the `babel-macros` API:
+There are two parts to the `babel-plugin-macros` API:
 
 1. The filename convention
 2. The function you export
 
 ### Filename
 
-The way that `babel-macros` determines whether to run a macro is based on the
+The way that `babel-plugin-macros` determines whether to run a macro is based on the
 source string of the `import` or `require` statement. It must match this regex:
 `/[./]macro(\.js)?$/` for example:
 
@@ -75,14 +75,14 @@ import Sweet from 'sweet/macro'
 ```
 
 In addition, please publish your macro with the [`keyword`][keyword] of
-`babel-macros` (note the "s"). That way folks can easily find macros by
-searching for the [`babel-macros` keyword on npm][npm-babel-macros]. In
+`babel-plugin-macros` (note the "s"). That way folks can easily find macros by
+searching for the [`babel-plugin-macros` keyword on npm][npm-babel-plugin-macros]. In
 addition, and you can add this badge to the top of your README:
 
-[![Babel Macro](https://img.shields.io/badge/babel--macro-%F0%9F%8E%A3-f5da55.svg?style=flat-square)](https://github.com/kentcdodds/babel-macros)
+[![Babel Macro](https://img.shields.io/badge/babel--macro-%F0%9F%8E%A3-f5da55.svg?style=flat-square)](https://github.com/kentcdodds/babel-plugin-macros)
 
 ```
-[![Babel Macro](https://img.shields.io/badge/babel--macro-%F0%9F%8E%A3-f5da55.svg?style=flat-square)](https://github.com/kentcdodds/babel-macros)
+[![Babel Macro](https://img.shields.io/badge/babel--macro-%F0%9F%8E%A3-f5da55.svg?style=flat-square)](https://github.com/kentcdodds/babel-plugin-macros)
 ```
 
 ### Function API
@@ -149,29 +149,29 @@ import {foo as FooMacro} from './my.macro'
 From here, it's just a matter of doing doing stuff with the `BabelPath`s that
 you're given. For that check out [the babel handbook][babel-handbook].
 
-> One other thing to note is that after your macro has run, babel-macros will
+> One other thing to note is that after your macro has run, babel-plugin-macros will
 > remove the import/require statement for you.
 
 #### config (EXPERIMENTAL!)
 
 There is an experimental feature that allows users to configure your macro. We
-use [`cosmiconfig`][cosmiconfig] to read a `babel-macros` configuration which
+use [`cosmiconfig`][cosmiconfig] to read a `babel-plugin-macros` configuration which
 can be located in any of the following files up the directories from the
 importing file:
 
-* `.babel-macrosrc`
-* `.babel-macrosrc.json`
-* `.babel-macrosrc.yaml`
-* `.babel-macrosrc.yml`
-* `.babel-macrosrc.js`
-* `babel-macros.config.js`
+* `.babel-plugin-macrosrc`
+* `.babel-plugin-macrosrc.json`
+* `.babel-plugin-macrosrc.yaml`
+* `.babel-plugin-macrosrc.yml`
+* `.babel-plugin-macrosrc.js`
+* `babel-plugin-macros.config.js`
 * `babelMacros` in `package.json`
 
 To specify that your plugin is configurable, you pass a `configName` to
 `createMacro`:
 
 ```javascript
-const {createMacro} = require('babel-macros')
+const {createMacro} = require('babel-plugin-macros')
 const configName = 'taggedTranslations'
 module.exports = createMacro(taggedTranslationsMacro, {configName})
 function taggedTranslationsMacro({references, state, babel, config}) {
@@ -182,7 +182,7 @@ function taggedTranslationsMacro({references, state, babel, config}) {
 Then to configure this, users would do something like this:
 
 ```javascript
-// babel-macros.config.js
+// babel-plugin-macros.config.js
 module.exports = {
   taggedTranslations: {
     someConfig: {},
@@ -199,14 +199,14 @@ beginners. That's why it's important that you make assertions, and catch errors
 to throw more meaningful errors with helpful information for the developer to
 know what to do to resolve the issue.
 
-In an effort to make this easier for you, `babel-macros` will wrap the
+In an effort to make this easier for you, `babel-plugin-macros` will wrap the
 invocation of your plugin in a `try/catch` and throw as helpful an error message
 as possible for you.
 
 To make it even better, you can throw your own with more context. For example:
 
 ```javascript
-const {create: createMacro, MacroError} = require('babel-macros')
+const {create: createMacro, MacroError} = require('babel-plugin-macros')
 
 module.exports = createMacro(myMacro)
 
@@ -226,7 +226,7 @@ The best way to test your macro is using [`babel-plugin-tester`][tester]:
 ```javascript
 import path from 'path'
 import pluginTester from 'babel-plugin-tester'
-import plugin from 'babel-macros'
+import plugin from 'babel-plugin-macros'
 
 pluginTester({
   plugin,
@@ -252,5 +252,5 @@ Contributions to improve this experience are definitely welcome!
 [babel-handbook]: https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md
 [tester]: https://github.com/babel-utils/babel-plugin-tester
 [keyword]: https://docs.npmjs.com/files/package.json#keywords
-[npm-babel-macros]: https://www.npmjs.com/browse/keyword/babel-macros
+[npm-babel-plugin-macros]: https://www.npmjs.com/browse/keyword/babel-plugin-macros
 [cosmiconfig]: https://www.npmjs.com/package/cosmiconfig

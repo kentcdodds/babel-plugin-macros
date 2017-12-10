@@ -22,7 +22,7 @@ beforeAll(() => {
 
 afterEach(() => {
   // eslint-disable-next-line
-  require('babel-macros-test-fake/macro').innerFn.mockClear()
+  require('babel-plugin-macros-test-fake/macro').innerFn.mockClear()
 })
 
 expect.addSnapshotSerializer({
@@ -46,8 +46,9 @@ pluginTester({
       title: 'does nothing to code that does not import macro',
       snapshot: false,
       code: `
-        import foo from './some-file-without-macro';
-        const bar = require('./some-other-file-without-macro');
+        import foo from "./some-file-without-macro";
+
+        const bar = require("./some-other-file-without-macro");
       `,
     },
     {
@@ -130,14 +131,14 @@ pluginTester({
     {
       title: 'supports macros from node_modules',
       code: `
-        import fakeMacro from 'babel-macros-test-fake/macro'
+        import fakeMacro from 'babel-plugin-macros-test-fake/macro'
         fakeMacro('hi')
       `,
       teardown() {
         // kinda abusing the babel-plugin-tester API here
         // to make an extra assertion
         // eslint-disable-next-line
-        const fakeMacro = require('babel-macros-test-fake/macro')
+        const fakeMacro = require('babel-plugin-macros-test-fake/macro')
         expect(fakeMacro.innerFn).toHaveBeenCalledTimes(1)
         expect(fakeMacro.innerFn).toHaveBeenCalledWith({
           references: expect.any(Object),
@@ -176,7 +177,7 @@ pluginTester({
       title: 'appends the npm URL for errors thrown by node modules',
       error: true,
       code: `
-        import errorThrower from 'babel-macros-test-error-thrower.macro'
+        import errorThrower from 'babel-plugin-macros-test-error-thrower.macro'
         errorThrower('hi')
       `,
     },
@@ -185,7 +186,7 @@ pluginTester({
         'appends the npm URL for errors thrown by node modules with a slash',
       error: true,
       code: `
-        import errorThrower from 'babel-macros-test-error-thrower/macro'
+        import errorThrower from 'babel-plugin-macros-test-error-thrower/macro'
         errorThrower('hi')
       `,
     },
@@ -193,7 +194,7 @@ pluginTester({
       title: 'macros can set their configName and get their config',
       fixture: path.join(__dirname, 'fixtures/config/code.js'),
       teardown() {
-        const babelMacrosConfig = require('./fixtures/config/babel-macros.config')
+        const babelMacrosConfig = require('./fixtures/config/babel-plugin-macros.config')
         const configurableMacro = require('./fixtures/config/configurable.macro')
         expect(configurableMacro.realMacro).toHaveBeenCalledTimes(1)
         expect(configurableMacro.realMacro).toHaveBeenCalledWith(
