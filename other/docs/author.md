@@ -206,7 +206,7 @@ as possible for you.
 To make it even better, you can throw your own with more context. For example:
 
 ```javascript
-const {create: createMacro, MacroError} = require('babel-plugin-macros')
+const {createMacro, MacroError} = require('babel-plugin-macros')
 
 module.exports = createMacro(myMacro)
 
@@ -224,7 +224,6 @@ function myMacro({references, state, babel}) {
 The best way to test your macro is using [`babel-plugin-tester`][tester]:
 
 ```javascript
-import path from 'path'
 import pluginTester from 'babel-plugin-tester'
 import plugin from 'babel-plugin-macros'
 
