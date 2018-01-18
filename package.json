@@ -8,12 +8,14 @@
     "build": "kcd-scripts build",
     "lint": "kcd-scripts lint",
     "test": "kcd-scripts test",
-    "test:update": "npm test -- --updateSnapshot --coverage",
+    "test:update": "npm test -- --updateSnapshot",
     "validate": "kcd-scripts validate",
     "setup": "npm install && npm run validate -s",
     "precommit": "kcd-scripts precommit"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "babel-plugin",
     "macros",
@@ -24,7 +26,7 @@
   "author": "Kent C. Dodds <kent@doddsfamily.us> (http://kentcdodds.com/)",
   "license": "MIT",
   "dependencies": {
-    "cosmiconfig": "3.1.0"
+    "cosmiconfig": "^4.0.0"
   },
   "devDependencies": {
     "ast-pretty-print": "^2.0.1",
@@ -32,14 +34,20 @@
     "babel-plugin-tester": "^5.0.0",
     "babylon": "7.0.0-beta.34",
     "cpy": "^6.0.0",
-    "kcd-scripts": "^0.30.4"
+    "kcd-scripts": "^0.32.1"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js"
   },
-  "eslintIgnore": ["node_modules", "coverage", "dist"],
+  "eslintIgnore": [
+    "node_modules",
+    "coverage",
+    "dist"
+  ],
   "babel": {
-    "presets": ["./other/babel-config.js"]
+    "presets": [
+      "./other/babel-config.js"
+    ]
   },
   "repository": {
     "type": "git",
