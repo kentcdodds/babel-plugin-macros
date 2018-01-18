@@ -83,13 +83,14 @@ const styles = css`
 const styles = {red: '1f-d34j8rn43y587t'}
 ```
 
-If the css-in-js library supported babel-plugin-macros instead, then they wouldn't need
-their own babel plugin to compile these out; they could instead rely on
-babel-plugin-macros to do it for them. So if a user already had babel-plugin-macros installed
-and configured with babel, then they wouldn't need to change their babel
-configuration to get the compile-time benefits of the library. This would be
-most useful if the boilerplate they were using came with babel-plugin-macros out of the
-box, which is what we're hoping will be true for create-react-app in the future.
+If the css-in-js library supported babel-plugin-macros instead, then they
+wouldn't need their own babel plugin to compile these out; they could instead
+rely on babel-plugin-macros to do it for them. So if a user already had
+`babel-plugin-macros` installed and configured with babel, then they wouldn't
+need to change their babel configuration to get the compile-time benefits of the
+library. This would be most useful if the boilerplate they were using came with
+`babel-plugin-macros` out of the box, which is true for
+[`create-react-app`][cra].
 
 Although css-in-js is the most common example, there are lots of other things
 you could use `babel-plugin-macros` for, like:
@@ -110,10 +111,12 @@ you could use `babel-plugin-macros` for, like:
 
 * [Installation](#installation)
 * [Usage](#usage)
+  * [User docs](#user-docs)
+  * [Author docs](#author-docs)
 * [FAQ](#faq)
   * [What's the difference between babel plugins and macros?](#whats-the-difference-between-babel-plugins-and-macros)
   * [In what order are macros executed?](#in-what-order-are-macros-executed)
-  * [Does it work with tagged template literals only?](#does-it-work-with-tagged-template-literals-only)
+  * [Does it work with function calls only?](#does-it-work-with-function-calls-only)
   * [How about implicit optimizations at compile time?](#how-about-implicit-optimizations-at-compile-time)
 * [Inspiration](#inspiration)
 * [Other Solutions](#other-solutions)
@@ -133,8 +136,12 @@ npm install --save-dev babel-plugin-macros
 
 ## Usage
 
+### User docs
+
 Are you trying to use `babel-plugin-macros`? Go to
 [`other/docs/user.md`](https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/user.md).
+
+### Author docs
 
 Are you trying to make your own macros that works with `babel-plugin-macros`? Go to
 [`other/docs/author.md`](https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/author.md).
@@ -144,62 +151,97 @@ Are you trying to make your own macros that works with `babel-plugin-macros`? Go
 
 ### What's the difference between babel plugins and macros?
 
-Suppose we have a plugin `node-eval`, which evaluates a node expression at compile time.
+Let's use
+[`babel-plugin-console`](https://www.npmjs.com/package/babel-plugin-console) as
+an example.
 
-If we used `babel-plugin-node-eval`, it would look like this:
+If we used `babel-plugin-console`, it would look like this:
 
-1. Add `babel-plugin-node-eval` to `.babelrc`
+1. Add `babel-plugin-console` to `.babelrc`
 2. Use it in a code:
 
 ```js
-const val = nodeEval`fs.readDirSync('./fleet')`
+function add100(a) {
+  const oneHundred = 100
+  console.scope('Add 100 to another number')
+  return add(a, oneHundred)
+}
 
-// ↓ ↓ ↓  compiles to  ↓ ↓ ↓
-
-const val = ['red_leader', 'blue_leader']
+function add(a, b) {
+  return a + b
+}
 ```
 
-Instead, if there were a macro called `node-eval.macro`, we could use
-it like this:
+When that code is run, the `scope` function does some pretty nifty things:
+
+**Browser:**
+
+![Browser console scoping add100](https://github.com/mattphillips/babel-plugin-console/raw/53536cba919d5be49d4f66d957769c07ca7a4207/assets/add100-chrome.gif)
+
+**Node:**
+
+<img alt="Node console scoping add100" src="https://github.com/mattphillips/babel-plugin-console/raw/53536cba919d5be49d4f66d957769c07ca7a4207/assets/add100-node.png" width="372">
+
+Instead, let's use the macro it's shipped with like this:
 
 1. Add `babel-plugin-macros` to `.babelrc` (only once for all macros)
 2. Use it in a code:
 
 ```js
-import nodeEval from 'node-eval.macro'
-const val = nodeEval`fs.readDirSync('./fleet')`
+import scope from 'babel-plugin-console/scope.macro'
+function add100(a) {
+  const oneHundred = 100
+  scope('Add 100 to another number')
+  return add(a, oneHundred)
+}
 
-// ↓ ↓ ↓  compiles to  ↓ ↓ ↓
-
-const val = ['red_leader', 'blue_leader']
+function add(a, b) {
+  return a + b
+}
 ```
 
-Advantages:
+The result is exactly the same, but this approach has a few advantages:
 
-* requires only one entry in `.babelrc` for all macros used in project
-* boilerplates, like Create React App ([soon hopefully][cra-issue]), might already support `babel-plugin-macros`, so no configuration is needed
-* it's explicit, that `node-eval` is macro and does something with the code at compile time
-* macros are safer and easier to write, because they receive exactly the AST node to process
+**Advantages:**
 
-> By the way, something like `node-eval` actually exists and it's called [babel-plugin-preval][preval].
+* requires only one entry in `.babelrc` for all macros used in project. Add that
+  once and you can use all the macros you want
+* toolkits (like [create-react-app][cra]) may already support
+  `babel-plugin-macros`, so no configuration is needed at all
+* it's explicit. With `console.scope` people may be fooled that it's just a
+  normal `console` API when there's really a babel transpilation going on. When
+  you import `scope`, it's obvious that it's macro and does something with the
+  code at compile time. Some ESLint rules may also have issues with plugins that
+  look for "global" variables
+* macros are safer and easier to write, because they receive exactly the AST
+  node to process
+* If you misconfigure `babel-plugin-console` you wont find out until you run the
+  code. If you misconfigure `babel-plugin-macros` you'll get a compile-time
+  error.
+
+**Drawbacks:**
+
+* Cannot (should not) be used for implicit transpilations (like syntax plugins)
+* Explicitness is more verbose. Which some people might consider a drawback...
 
 ### In what order are macros executed?
 
-In the same order as imported. The order of execution is clear, explicit
-and in full control of the user:
+This is another advantage of `babel-plugin-macros` over regular plugins. The
+user of the macro is in control of the ordering! The order of execution is the
+same order as imported. The order of execution is clear, explicit and in full
+control of the user:
 
 ```js
-import nodeEval from 'node-eval.macro'
-import css from 'css-in-js.macro'
+import preval from 'preval.macro'
+import idx from 'idx.macro'
 
-# First are evaluated `node-eval` macros, then `css` macros
+// preval macro is evaluated first, then idx
 ```
 
-This differs from the current situation with babel plugins where
-it's prohibitively difficult to control the order plugins run in
-a particular file.
+This differs from the current situation with babel plugins where it's
+prohibitively difficult to control the order plugins run in a particular file.
 
-### Does it work with tagged template literals only?
+### Does it work with function calls only?
 
 No! Any AST node type is supported.
 
@@ -237,17 +279,18 @@ Completely different story are _implicit_ babel plugins, like
 [transform-react-constant-elements](https://babeljs.io/docs/plugins/transform-react-constant-elements/),
 which process whole AST tree.
 
-Explicit is often a better pattern than implicit because it requires others to understand
-how things are globally configured. This is in this spirit are `babel-plugin-macros` designed.
-However, some things _do_ need to be implicit, and those kinds of babel plugins can't be
-turned into macros.
+Explicit is often a better pattern than implicit because it requires others to
+understand how things are globally configured. This is in this spirit are
+`babel-plugin-macros` designed. However, some things _do_ need to be implicit,
+and those kinds of babel plugins can't be turned into macros.
 
 ## Inspiration
 
 * [threepointone/babel-plugin-macros](https://github.com/threepointone/babel-plugin-macros)
 * [facebookincubator/create-react-app#2730][cra-issue]
 
-Thank you to [@phpnode](https://github.com/phpnode) for donating the npm package `babel-plugin-macros`.
+Thank you to [@phpnode](https://github.com/phpnode) for donating the npm package
+`babel-plugin-macros`.
 
 ## Other Solutions
 
@@ -300,4 +343,5 @@ MIT
 [emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
 [all-contributors]: https://github.com/kentcdodds/all-contributors
 [preval]: https://github.com/kentcdodds/babel-plugin-preval
+[cra]: https://github.com/facebookincubator/create-react-app
 [cra-issue]: https://github.com/facebookincubator/create-react-app/issues/2730
