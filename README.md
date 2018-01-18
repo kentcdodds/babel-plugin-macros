@@ -114,6 +114,7 @@ you could use `babel-plugin-macros` for, like:
   * [User docs](#user-docs)
   * [Author docs](#author-docs)
 * [FAQ](#faq)
+  * [How do I find available macros?](#how-do-i-find-available-macros)
   * [What's the difference between babel plugins and macros?](#whats-the-difference-between-babel-plugins-and-macros)
   * [In what order are macros executed?](#in-what-order-are-macros-executed)
   * [Does it work with function calls only?](#does-it-work-with-function-calls-only)
@@ -148,6 +149,14 @@ Are you trying to make your own macros that works with `babel-plugin-macros`? Go
 (you should probably read the user docs too).
 
 ## FAQ
+
+### How do I find available macros?
+
+You can write your own without publishing them to `npm`, but if you'd like to
+see existing macros you can add to your project, then take a look at
+[`other/macros.md`](https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/macros.md)
+
+Please add any you don't see listed!
 
 ### What's the difference between babel plugins and macros?
 
