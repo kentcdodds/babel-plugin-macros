@@ -2,6 +2,12 @@
 
 > See also: [the `user` docs](https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/user.md).
 
+Is this your first time working with ASTs? Here are some resources:
+
+* [Writing custom Babel and ESLint plugins with ASTs](https://youtu.be/VBscbcm2Mok?list=PLV5CVI1eNcJgNqzNwcs4UKrlJdhfDjshf): A 53 minute talk by [@kentcdodds](https://twitter.com/kentcdodds)
+* [babel-handbook](https://github.com/thejameskyle/babel-handbook): A guided handbook on how to use Babel and how to create plugins for Babel by [@thejameskyle](https://twitter.com/thejameskyle)
+* [Code Transformation and Linting](https://kentcdodds.com/workshops/#code-transformation-and-linting): A workshop (recording available on Frontend Masters) with exercises of making custom Babel and ESLint plugins
+
 ## Writing a macro
 
 A macro is a JavaScript module that exports a function. Here's a simple example:
