@@ -154,7 +154,7 @@ Are you trying to make your own macros that works with `babel-plugin-macros`? Go
 
 You can write your own without publishing them to `npm`, but if you'd like to
 see existing macros you can add to your project, then take a look at
-[`other/macros.md`](https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/macros.md)
+[`other/docs/macros.md`](https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/macros.md)
 
 Please add any you don't see listed!
 
