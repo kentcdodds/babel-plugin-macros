@@ -153,8 +153,7 @@ Are you trying to make your own macros that works with `babel-plugin-macros`? Go
 
 #### Babel cache problem
 
-In most of development cases, we enable babel cache in webpack to rebuild faster.
-If your macro function is **not pure** which gets different output with same code (e.g., IO side effects) it will cause recompile mechanism fail.
+Most of the time you'll probably be using this with the babel cache enabled in webpack to rebuild faster. If your macro function is **not pure** which gets different output with same code (e.g., IO side effects) it will cause recompile mechanism fail. Unfortunately you'll also experience this problem while developing your macro as well. If there's not a change to the source code that's being transpiled, then babel will use the cache rather than running your macro again.
 
 For now, to force recompile the code you can simply add a cache busting comment in the file:
 
@@ -166,7 +165,7 @@ import macro from 'non-pure.macro';
 macro('parameters');
 ```
 
-This problem is still working on. For more details and workarounds, please check related issues below:
+This problem is still being worked on and is not unique to `babel-plugin-macros`. For more details and workarounds, please check related issues below:
 
 * babel-plugin-preval: [How to force recompile? #19](https://github.com/kentcdodds/babel-plugin-preval/issues/19)
 * graphql.macro: [Recompile problem (babel cache) #6](https://github.com/evenchange4/graphql.macro/issues/6)
