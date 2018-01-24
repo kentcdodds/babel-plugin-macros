@@ -13,6 +13,8 @@ there's an ecosystem of existing macros out there that you might find interestin
 * [`ms.macro`](https://www.npmjs.com/package/ms.macro): Convert various time formats to milliseconds at build time in Babel.
 * [`react-emotion/macro`](https://github.com/emotion-js/emotion/tree/78fea2d2eb74269645b28fe12392ecc09882f55f/packages/babel-plugin-emotion#babel-macros): Babel plugin for the minification and optimization of emotion styles.
 * [`babel-plugin-console/macro`](https://www.npmjs.com/package/babel-plugin-console): Adds useful build time console functions
+* [`graphql.macro`](https://github.com/evenchange4/graphql.macro): Compile GraphQL AST at build-time with babel-plugin-macros.
+* [`svgr.macro`](https://github.com/evenchange4/svgr.macro): Run svgr at build-time with babel-plugin-macros.
 
 In addition, you can
 [search npm for `keyword:babel-plugin-macros`](https://www.npmjs.com/search?q=keywords:babel-plugin-macros)
