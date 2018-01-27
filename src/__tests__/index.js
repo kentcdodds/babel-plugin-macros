@@ -129,6 +129,20 @@ pluginTester({
       `,
     },
     {
+      title: 'supports compiled macros (`__esModule` + `export default`)',
+      code: `
+        import {css, styled} from './fixtures/emotion-esm.macro'
+        const red = css\`
+          background-color: red;
+        \`
+
+        const Div = styled.div\`
+          composes: \${red}
+          color: blue;
+        \`
+      `,
+    },
+    {
       title: 'supports macros from node_modules',
       code: `
         import fakeMacro from 'babel-plugin-macros-test-fake/macro'

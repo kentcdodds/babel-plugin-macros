@@ -97,6 +97,30 @@ Error: ./fixtures/error-thrower.macro: very unhelpful
 
 `;
 
+exports[`macros supports compiled macros (\`__esModule\` + \`export default\`): supports compiled macros (\`__esModule\` + \`export default\`) 1`] = `
+
+import {css, styled} from './fixtures/emotion-esm.macro'
+const red = css\`
+  background-color: red;
+\`
+
+const Div = styled.div\`
+  composes: \${red}
+  color: blue;
+\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const red = css\`
+  background-color: red;
+\`;
+const Div = styled.div\`
+  composes: \${red}
+  color: blue;
+\`;
+
+`;
+
 exports[`macros supports macros from node_modules: supports macros from node_modules 1`] = `
 
 import fakeMacro from 'babel-plugin-macros-test-fake/macro'
