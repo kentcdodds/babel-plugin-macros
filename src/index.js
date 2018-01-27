@@ -71,38 +71,44 @@ function macrosPlugin(babel) {
         })
         path.remove()
       },
-      CallExpression(path, state) {
-        const isMacros = looksLike(path, {
-          node: {
-            callee: {
-              type: 'Identifier',
-              name: 'require',
+      VariableDeclaration(path, state) {
+        const isMacros = child =>
+          looksLike(child, {
+            node: {
+              init: {
+                callee: {
+                  type: 'Identifier',
+                  name: 'require',
+                },
+                arguments: args =>
+                  args.length === 1 && macrosRegex.test(args[0].value),
+              },
             },
-            arguments: args =>
-              args.length === 1 && macrosRegex.test(args[0].value),
-          },
-          parent: {
-            type: 'VariableDeclarator',
-          },
-        })
-        if (!isMacros) {
-          return
-        }
-        const imports = path.parent.id.name
-          ? [{localName: path.parent.id.name, importedName: 'default'}]
-          : path.parent.id.properties.map(property => ({
-              localName: property.value.name,
-              importedName: property.key.name,
-            }))
-        const source = path.node.arguments[0].value
-        applyMacros({
-          path,
-          imports,
-          source,
-          state,
-          babel,
-        })
-        path.parentPath.remove()
+          })
+
+        path
+          .get('declarations')
+          .filter(isMacros)
+          .forEach(child => {
+            const imports = child.node.id.name
+              ? [{localName: child.node.id.name, importedName: 'default'}]
+              : child.node.id.properties.map(property => ({
+                  localName: property.value.name,
+                  importedName: property.key.name,
+                }))
+
+            const call = child.get('init')
+            const source = call.node.arguments[0].value
+            applyMacros({
+              path: call,
+              imports,
+              source,
+              state,
+              babel,
+            })
+
+            child.remove()
+          })
       },
     },
   }
