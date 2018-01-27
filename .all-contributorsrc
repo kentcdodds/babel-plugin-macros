@@ -103,6 +103,15 @@
         "doc",
         "plugin"
       ]
+    },
+    {
+      "login": "citycide",
+      "name": "Bo Lingen",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/16605186?v=4",
+      "profile": "https://github.com/citycide",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
