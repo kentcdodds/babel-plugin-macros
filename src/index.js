@@ -134,8 +134,7 @@ function applyMacros({path, imports, source, state, babel}) {
   if (isRelative) {
     requirePath = p.join(p.dirname(getFullFilename(filename)), source)
   }
-  // eslint-disable-next-line import/no-dynamic-require
-  const macro = require(requirePath)
+  const macro = interopRequire(requirePath)
   if (!macro.isBabelMacro) {
     throw new Error(
       // eslint-disable-next-line prefer-template
@@ -233,6 +232,12 @@ function looksLike(a, b) {
 function isPrimitive(val) {
   // eslint-disable-next-line
   return val == null || /^[sbn]/.test(typeof val)
+}
+
+function interopRequire(path) {
+  // eslint-disable-next-line import/no-dynamic-require
+  const o = require(path)
+  return o && o.__esModule && o.default ? o.default : o
 }
 
 module.exports = macrosPlugin
