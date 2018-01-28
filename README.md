@@ -315,6 +315,10 @@ understand how things are globally configured. This is in this spirit are
 `babel-plugin-macros` designed. However, some things _do_ need to be implicit,
 and those kinds of babel plugins can't be turned into macros.
 
+### Should macros be dependencies or devDependencies?
+
+Macros are processed at build-time and not required at runtime.  They should be devDependencies.
+
 ## Inspiration
 
 * [threepointone/babel-plugin-macros](https://github.com/threepointone/babel-plugin-macros)
