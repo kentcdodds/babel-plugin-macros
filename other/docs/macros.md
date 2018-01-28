@@ -16,6 +16,8 @@ there's an ecosystem of existing macros out there that you might find interestin
 * [`graphql.macro`](https://github.com/evenchange4/graphql.macro): Compile GraphQL AST at build-time with babel-plugin-macros.
 * [`svgr.macro`](https://github.com/evenchange4/svgr.macro): Run svgr at build-time with babel-plugin-macros.
 
+Please note that macros are intended to be used as devDependencies.
+
 In addition, you can
 [search npm for `keyword:babel-plugin-macros`](https://www.npmjs.com/search?q=keywords:babel-plugin-macros)
 to find macros.
