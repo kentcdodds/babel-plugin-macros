@@ -15,6 +15,7 @@ there's an ecosystem of existing macros out there that you might find interestin
 * [`babel-plugin-console/macro`](https://www.npmjs.com/package/babel-plugin-console): Adds useful build time console functions
 * [`graphql.macro`](https://github.com/evenchange4/graphql.macro): Compile GraphQL AST at build-time with babel-plugin-macros.
 * [`svgr.macro`](https://github.com/evenchange4/svgr.macro): Run svgr at build-time with babel-plugin-macros.
+* [`glamorous.macro`](https://github.com/kentcdodds/glamorous.macro): Give your glamorous components a nice `displayName` for React DevTools.
 
 Please note that macros are intended to be used as devDependencies.
 
