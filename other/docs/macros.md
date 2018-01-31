@@ -12,7 +12,7 @@ there's an ecosystem of existing macros out there that you might find interestin
 * [`param.macro`](https://www.npmjs.com/package/param.macro): Partial application syntax and lambda parameters for JavaScript, inspired by Scala's `_` & Kotlin's it.
 * [`ms.macro`](https://www.npmjs.com/package/ms.macro): Convert various time formats to milliseconds at build time in Babel.
 * [`react-emotion/macro`](https://github.com/emotion-js/emotion/tree/78fea2d2eb74269645b28fe12392ecc09882f55f/packages/babel-plugin-emotion#babel-macros): Babel plugin for the minification and optimization of emotion styles.
-* [`babel-plugin-console/macro`](https://www.npmjs.com/package/babel-plugin-console): Adds useful build time console functions
+* [`scope.macro`](https://www.npmjs.com/package/scope.macro): Adds useful build time console functions
 * [`graphql.macro`](https://github.com/evenchange4/graphql.macro): Compile GraphQL AST at build-time with babel-plugin-macros.
 * [`svgr.macro`](https://github.com/evenchange4/svgr.macro): Run svgr at build-time with babel-plugin-macros.
 * [`glamorous.macro`](https://github.com/kentcdodds/glamorous.macro): Give your glamorous components a nice `displayName` for React DevTools.
