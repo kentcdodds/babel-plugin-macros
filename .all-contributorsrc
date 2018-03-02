@@ -1,6 +1,7 @@
 {
   "projectName": "babel-plugin-macros",
   "projectOwner": "kentcdodds",
+  "repoType": "github",
   "files": [
     "README.md"
   ],
@@ -131,6 +132,5 @@
         "code"
       ]
     }
-  ],
-  "repoType": "github"
+  ]
 }
