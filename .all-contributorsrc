@@ -1,6 +1,7 @@
 {
   "projectName": "babel-plugin-macros",
   "projectOwner": "kentcdodds",
+  "repoType": "github",
   "files": [
     "README.md"
   ],
@@ -120,6 +121,15 @@
       "profile": "https://github.com/tylerthehaas",
       "contributions": [
         "doc"
+      ]
+    },
+    {
+      "login": "FWeinb",
+      "name": "FWeinb",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1250430?v=4",
+      "profile": "https://github.com/FWeinb",
+      "contributions": [
+        "code"
       ]
     }
   ]

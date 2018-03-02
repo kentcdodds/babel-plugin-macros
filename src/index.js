@@ -41,7 +41,13 @@ function createMacro(macro, options = {}) {
   }
 }
 
-function macrosPlugin(babel) {
+function macrosPlugin(babel, {require: _require = require} = {}) {
+  function interopRequire(path) {
+    // eslint-disable-next-line import/no-dynamic-require
+    const o = _require(path)
+    return o && o.__esModule && o.default ? o.default : o
+  }
+
   return {
     name: 'macros',
     visitor: {
@@ -68,6 +74,7 @@ function macrosPlugin(babel) {
           source,
           state,
           babel,
+          interopRequire,
         })
         path.remove()
       },
@@ -105,6 +112,7 @@ function macrosPlugin(babel) {
               source,
               state,
               babel,
+              interopRequire,
             })
 
             child.remove()
@@ -115,7 +123,7 @@ function macrosPlugin(babel) {
 }
 
 // eslint-disable-next-line complexity
-function applyMacros({path, imports, source, state, babel}) {
+function applyMacros({path, imports, source, state, babel, interopRequire}) {
   const {file: {opts: {filename}}} = state
   let hasReferences = false
   const referencePathsByImportName = imports.reduce(
@@ -232,12 +240,6 @@ function looksLike(a, b) {
 function isPrimitive(val) {
   // eslint-disable-next-line
   return val == null || /^[sbn]/.test(typeof val)
-}
-
-function interopRequire(path) {
-  // eslint-disable-next-line import/no-dynamic-require
-  const o = require(path)
-  return o && o.__esModule && o.default ? o.default : o
 }
 
 module.exports = macrosPlugin
