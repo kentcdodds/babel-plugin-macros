@@ -13,7 +13,7 @@ Enables zero-config, importable babel plugins
 [![downloads][downloads-badge]][npmchart]
 [![MIT License][license-badge]][license]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome][prs-badge]][prs]
 [![Donate][donate-badge]][donate]
 [![Code of Conduct][coc-badge]][coc]
@@ -189,8 +189,8 @@ an example.
 
 If we used `babel-plugin-console`, it would look like this:
 
-1. Add `babel-plugin-console` to `.babelrc`
-2. Use it in a code:
+1.  Add `babel-plugin-console` to `.babelrc`
+2.  Use it in a code:
 
 ```js
 function add100(a) {
@@ -216,8 +216,8 @@ When that code is run, the `scope` function does some pretty nifty things:
 
 Instead, let's use the macro it's shipped with like this:
 
-1. Add `babel-plugin-macros` to `.babelrc` (only once for all macros)
-2. Use it in a code:
+1.  Add `babel-plugin-macros` to `.babelrc` (only once for all macros)
+2.  Use it in a code:
 
 ```js
 import scope from 'babel-plugin-console/scope.macro'
@@ -339,9 +339,9 @@ Thanks goes to these people ([emoji key][emojis]):
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 
 <!-- prettier-ignore -->
-| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub><b>Kent C. Dodds</b></sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/babel-plugin-macros/commits?author=kentcdodds "Code") [📖](https://github.com/kentcdodds/babel-plugin-macros/commits?author=kentcdodds "Documentation") [🚇](#infra-kentcdodds "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/kentcdodds/babel-plugin-macros/commits?author=kentcdodds "Tests") | [<img src="https://avatars1.githubusercontent.com/u/18808?v=3" width="100px;"/><br /><sub><b>Sunil Pai</b></sub>](https://github.com/threepointone)<br />[🤔](#ideas-threepointone "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/1341513?v=3" width="100px;"/><br /><sub><b>Stephen Scott</b></sub>](http://suchipi.com/)<br />[💬](#question-suchipi "Answering Questions") [📖](https://github.com/kentcdodds/babel-plugin-macros/commits?author=suchipi "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/767261?v=4" width="100px;"/><br /><sub><b>Michiel Dral</b></sub>](http://twitter.com/dralletje)<br />[🤔](#ideas-dralletje "Ideas, Planning, & Feedback") | [<img src="https://avatars2.githubusercontent.com/u/662750?v=4" width="100px;"/><br /><sub><b>Kye Hohenberger</b></sub>](https://github.com/tkh44)<br />[🤔](#ideas-tkh44 "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/11481355?v=4" width="100px;"/><br /><sub><b>Mitchell Hamilton</b></sub>](https://hamil.town)<br />[💻](https://github.com/kentcdodds/babel-plugin-macros/commits?author=mitchellhamilton "Code") [⚠️](https://github.com/kentcdodds/babel-plugin-macros/commits?author=mitchellhamilton "Tests") | [<img src="https://avatars1.githubusercontent.com/u/1288694?v=4" width="100px;"/><br /><sub><b>Justin Hall</b></sub>](https://github.com/wKovacs64)<br />[📖](https://github.com/kentcdodds/babel-plugin-macros/commits?author=wKovacs64 "Documentation") |
+| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub><b>Kent C. Dodds</b></sub>](https://kentcdodds.com)<br />[💻](/kentcdodds/babel-plugin-macros/commits?author=kentcdodds "Code") [📖](/kentcdodds/babel-plugin-macros/commits?author=kentcdodds "Documentation") [🚇](#infra-kentcdodds "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](/kentcdodds/babel-plugin-macros/commits?author=kentcdodds "Tests") | [<img src="https://avatars1.githubusercontent.com/u/18808?v=3" width="100px;"/><br /><sub><b>Sunil Pai</b></sub>](https://github.com/threepointone)<br />[🤔](#ideas-threepointone "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/1341513?v=3" width="100px;"/><br /><sub><b>Stephen Scott</b></sub>](http://suchipi.com/)<br />[💬](#question-suchipi "Answering Questions") [📖](/kentcdodds/babel-plugin-macros/commits?author=suchipi "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/767261?v=4" width="100px;"/><br /><sub><b>Michiel Dral</b></sub>](http://twitter.com/dralletje)<br />[🤔](#ideas-dralletje "Ideas, Planning, & Feedback") | [<img src="https://avatars2.githubusercontent.com/u/662750?v=4" width="100px;"/><br /><sub><b>Kye Hohenberger</b></sub>](https://github.com/tkh44)<br />[🤔](#ideas-tkh44 "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/11481355?v=4" width="100px;"/><br /><sub><b>Mitchell Hamilton</b></sub>](https://hamil.town)<br />[💻](/kentcdodds/babel-plugin-macros/commits?author=mitchellhamilton "Code") [⚠️](/kentcdodds/babel-plugin-macros/commits?author=mitchellhamilton "Tests") | [<img src="https://avatars1.githubusercontent.com/u/1288694?v=4" width="100px;"/><br /><sub><b>Justin Hall</b></sub>](https://github.com/wKovacs64)<br />[📖](/kentcdodds/babel-plugin-macros/commits?author=wKovacs64 "Documentation") |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| [<img src="https://avatars3.githubusercontent.com/u/1903016?v=4" width="100px;"/><br /><sub><b>Brian Pedersen</b></sub>](https://github.com/PiereDome)<br />[💻](https://github.com/kentcdodds/babel-plugin-macros/commits?author=PiereDome "Code") [📖](https://github.com/kentcdodds/babel-plugin-macros/commits?author=PiereDome "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/4495237?v=4" width="100px;"/><br /><sub><b>Andrew Palm</b></sub>](https://github.com/apalm)<br />[💻](https://github.com/kentcdodds/babel-plugin-macros/commits?author=apalm "Code") | [<img src="https://avatars1.githubusercontent.com/u/1527371?v=4" width="100px;"/><br /><sub><b>Michael Hsu</b></sub>](https://michaelhsu.tw/)<br />[📖](https://github.com/kentcdodds/babel-plugin-macros/commits?author=evenchange4 "Documentation") [🔌](#plugin-evenchange4 "Plugin/utility libraries") | [<img src="https://avatars2.githubusercontent.com/u/16605186?v=4" width="100px;"/><br /><sub><b>Bo Lingen</b></sub>](https://github.com/citycide)<br />[💻](https://github.com/kentcdodds/babel-plugin-macros/commits?author=citycide "Code") | [<img src="https://avatars1.githubusercontent.com/u/11150235?v=4" width="100px;"/><br /><sub><b>Tyler Haas</b></sub>](https://github.com/tylerthehaas)<br />[📖](https://github.com/kentcdodds/babel-plugin-macros/commits?author=tylerthehaas "Documentation") |
+| [<img src="https://avatars3.githubusercontent.com/u/1903016?v=4" width="100px;"/><br /><sub><b>Brian Pedersen</b></sub>](https://github.com/PiereDome)<br />[💻](/kentcdodds/babel-plugin-macros/commits?author=PiereDome "Code") [📖](/kentcdodds/babel-plugin-macros/commits?author=PiereDome "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/4495237?v=4" width="100px;"/><br /><sub><b>Andrew Palm</b></sub>](https://github.com/apalm)<br />[💻](/kentcdodds/babel-plugin-macros/commits?author=apalm "Code") | [<img src="https://avatars1.githubusercontent.com/u/1527371?v=4" width="100px;"/><br /><sub><b>Michael Hsu</b></sub>](https://michaelhsu.tw/)<br />[📖](/kentcdodds/babel-plugin-macros/commits?author=evenchange4 "Documentation") [🔌](#plugin-evenchange4 "Plugin/utility libraries") | [<img src="https://avatars2.githubusercontent.com/u/16605186?v=4" width="100px;"/><br /><sub><b>Bo Lingen</b></sub>](https://github.com/citycide)<br />[💻](/kentcdodds/babel-plugin-macros/commits?author=citycide "Code") | [<img src="https://avatars1.githubusercontent.com/u/11150235?v=4" width="100px;"/><br /><sub><b>Tyler Haas</b></sub>](https://github.com/tylerthehaas)<br />[📖](/kentcdodds/babel-plugin-macros/commits?author=tylerthehaas "Documentation") | [<img src="https://avatars0.githubusercontent.com/u/1250430?v=4" width="100px;"/><br /><sub><b>FWeinb</b></sub>](https://github.com/FWeinb)<br />[💻](/kentcdodds/babel-plugin-macros/commits?author=FWeinb "Code") |
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
