@@ -17,6 +17,7 @@ there's an ecosystem of existing macros out there that you might find interestin
 * [`svgr.macro`](https://github.com/evenchange4/svgr.macro): Run svgr at build-time with babel-plugin-macros.
 * [`glamorous.macro`](https://github.com/kentcdodds/glamorous.macro): Give your glamorous components a nice `displayName` for React DevTools.
 * [`raw.macro`](https://github.com/pveyes/raw.macro): Webpack raw-loader implemented with babel-plugin-macros.
+* [`penv.macro`](https://github.com/chengjianhua/penv.macro): Pick specified value or branch according to the environment of building.
 
 Please note that macros are intended to be used as devDependencies.
 
