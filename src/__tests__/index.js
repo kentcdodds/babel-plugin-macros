@@ -254,5 +254,16 @@ pluginTester({
         }
       },
     },
+    {
+      title:
+        'when a plugin that replaces paths is used, macros still work properly',
+      fixture: path.join(
+        __dirname,
+        'fixtures/path-replace-issue/variable-assignment.js',
+      ),
+      babelOptions: {
+        babelrc: true,
+      },
+    },
   ],
 })

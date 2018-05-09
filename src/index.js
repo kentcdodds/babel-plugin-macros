@@ -124,7 +124,11 @@ function macrosPlugin(babel, {require: _require = require} = {}) {
 
 // eslint-disable-next-line complexity
 function applyMacros({path, imports, source, state, babel, interopRequire}) {
-  const {file: {opts: {filename}}} = state
+  const {
+    file: {
+      opts: {filename},
+    },
+  } = state
   let hasReferences = false
   const referencePathsByImportName = imports.reduce(
     (byName, {importedName, localName}) => {
@@ -153,6 +157,18 @@ function applyMacros({path, imports, source, state, babel, interopRequire}) {
   }
   const config = getConfig(macro, filename, source)
   try {
+    /**
+     * Other plugins that run before babel-plugin-macros might use path.replace, where a path is
+     * put into its own replacement. Apparently babel does not update the scope after such
+     * an operation. As a remedy, the whole scope is traversed again with an empty "Identifier"
+     * visitor - this makes the problem go away.
+     *
+     * See: https://github.com/kentcdodds/import-all.macro/issues/7
+     */
+    state.file.scope.path.traverse({
+      Identifier() {},
+    })
+
     macro({
       references: referencePathsByImportName,
       state,
