@@ -52,9 +52,9 @@ pluginTester({
       `,
     },
     {
-      title: 'does nothing but remove macros if it is unused',
+      title: 'removes macro even if unused',
       code: `
-        import foo from './some-macros-that-doesnt-even-need-to-exist.macro'
+        import myEval from './fixtures/eval.macro'
         export default 'something else'
       `,
     },

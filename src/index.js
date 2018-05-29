@@ -129,18 +129,13 @@ function applyMacros({path, imports, source, state, babel, interopRequire}) {
       opts: {filename},
     },
   } = state
-  let hasReferences = false
   const referencePathsByImportName = imports.reduce(
     (byName, {importedName, localName}) => {
       byName[importedName] = path.scope.getBinding(localName).referencePaths
-      hasReferences = hasReferences || Boolean(byName[importedName].length)
       return byName
     },
     {},
   )
-  if (!hasReferences) {
-    return
-  }
   let requirePath = source
   const isRelative = source.indexOf('.') === 0
   if (isRelative) {
