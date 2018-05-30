@@ -19,6 +19,7 @@ there's an ecosystem of existing macros out there that you might find interestin
 * [`raw.macro`](https://github.com/pveyes/raw.macro): Webpack raw-loader implemented with babel-plugin-macros.
 * [`penv.macro`](https://github.com/chengjianhua/penv.macro): Pick specified value or branch according to the environment of building.
 * [`lqip.macro`](https://github.com/stereobooster/lqip.macro): Cretes LQIP at build time, similar to webpack lqip-loader.
+* [`dev-console.macro`](https://www.npmjs.com/package/dev-console.macro): Remove all console.log, console.warn and console.error calls from production builds.
 
 Please note that macros are intended to be used as devDependencies.
 
