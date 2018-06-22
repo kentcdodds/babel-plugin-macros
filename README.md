@@ -139,6 +139,10 @@ npm install --save-dev babel-plugin-macros
 
 ## Usage
 
+> You may like to watch
+> [this YouTube video](https://www.youtube.com/watch?v=1queadQ0048&list=PLV5CVI1eNcJgCrPH_e6d57KRUTiDZgs0u)
+> to get an idea of what macros is and how it can be used.
+
 ### User docs
 
 Are you trying to use `babel-plugin-macros`? Go to
