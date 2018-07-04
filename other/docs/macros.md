@@ -21,6 +21,7 @@ there's an ecosystem of existing macros out there that you might find interestin
 * [`lqip.macro`](https://github.com/stereobooster/lqip.macro): Cretes LQIP at build time, similar to webpack lqip-loader.
 * [`dev-console.macro`](https://www.npmjs.com/package/dev-console.macro): Remove all console.log, console.warn and console.error calls from production builds.
 * [`data-uri.macro`](https://github.com/Andarist/data-uri.macro): Convert your assets to [data URIs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs) at build time.
+* [`css-to-rn.macro`](https://github.com/jhen0409/css-to-rn.macro): Convert CSS to React Native style sheet at build time.
 
 Please note that macros are intended to be used as devDependencies.
 
