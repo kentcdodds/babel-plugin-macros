@@ -158,6 +158,10 @@ you're given. For that check out [the babel handbook][babel-handbook].
 > One other thing to note is that after your macro has run, babel-plugin-macros will
 > remove the import/require statement for you.
 
+#### source
+
+This is a string used as import declaration's source - i.e. `'./my.macro'`.
+
 #### config (EXPERIMENTAL!)
 
 There is an experimental feature that allows users to configure your macro. We

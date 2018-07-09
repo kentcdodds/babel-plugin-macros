@@ -171,6 +171,7 @@ function applyMacros({path, imports, source, state, babel, interopRequire}) {
 
     macro({
       references: referencePathsByImportName,
+      source,
       state,
       babel,
       config,
