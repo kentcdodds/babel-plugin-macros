@@ -156,6 +156,9 @@ pluginTester({
         expect(fakeMacro.innerFn).toHaveBeenCalledTimes(1)
         expect(fakeMacro.innerFn).toHaveBeenCalledWith({
           references: expect.any(Object),
+          source: expect.stringContaining(
+            'babel-plugin-macros-test-fake/macro',
+          ),
           state: expect.any(Object),
           babel: expect.any(Object),
           isBabelMacrosCall: true,
