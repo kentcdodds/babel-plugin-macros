@@ -152,12 +152,12 @@ pluginTester({
         // kinda abusing the babel-plugin-tester API here
         // to make an extra assertion
         // eslint-disable-next-line
-        const fakeMacro = require('babel-plugin-macros-test-fake/macros')
+        const fakeMacro = require('babel-plugin-macros-test-fake/macro')
         expect(fakeMacro.innerFn).toHaveBeenCalledTimes(1)
         expect(fakeMacro.innerFn).toHaveBeenCalledWith({
           references: expect.any(Object),
           source: expect.stringContaining(
-            'babel-plugin-macros-test-fake/macros',
+            'babel-plugin-macros-test-fake/macro',
           ),
           state: expect.any(Object),
           babel: expect.any(Object),
