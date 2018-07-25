@@ -186,8 +186,11 @@ function applyMacros({path, imports, source, state, babel, interopRequire}) {
       error.message = `${
         error.message
       } Learn more: https://www.npmjs.com/package/${source.replace(
-        /(\/.*)/g,
-        '',
+        // remove everything after package name
+        // @org/package/macro -> @org/package
+        // package/macro      -> package
+        /^((?:@[^/]+\/)?[^/]+).*/,
+        '$1',
       )}`
     }
     throw error
