@@ -244,7 +244,7 @@ pluginTester({
       title: 'when there is no config to load, then no config is passed',
       fixture: path.join(__dirname, 'fixtures/config/code.js'),
       setup() {
-        cosmiconfigMock.mockImplementationOnce(() => ({load: () => null}))
+        cosmiconfigMock.mockImplementationOnce(() => ({searchSync: () => null}))
         return function teardown() {
           const configurableMacro = require('./fixtures/config/configurable.macro')
           expect(configurableMacro.realMacro).toHaveBeenCalledTimes(1)

@@ -8,4 +8,8 @@ babelConfig.plugins = babelConfig.plugins.filter(
     !pluginPath.includes('babel-macros/') &&
     !pluginPath.includes('babel-plugin-macros/'),
 )
+const envPreset = babelConfig.presets.find(
+  p => p[0] && p[0].includes('preset-env'),
+)
+envPreset[1].modules = 'commonjs'
 module.exports = babelConfig
