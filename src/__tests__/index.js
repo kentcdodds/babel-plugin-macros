@@ -167,6 +167,13 @@ pluginTester({
       },
     },
     {
+      title: 'optionally keep imports',
+      code: `
+        const macro = require('./fixtures/keep-imports.macro')
+        const red = macro('noop');
+      `,
+    },
+    {
       title: 'throws an error if the macro is not properly wrapped',
       error: true,
       code: `

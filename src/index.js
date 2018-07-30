@@ -68,7 +68,7 @@ function macrosPlugin(babel, {require: _require = require} = {}) {
             s.type === 'ImportDefaultSpecifier' ? 'default' : s.imported.name,
         }))
         const source = path.node.source.value
-        applyMacros({
+        const result = applyMacros({
           path,
           imports,
           source,
@@ -76,7 +76,10 @@ function macrosPlugin(babel, {require: _require = require} = {}) {
           babel,
           interopRequire,
         })
-        path.remove()
+
+        if (!result || !result.keepImports) {
+          path.remove()
+        }
       },
       VariableDeclaration(path, state) {
         const isMacros = child =>
@@ -106,7 +109,7 @@ function macrosPlugin(babel, {require: _require = require} = {}) {
 
             const call = child.get('init')
             const source = call.node.arguments[0].value
-            applyMacros({
+            const result = applyMacros({
               path: call,
               imports,
               source,
@@ -115,7 +118,9 @@ function macrosPlugin(babel, {require: _require = require} = {}) {
               interopRequire,
             })
 
-            child.remove()
+            if (!result || !result.keepImports) {
+              child.remove()
+            }
           })
       },
     },
@@ -139,7 +144,7 @@ function applyMacros({path, imports, source, state, babel, interopRequire}) {
     {},
   )
   if (!hasReferences) {
-    return
+    return null
   }
   let requirePath = source
   const isRelative = source.indexOf('.') === 0
@@ -156,6 +161,7 @@ function applyMacros({path, imports, source, state, babel, interopRequire}) {
     )
   }
   const config = getConfig(macro, filename, source)
+  let result
   try {
     /**
      * Other plugins that run before babel-plugin-macros might use path.replace, where a path is
@@ -169,7 +175,7 @@ function applyMacros({path, imports, source, state, babel, interopRequire}) {
       Identifier() {},
     })
 
-    macro({
+    result = macro({
       references: referencePathsByImportName,
       source,
       state,
@@ -195,6 +201,7 @@ function applyMacros({path, imports, source, state, babel, interopRequire}) {
     }
     throw error
   }
+  return result
 }
 
 // eslint-disable-next-line consistent-return
