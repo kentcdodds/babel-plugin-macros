@@ -202,6 +202,26 @@ module.exports = {
 
 And the `config` object you would receive would be: `{someConfig: {}}`.
 
+### Keeping imports
+
+As said before, `babel-plugin-macros` automatically removes an import statement
+of macro. If you want to keep it because you have other plugins processing
+macros, return `{ keepImports: true }` from your macro:
+
+```javascript
+const {createMacro} = require('babel-plugin-macros')
+
+module.exports = createMacro(taggedTranslationsMacro)
+
+function taggedTranslationsMacro({references, state, babel}) {
+  // process node from references
+
+  return {
+    keepImports: true,
+  }
+}
+```
+
 ## Throwing Helpful Errors
 
 Debugging stuff that transpiles your code is the worst, especially for

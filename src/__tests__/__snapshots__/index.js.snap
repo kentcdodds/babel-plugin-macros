@@ -86,6 +86,31 @@ configured\`stuff\`;
 
 `;
 
+exports[`macros optionally keep imports (import declaration): optionally keep imports (import declaration) 1`] = `
+
+import macro from './fixtures/keep-imports.macro'
+const red = macro('noop');
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import macro from './fixtures/keep-imports.macro';
+const red = macro('noop');
+
+`;
+
+exports[`macros optionally keep imports (variable assignment): optionally keep imports (variable assignment) 1`] = `
+
+const macro = require('./fixtures/keep-imports.macro')
+const red = macro('noop');
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const macro = require('./fixtures/keep-imports.macro');
+
+const red = macro('noop');
+
+`;
+
 exports[`macros prepends the relative path for errors thrown by the macro: prepends the relative path for errors thrown by the macro 1`] = `
 
 import errorThrower from './fixtures/error-thrower.macro'
