@@ -28,7 +28,7 @@
   "author": "Kent C. Dodds <kent@doddsfamily.us> (http://kentcdodds.com/)",
   "license": "MIT",
   "dependencies": {
-    "cosmiconfig": "4.0.0"
+    "cosmiconfig": "^5.0.5"
   },
   "devDependencies": {
     "ast-pretty-print": "^2.0.1",
