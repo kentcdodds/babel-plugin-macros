@@ -137,8 +137,13 @@ function applyMacros({path, imports, source, state, babel, interopRequire}) {
   let hasReferences = false
   const referencePathsByImportName = imports.reduce(
     (byName, {importedName, localName}) => {
-      byName[importedName] = path.scope.getBinding(localName).referencePaths
-      hasReferences = hasReferences || Boolean(byName[importedName].length)
+      const binding = path.scope.getBinding(localName)
+
+      if (binding) {
+        byName[importedName] = binding.referencePaths
+        hasReferences = hasReferences || Boolean(byName[importedName].length)
+      }
+
       return byName
     },
     {},
