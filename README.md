@@ -13,7 +13,7 @@ Enables zero-config, importable babel plugins
 [![downloads][downloads-badge]][npmchart]
 [![MIT License][license-badge]][license]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome][prs-badge]][prs]
 [![Donate][donate-badge]][donate]
 [![Code of Conduct][coc-badge]][coc]
@@ -63,9 +63,9 @@ console.log(styles) // { red: "1f-d34j8rn43y587t" }
 This class name can be generated at runtime (in the browser), but this has some
 disadvantages:
 
-* There is cpu usage/time overhead; the client needs to run the code to generate
+- There is cpu usage/time overhead; the client needs to run the code to generate
   these classes every time the page loads
-* There is code bundle size overhead; the client needs to receive a CSS parser
+- There is code bundle size overhead; the client needs to receive a CSS parser
   in order to generate these class names, and shipping this makes the amount of
   js the client needs to parse larger.
 
@@ -95,9 +95,9 @@ library. This would be most useful if the boilerplate they were using came with
 Although css-in-js is the most common example, there are lots of other things
 you could use `babel-plugin-macros` for, like:
 
-* Compiling GraphQL fragments into objects so that the client doesn't need a
+- Compiling GraphQL fragments into objects so that the client doesn't need a
   GraphQL parser
-* Eval-ing out code at compile time that will be baked into the runtime code,
+- Eval-ing out code at compile time that will be baked into the runtime code,
   for instance to get a list of directories in the filesystem (see
   [preval][preval])
 
@@ -106,25 +106,24 @@ you could use `babel-plugin-macros` for, like:
 ## Table of Contents
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-* [Installation](#installation)
-* [Usage](#usage)
-  * [User docs](#user-docs)
-  * [Author docs](#author-docs)
-  * [Caveats](#caveats)
-* [FAQ](#faq)
-  * [How do I find available macros?](#how-do-i-find-available-macros)
-  * [What's the difference between babel plugins and macros?](#whats-the-difference-between-babel-plugins-and-macros)
-  * [In what order are macros executed?](#in-what-order-are-macros-executed)
-  * [Does it work with function calls only?](#does-it-work-with-function-calls-only)
-  * [How about implicit optimizations at compile time?](#how-about-implicit-optimizations-at-compile-time)
-  * [Should macros be dependencies or devDependencies?](#should-macros-be-dependencies-or-devdependencies)
-* [Inspiration](#inspiration)
-* [Other Solutions](#other-solutions)
-* [Contributors](#contributors)
-* [LICENSE](#license)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [User docs](#user-docs)
+  - [Author docs](#author-docs)
+  - [Caveats](#caveats)
+- [FAQ](#faq)
+  - [How do I find available macros?](#how-do-i-find-available-macros)
+  - [What's the difference between babel plugins and macros?](#whats-the-difference-between-babel-plugins-and-macros)
+  - [In what order are macros executed?](#in-what-order-are-macros-executed)
+  - [Does it work with function calls only?](#does-it-work-with-function-calls-only)
+  - [How about implicit optimizations at compile time?](#how-about-implicit-optimizations-at-compile-time)
+  - [Should macros be dependencies or devDependencies?](#should-macros-be-dependencies-or-devdependencies)
+- [Inspiration](#inspiration)
+- [Other Solutions](#other-solutions)
+- [Contributors](#contributors)
+- [LICENSE](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -172,8 +171,8 @@ macro('parameters');
 
 This problem is still being worked on and is not unique to `babel-plugin-macros`. For more details and workarounds, please check related issues below:
 
-* babel-plugin-preval: [How to force recompile? #19](https://github.com/kentcdodds/babel-plugin-preval/issues/19)
-* graphql.macro: [Recompile problem (babel cache) #6](https://github.com/evenchange4/graphql.macro/issues/6)
+- babel-plugin-preval: [How to force recompile? #19](https://github.com/kentcdodds/babel-plugin-preval/issues/19)
+- graphql.macro: [Recompile problem (babel cache) #6](https://github.com/evenchange4/graphql.macro/issues/6)
 
 ## FAQ
 
@@ -240,25 +239,25 @@ The result is exactly the same, but this approach has a few advantages:
 
 **Advantages:**
 
-* requires only one entry in `.babelrc` for all macros used in project. Add that
+- requires only one entry in `.babelrc` for all macros used in project. Add that
   once and you can use all the macros you want
-* toolkits (like [create-react-app][cra]) may already support
+- toolkits (like [create-react-app][cra]) may already support
   `babel-plugin-macros`, so no configuration is needed at all
-* it's explicit. With `console.scope` people may be fooled that it's just a
+- it's explicit. With `console.scope` people may be fooled that it's just a
   normal `console` API when there's really a babel transpilation going on. When
   you import `scope`, it's obvious that it's macro and does something with the
   code at compile time. Some ESLint rules may also have issues with plugins that
   look for "global" variables
-* macros are safer and easier to write, because they receive exactly the AST
+- macros are safer and easier to write, because they receive exactly the AST
   node to process
-* If you misconfigure `babel-plugin-console` you wont find out until you run the
+- If you misconfigure `babel-plugin-console` you wont find out until you run the
   code. If you misconfigure `babel-plugin-macros` you'll get a compile-time
   error.
 
 **Drawbacks:**
 
-* Cannot (should not) be used for implicit transpilations (like syntax plugins)
-* Explicitness is more verbose. Which some people might consider a drawback...
+- Cannot (should not) be used for implicit transpilations (like syntax plugins)
+- Explicitness is more verbose. Which some people might consider a drawback...
 
 ### In what order are macros executed?
 
@@ -326,15 +325,15 @@ Macros are processed at build-time and not required at runtime. They should be d
 
 ## Inspiration
 
-* [threepointone/babel-plugin-macros](https://github.com/threepointone/babel-plugin-macros)
-* [facebookincubator/create-react-app#2730][cra-issue]
+- [threepointone/babel-plugin-macros](https://github.com/threepointone/babel-plugin-macros)
+- [facebookincubator/create-react-app#2730][cra-issue]
 
 Thank you to [@phpnode](https://github.com/phpnode) for donating the npm package
 `babel-plugin-macros`.
 
 ## Other Solutions
 
-* [sweetjs](http://sweetjs.org/)
+- [sweetjs](http://sweetjs.org/)
 
 ## Contributors
 
@@ -345,6 +344,8 @@ Thanks goes to these people ([emoji key][emojis]):
 | [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub><b>Kent C. Dodds</b></sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/babel-plugin-macros/commits?author=kentcdodds "Code") [📖](https://github.com/kentcdodds/babel-plugin-macros/commits?author=kentcdodds "Documentation") [🚇](#infra-kentcdodds "Infrastructure (Hosting, Build-Tools, etc)") [⚠️](https://github.com/kentcdodds/babel-plugin-macros/commits?author=kentcdodds "Tests") | [<img src="https://avatars1.githubusercontent.com/u/18808?v=3" width="100px;"/><br /><sub><b>Sunil Pai</b></sub>](https://github.com/threepointone)<br />[🤔](#ideas-threepointone "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/1341513?v=3" width="100px;"/><br /><sub><b>Stephen Scott</b></sub>](http://suchipi.com/)<br />[💬](#question-suchipi "Answering Questions") [📖](https://github.com/kentcdodds/babel-plugin-macros/commits?author=suchipi "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/767261?v=4" width="100px;"/><br /><sub><b>Michiel Dral</b></sub>](http://twitter.com/dralletje)<br />[🤔](#ideas-dralletje "Ideas, Planning, & Feedback") | [<img src="https://avatars2.githubusercontent.com/u/662750?v=4" width="100px;"/><br /><sub><b>Kye Hohenberger</b></sub>](https://github.com/tkh44)<br />[🤔](#ideas-tkh44 "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/11481355?v=4" width="100px;"/><br /><sub><b>Mitchell Hamilton</b></sub>](https://hamil.town)<br />[💻](https://github.com/kentcdodds/babel-plugin-macros/commits?author=mitchellhamilton "Code") [⚠️](https://github.com/kentcdodds/babel-plugin-macros/commits?author=mitchellhamilton "Tests") | [<img src="https://avatars1.githubusercontent.com/u/1288694?v=4" width="100px;"/><br /><sub><b>Justin Hall</b></sub>](https://github.com/wKovacs64)<br />[📖](https://github.com/kentcdodds/babel-plugin-macros/commits?author=wKovacs64 "Documentation") |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | [<img src="https://avatars3.githubusercontent.com/u/1903016?v=4" width="100px;"/><br /><sub><b>Brian Pedersen</b></sub>](https://github.com/PiereDome)<br />[💻](https://github.com/kentcdodds/babel-plugin-macros/commits?author=PiereDome "Code") [📖](https://github.com/kentcdodds/babel-plugin-macros/commits?author=PiereDome "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/4495237?v=4" width="100px;"/><br /><sub><b>Andrew Palm</b></sub>](https://github.com/apalm)<br />[💻](https://github.com/kentcdodds/babel-plugin-macros/commits?author=apalm "Code") | [<img src="https://avatars1.githubusercontent.com/u/1527371?v=4" width="100px;"/><br /><sub><b>Michael Hsu</b></sub>](https://michaelhsu.tw/)<br />[📖](https://github.com/kentcdodds/babel-plugin-macros/commits?author=evenchange4 "Documentation") [🔌](#plugin-evenchange4 "Plugin/utility libraries") | [<img src="https://avatars2.githubusercontent.com/u/16605186?v=4" width="100px;"/><br /><sub><b>Bo Lingen</b></sub>](https://github.com/citycide)<br />[💻](https://github.com/kentcdodds/babel-plugin-macros/commits?author=citycide "Code") | [<img src="https://avatars1.githubusercontent.com/u/11150235?v=4" width="100px;"/><br /><sub><b>Tyler Haas</b></sub>](https://github.com/tylerthehaas)<br />[📖](https://github.com/kentcdodds/babel-plugin-macros/commits?author=tylerthehaas "Documentation") | [<img src="https://avatars0.githubusercontent.com/u/1250430?v=4" width="100px;"/><br /><sub><b>FWeinb</b></sub>](https://github.com/FWeinb)<br />[💻](https://github.com/kentcdodds/babel-plugin-macros/commits?author=FWeinb "Code") | [<img src="https://avatars2.githubusercontent.com/u/827862?v=4" width="100px;"/><br /><sub><b>Tomáš Ehrlich</b></sub>](http://www.tomasehrlich.cz)<br />[🐛](https://github.com/kentcdodds/babel-plugin-macros/issues?q=author%3Atricoder42 "Bug reports") [💻](https://github.com/kentcdodds/babel-plugin-macros/commits?author=tricoder42 "Code") |
+| [<img src="https://avatars0.githubusercontent.com/u/6572730?v=4" width="100px;"/><br /><sub><b>Jeroen van der Heijden</b></sub>](https://github.com/joente)<br />[💻](https://github.com/kentcdodds/babel-plugin-macros/commits?author=joente "Code") |
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
