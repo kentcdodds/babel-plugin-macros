@@ -148,15 +148,20 @@ function applyMacros({path, imports, source, state, babel, interopRequire}) {
     },
     {},
   )
-  if (!hasReferences) {
-    return null
-  }
+
   let requirePath = source
   const isRelative = source.indexOf('.') === 0
   if (isRelative) {
     requirePath = p.join(p.dirname(getFullFilename(filename)), source)
   }
-  const macro = interopRequire(requirePath)
+
+  let macro, result
+  try {
+    macro = interopRequire(requirePath)
+  } catch (e) {
+    return null
+  }
+
   if (!macro.isBabelMacro) {
     throw new Error(
       // eslint-disable-next-line prefer-template
@@ -166,7 +171,7 @@ function applyMacros({path, imports, source, state, babel, interopRequire}) {
     )
   }
   const config = getConfig(macro, filename, source)
-  let result
+
   try {
     /**
      * Other plugins that run before babel-plugin-macros might use path.replace, where a path is

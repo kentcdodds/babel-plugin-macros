@@ -120,6 +120,8 @@ const red = macro('noop')
 
 "use strict";
 
+var _keepImports = require("./fixtures/keep-imports.macro");
+
 var _keepImports2 = _interopRequireDefault(_keepImports);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
