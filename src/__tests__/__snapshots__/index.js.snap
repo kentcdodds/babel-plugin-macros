@@ -15,6 +15,7 @@ const Div = STYLED.div\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const red = "background-color: red;";
+
 const Div = STYLED.div\`undefined\`;
 
 `;
@@ -106,8 +107,24 @@ const red = macro('noop');
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const macro = require('./fixtures/keep-imports.macro');
-
 const red = macro('noop');
+
+`;
+
+exports[`macros optionally keep imports in combination with babel-preset-env (#80): optionally keep imports in combination with babel-preset-env (#80) 1`] = `
+
+import macro from './fixtures/keep-imports.macro'
+const red = macro('noop')
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+"use strict";
+
+var _keepImports2 = _interopRequireDefault(_keepImports);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var red = (0, _keepImports2.default)('noop');
 
 `;
 
@@ -139,6 +156,7 @@ const Div = styled.div\`
 const red = css\`
   background-color: red;
 \`;
+
 const Div = styled.div\`
   composes: \${red}
   color: blue;
@@ -179,6 +197,7 @@ global.result = result
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const result = ("foobar", 42);
+
 global.result = result;
 
 `;
@@ -250,6 +269,7 @@ const Div = STYLED.div\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const red = "background-color: red;";
+
 const Div = STYLED.div\`undefined\`;
 
 `;
@@ -269,6 +289,7 @@ const Div = styled.div\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const red = "background-color: red;";
+
 const Div = styled.div\`undefined\`;
 
 `;
