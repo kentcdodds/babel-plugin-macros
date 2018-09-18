@@ -62,7 +62,8 @@ pluginTester({
       `,
     },
     {
-      title: 'does nothing but remove macros if it is unused',
+      title: 'raises an error if macro does not ecist',
+      error: true,
       code: `
         import foo from './some-macros-that-doesnt-even-need-to-exist.macro'
         export default 'something else'

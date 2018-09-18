@@ -155,13 +155,7 @@ function applyMacros({path, imports, source, state, babel, interopRequire}) {
     requirePath = p.join(p.dirname(getFullFilename(filename)), source)
   }
 
-  let macro, result
-  try {
-    macro = interopRequire(requirePath)
-  } catch (e) {
-    return null
-  }
-
+  const macro = interopRequire(requirePath)
   if (!macro.isBabelMacro) {
     throw new Error(
       // eslint-disable-next-line prefer-template
@@ -172,6 +166,7 @@ function applyMacros({path, imports, source, state, babel, interopRequire}) {
   }
   const config = getConfig(macro, filename, source)
 
+  let result
   try {
     /**
      * Other plugins that run before babel-plugin-macros might use path.replace, where a path is

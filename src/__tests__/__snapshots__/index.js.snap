@@ -53,17 +53,6 @@ Error: babel-plugin-macros-test-error-thrower.macro: not helpful Learn more: htt
 
 `;
 
-exports[`macros does nothing but remove macros if it is unused: does nothing but remove macros if it is unused 1`] = `
-
-import foo from './some-macros-that-doesnt-even-need-to-exist.macro'
-export default 'something else'
-
-      ↓ ↓ ↓ ↓ ↓ ↓
-
-export default 'something else';
-
-`;
-
 exports[`macros forwards MacroErrors thrown by the macro: forwards MacroErrors thrown by the macro 1`] = `
 
 import errorThrower from './fixtures/macro-error-thrower.macro'
@@ -138,6 +127,17 @@ errorThrower('hey')
       ↓ ↓ ↓ ↓ ↓ ↓
 
 Error: ./fixtures/error-thrower.macro: very unhelpful
+
+`;
+
+exports[`macros raises an error if macro does not ecist: raises an error if macro does not ecist 1`] = `
+
+import foo from './some-macros-that-doesnt-even-need-to-exist.macro'
+export default 'something else'
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+Error: Cannot find module '<PROJECT_ROOT>/src/__tests__/some-macros-that-doesnt-even-need-to-exist.macro' from 'index.js'
 
 `;
 
