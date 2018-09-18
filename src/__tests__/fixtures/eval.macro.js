@@ -1,4 +1,4 @@
-const babylon = require('babylon')
+const {parse} = require('@babel/parser')
 // const printAST = require('ast-pretty-print')
 const {createMacro} = require('../../')
 
@@ -49,6 +49,6 @@ function evalToAST(value) {
 }
 
 function thingToAST(object) {
-  const fileNode = babylon.parse(`var x = ${JSON.stringify(object)}`)
+  const fileNode = parse(`var x = ${JSON.stringify(object)}`)
   return fileNode.program.body[0].declarations[0].init
 }
