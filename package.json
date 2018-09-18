@@ -34,8 +34,6 @@
     "@babel/core": "^7.1.0",
     "ast-pretty-print": "^2.0.1",
     "babel-plugin-tester": "^5.0.0",
-    "babel-types": "^6.26.0",
-    "babylon": "^6.18.0",
     "cpy": "^7.0.0",
     "kcd-scripts": "^0.32.1"
   },
