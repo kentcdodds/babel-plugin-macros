@@ -62,7 +62,16 @@ pluginTester({
       `,
     },
     {
-      title: 'raises an error if macro does not ecist',
+      title: 'does nothing but removes macros if it is unused',
+      snapshot: true,
+      code: `
+        import foo from "./fixtures/eval.macro";
+
+        const bar = 42;
+      `,
+    },
+    {
+      title: 'raises an error if macro does not exist',
       error: true,
       code: `
         import foo from './some-macros-that-doesnt-even-need-to-exist.macro'
