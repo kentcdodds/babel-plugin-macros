@@ -62,7 +62,7 @@ pluginTester({
       `,
     },
     {
-      title: 'does nothing but removes macros if it is unused',
+      title: 'does nothing but remove macros if it is unused',
       snapshot: true,
       code: `
         import foo from "./fixtures/eval.macro";

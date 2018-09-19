@@ -53,7 +53,7 @@ Error: babel-plugin-macros-test-error-thrower.macro: not helpful Learn more: htt
 
 `;
 
-exports[`macros does nothing but removes macros if it is unused: does nothing but removes macros if it is unused 1`] = `
+exports[`macros does nothing but remove macros if it is unused: does nothing but remove macros if it is unused 1`] = `
 
 import foo from "./fixtures/eval.macro";
 
