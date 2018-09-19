@@ -2,7 +2,7 @@
 import path from 'path'
 import cosmiconfigMock from 'cosmiconfig'
 import cpy from 'cpy'
-import babel from 'babel-core'
+import babel from '@babel/core'
 import pluginTester from 'babel-plugin-tester'
 import plugin from '../'
 
@@ -27,10 +27,14 @@ afterEach(() => {
 
 expect.addSnapshotSerializer({
   print(val) {
-    return val
-      .split(projectRoot)
-      .join('<PROJECT_ROOT>/')
-      .replace(/\\/g, '/')
+    return (
+      val
+        .split(projectRoot)
+        .join('<PROJECT_ROOT>/')
+        .replace(/\\/g, '/')
+        // Remove the path of file which thrown an error
+        .replace(/Error:[^:]*:/, 'Error:')
+    )
   },
   test(val) {
     return typeof val === 'string'
@@ -40,7 +44,13 @@ expect.addSnapshotSerializer({
 pluginTester({
   plugin,
   snapshot: true,
-  babelOptions: {filename: __filename, parserOpts: {plugins: ['jsx']}},
+  babelOptions: {
+    filename: __filename,
+    parserOpts: {
+      plugins: ['jsx'],
+    },
+    generatorOpts: {quotes: 'double'},
+  },
   tests: [
     {
       title: 'does nothing to code that does not import macro',
@@ -53,6 +63,16 @@ pluginTester({
     },
     {
       title: 'does nothing but remove macros if it is unused',
+      snapshot: true,
+      code: `
+        import foo from "./fixtures/eval.macro";
+
+        const bar = 42;
+      `,
+    },
+    {
+      title: 'raises an error if macro does not exist',
+      error: true,
       code: `
         import foo from './some-macros-that-doesnt-even-need-to-exist.macro'
         export default 'something else'
@@ -181,6 +201,17 @@ pluginTester({
       `,
     },
     {
+      title:
+        'optionally keep imports in combination with babel-preset-env (#80)',
+      code: `
+        import macro from './fixtures/keep-imports.macro'
+        const red = macro('noop')
+      `,
+      babelOptions: {
+        presets: ['babel-preset-env'],
+      },
+    },
+    {
       title: 'throws an error if the macro is not properly wrapped',
       error: true,
       code: `
@@ -258,7 +289,9 @@ pluginTester({
       title: 'when there is no config to load, then no config is passed',
       fixture: path.join(__dirname, 'fixtures/config/code.js'),
       setup() {
-        cosmiconfigMock.mockImplementationOnce(() => ({searchSync: () => null}))
+        cosmiconfigMock.mockImplementationOnce(() => ({
+          searchSync: () => null,
+        }))
         return function teardown() {
           const configurableMacro = require('./fixtures/config/configurable.macro')
           expect(configurableMacro.realMacro).toHaveBeenCalledTimes(1)

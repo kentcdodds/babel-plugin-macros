@@ -31,11 +31,11 @@
     "cosmiconfig": "^5.0.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.0",
+    "@babel/parser": "^7.1.0",
+    "@babel/types": "^7.0.0",
     "ast-pretty-print": "^2.0.1",
-    "babel-core": "7.0.0-beta.3",
     "babel-plugin-tester": "^5.0.0",
-    "babel-types": "^6.26.0",
-    "babylon": "7.0.0-beta.34",
     "cpy": "^7.0.0",
     "kcd-scripts": "^0.32.1"
   },

@@ -137,20 +137,24 @@ function applyMacros({path, imports, source, state, babel, interopRequire}) {
   let hasReferences = false
   const referencePathsByImportName = imports.reduce(
     (byName, {importedName, localName}) => {
-      byName[importedName] = path.scope.getBinding(localName).referencePaths
-      hasReferences = hasReferences || Boolean(byName[importedName].length)
+      const binding = path.scope.getBinding(localName)
+
+      if (binding) {
+        byName[importedName] = binding.referencePaths
+        hasReferences = hasReferences || Boolean(byName[importedName].length)
+      }
+
       return byName
     },
     {},
   )
-  if (!hasReferences) {
-    return null
-  }
+
   let requirePath = source
   const isRelative = source.indexOf('.') === 0
   if (isRelative) {
     requirePath = p.join(p.dirname(getFullFilename(filename)), source)
   }
+
   const macro = interopRequire(requirePath)
   if (!macro.isBabelMacro) {
     throw new Error(
@@ -161,6 +165,7 @@ function applyMacros({path, imports, source, state, babel, interopRequire}) {
     )
   }
   const config = getConfig(macro, filename, source)
+
   let result
   try {
     /**
