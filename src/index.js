@@ -1,4 +1,5 @@
 const p = require('path')
+const resolve = require('resolve')
 // const printAST = require('ast-pretty-print')
 
 const macrosRegex = /[./]macro(\.js)?$/
@@ -149,11 +150,10 @@ function applyMacros({path, imports, source, state, babel, interopRequire}) {
     {},
   )
 
-  let requirePath = source
   const isRelative = source.indexOf('.') === 0
-  if (isRelative) {
-    requirePath = p.join(p.dirname(getFullFilename(filename)), source)
-  }
+  const requirePath = resolve.sync(source, {
+    basedir: p.dirname(getFullFilename(filename)),
+  })
 
   const macro = interopRequire(requirePath)
   if (!macro.isBabelMacro) {

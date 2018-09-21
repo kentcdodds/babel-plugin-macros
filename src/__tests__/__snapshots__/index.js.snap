@@ -149,7 +149,7 @@ export default 'something else'
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-Error: Cannot find module '<PROJECT_ROOT>/src/__tests__/some-macros-that-doesnt-even-need-to-exist.macro' from 'index.js'
+Error: Cannot find module './some-macros-that-doesnt-even-need-to-exist.macro' from '<PROJECT_ROOT>/src/__tests__'
 
 `;
 

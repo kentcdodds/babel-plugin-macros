@@ -28,7 +28,8 @@
   "author": "Kent C. Dodds <kent@doddsfamily.us> (http://kentcdodds.com/)",
   "license": "MIT",
   "dependencies": {
-    "cosmiconfig": "^5.0.5"
+    "cosmiconfig": "^5.0.5",
+    "resolve": "^1.8.1"
   },
   "devDependencies": {
     "@babel/core": "^7.1.0",
