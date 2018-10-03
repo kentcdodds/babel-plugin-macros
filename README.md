@@ -158,6 +158,8 @@ Are you trying to make your own macros that works with `babel-plugin-macros`? Go
 
 #### Babel cache problem
 
+>**Note:** This issue is not present when used in Create React App.
+
 Most of the time you'll probably be using this with the babel cache enabled in webpack to rebuild faster. If your macro function is **not pure** which gets different output with same code (e.g., IO side effects) it will cause recompile mechanism fail. Unfortunately you'll also experience this problem while developing your macro as well. If there's not a change to the source code that's being transpiled, then babel will use the cache rather than running your macro again.
 
 For now, to force recompile the code you can simply add a cache busting comment in the file:
