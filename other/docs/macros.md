@@ -24,7 +24,8 @@ there's an ecosystem of existing macros out there that you might find interestin
 * [`css-to-rn.macro`](https://github.com/jhen0409/css-to-rn.macro): Convert CSS to React Native style sheet at build time.
 * [`regexgen.macro`](https://github.com/Andarist/regexgen.macro): Convert your set of strings to optimized RegExps at build time.
 * [`tinker.macro`](https://github.com/bradlc/tinker.macro): Evaluate Laravel code at build time.
-* [`@lingui/macro`](https://lingui.js.org/ref/macro.html): Macros for internationalization (i18n) in [LinguiJS](https://github.com/lingui/js-lingui/)
+* [`@lingui/macro`](https://lingui.js.org/ref/macro.html): Macros for internationalization (i18n) in [LinguiJS](https://github.com/lingui/js-lingui/).
+* [`unique-classname.macro`](https://github.com/huchenme/unique-classname.macro): Macro to generate unique className for Emotion.
 
 Please note that macros are intended to be used as devDependencies.
 
