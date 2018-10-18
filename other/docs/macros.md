@@ -26,6 +26,7 @@ there's an ecosystem of existing macros out there that you might find interestin
 * [`tinker.macro`](https://github.com/bradlc/tinker.macro): Evaluate Laravel code at build time.
 * [`@lingui/macro`](https://lingui.js.org/ref/macro.html): Macros for internationalization (i18n) in [LinguiJS](https://github.com/lingui/js-lingui/).
 * [`unique-classname.macro`](https://github.com/huchenme/unique-classname.macro): Macro to generate unique className for Emotion.
+* [`idx.macro`](https://github.com/dralletje/idx.macro): A utility function for traversing properties on objects and arrays.
 
 Please note that macros are intended to be used as devDependencies.
 
