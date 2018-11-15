@@ -182,12 +182,10 @@ This problem is still being worked on and is not unique to `babel-plugin-macros`
 ### How do I find available macros?
 
 You can write your own without publishing them to `npm`, but if you'd like to
-see existing macros you can add to your project, then take a look at
-[`other/docs/macros.md`](https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/macros.md)
+see existing macros you can add to your project, then take a look at the
+[Awesome babel macros](https://github.com/jgierer12/awesome-babel-macros) repository.
 
 Please add any you don't see listed!
-
-You can also take a look at the [Awesome babel macros](https://github.com/jgierer12/awesome-babel-macros) list to find additional macros and resources.
 
 ### What's the difference between babel plugins and macros?
 
