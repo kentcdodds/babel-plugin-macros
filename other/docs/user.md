@@ -87,7 +87,7 @@ importing file:
 * `babel-plugin-macros.config.js`
 * `babelMacros` in `package.json`
 
-You need to specify your `configName`. EG: For configuring [styled-components][styled-components], the `configName` is `"styledComponents"`:
+You need to specify your `configName`. EG: For configuring [styled-components macro][styled-components], the `configName` is `"styledComponents"`:
 
 ```js
 // babel-plugin-macros.config.js
@@ -101,4 +101,4 @@ module.exports = {
 ```
 
 [cosmiconfig]: https://www.npmjs.com/package/cosmiconfig
-[styled-components]: https://github.com/styled-components/styled-components
+[styled-components]: https://www.styled-components.com/docs/tooling#babel-macro
