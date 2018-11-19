@@ -146,12 +146,12 @@ npm install --save-dev babel-plugin-macros
 ### User docs
 
 Are you trying to use `babel-plugin-macros`? Go to
-[`other/docs/user.md`](https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/user.md).
+[`other/docs/user.md`](other/docs/user.md).
 
 ### Author docs
 
 Are you trying to make your own macros that works with `babel-plugin-macros`? Go to
-[`other/docs/author.md`](https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/author.md).
+[`other/docs/author.md`](other/docs/author.md).
 (you should probably read the user docs too).
 
 ### Caveats
@@ -306,7 +306,7 @@ const val = <Eval>7 * 6</Eval>
 
 Really, anything...
 
-See the [testing snapshot](https://github.com/kentcdodds/babel-plugin-macros/blob/master/src/__tests__/__snapshots__/index.js.snap) for more examples.
+See the [testing snapshot](src/__tests__/__snapshots__/index.js.snap) for more examples.
 
 ### How about implicit optimizations at compile time?
 
@@ -368,13 +368,13 @@ MIT
 [downloads-badge]: https://img.shields.io/npm/dm/babel-plugin-macros.svg?style=flat-square
 [npmchart]: http://npmcharts.com/compare/babel-plugin-macros
 [license-badge]: https://img.shields.io/npm/l/babel-plugin-macros.svg?style=flat-square
-[license]: https://github.com/kentcdodds/babel-plugin-macros/blob/master/LICENSE
+[license]: LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
 [donate-badge]: https://img.shields.io/badge/$-support-green.svg?style=flat-square
 [donate]: http://kcd.im/donate
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
-[coc]: https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/CODE_OF_CONDUCT.md
+[coc]: other/CODE_OF_CONDUCT.md
 [github-watch-badge]: https://img.shields.io/github/watchers/kentcdodds/babel-plugin-macros.svg?style=social
 [github-watch]: https://github.com/kentcdodds/babel-plugin-macros/watchers
 [github-star-badge]: https://img.shields.io/github/stars/kentcdodds/babel-plugin-macros.svg?style=social
