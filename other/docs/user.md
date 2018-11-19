@@ -71,3 +71,31 @@ $ npx create-react-app@next --scripts-version=2.0.0-next.47d2d941
 $ # Upgrade an existing application
 $ yarn upgrade react-scripts@2.0.0-next.47d2d941
 ```
+
+### config (EXPERIMENTAL!)
+
+There is an experimental feature that allows you to configure your macro. We
+use [`cosmiconfig`][cosmiconfig] to read a `babel-plugin-macros` configuration which
+can be located in any of the following files up the directories from the
+importing file:
+
+* `.babel-plugin-macrosrc`
+* `.babel-plugin-macrosrc.json`
+* `.babel-plugin-macrosrc.yaml`
+* `.babel-plugin-macrosrc.yml`
+* `.babel-plugin-macrosrc.js`
+* `babel-plugin-macros.config.js`
+* `babelMacros` in `package.json`
+
+You need to specify your `configName`. EG: For configuring (styled-components)[https://github.com/styled-components/styled-components], the `configName` is `"styledComponents"`:
+
+```js
+// babel-plugin-macros.config.js
+module.exports = {
+  // ...
+  // Other macros config
+  styledComponents: {
+    pure: true,
+  },
+}
+```
