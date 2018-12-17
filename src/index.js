@@ -52,66 +52,29 @@ function macrosPlugin(babel, {require: _require = require} = {}) {
   return {
     name: 'macros',
     visitor: {
-      ImportDeclaration(path, state) {
-        const isMacros = looksLike(path, {
-          node: {
-            source: {
-              value: v => macrosRegex.test(v),
-            },
-          },
-        })
-        if (!isMacros) {
-          return
-        }
-        const imports = path.node.specifiers.map(s => ({
-          localName: s.local.name,
-          importedName:
-            s.type === 'ImportDefaultSpecifier' ? 'default' : s.imported.name,
-        }))
-        const source = path.node.source.value
-        const result = applyMacros({
-          path,
-          imports,
-          source,
-          state,
-          babel,
-          interopRequire,
-        })
-
-        if (!result || !result.keepImports) {
-          path.remove()
-        }
-      },
-      VariableDeclaration(path, state) {
-        const isMacros = child =>
-          looksLike(child, {
-            node: {
-              init: {
-                callee: {
-                  type: 'Identifier',
-                  name: 'require',
+      Program(progPath, state) {
+        progPath.traverse({
+          ImportDeclaration(path) {
+            const isMacros = looksLike(path, {
+              node: {
+                source: {
+                  value: v => macrosRegex.test(v),
                 },
-                arguments: args =>
-                  args.length === 1 && macrosRegex.test(args[0].value),
               },
-            },
-          })
-
-        path
-          .get('declarations')
-          .filter(isMacros)
-          .forEach(child => {
-            const imports = child.node.id.name
-              ? [{localName: child.node.id.name, importedName: 'default'}]
-              : child.node.id.properties.map(property => ({
-                  localName: property.value.name,
-                  importedName: property.key.name,
-                }))
-
-            const call = child.get('init')
-            const source = call.node.arguments[0].value
+            })
+            if (!isMacros) {
+              return
+            }
+            const imports = path.node.specifiers.map(s => ({
+              localName: s.local.name,
+              importedName:
+                s.type === 'ImportDefaultSpecifier'
+                  ? 'default'
+                  : s.imported.name,
+            }))
+            const source = path.node.source.value
             const result = applyMacros({
-              path: call,
+              path,
               imports,
               source,
               state,
@@ -120,9 +83,52 @@ function macrosPlugin(babel, {require: _require = require} = {}) {
             })
 
             if (!result || !result.keepImports) {
-              child.remove()
+              path.remove()
             }
-          })
+          },
+          VariableDeclaration(path) {
+            const isMacros = child =>
+              looksLike(child, {
+                node: {
+                  init: {
+                    callee: {
+                      type: 'Identifier',
+                      name: 'require',
+                    },
+                    arguments: args =>
+                      args.length === 1 && macrosRegex.test(args[0].value),
+                  },
+                },
+              })
+
+            path
+              .get('declarations')
+              .filter(isMacros)
+              .forEach(child => {
+                const imports = child.node.id.name
+                  ? [{localName: child.node.id.name, importedName: 'default'}]
+                  : child.node.id.properties.map(property => ({
+                      localName: property.value.name,
+                      importedName: property.key.name,
+                    }))
+
+                const call = child.get('init')
+                const source = call.node.arguments[0].value
+                const result = applyMacros({
+                  path: call,
+                  imports,
+                  source,
+                  state,
+                  babel,
+                  interopRequire,
+                })
+
+                if (!result || !result.keepImports) {
+                  child.remove()
+                }
+              })
+          },
+        })
       },
     },
   }
