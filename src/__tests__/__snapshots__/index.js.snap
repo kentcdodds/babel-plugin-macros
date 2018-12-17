@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`macros Macros are applied in the order respecting plugins order: Macros are applied in the order respecting plugins order 1`] = `
+
+import Wrap from "./fixtures/jsx-id-prefix.macro";
+
+const bar = Wrap(<div id="d1"><p id="p1"></p></div>);
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const bar = Wrap(<div id="plugin-macro-d1"><p id="plugin-macro-p1"></p></div>);
+
+`;
+
 exports[`macros Supports named imports: Supports named imports 1`] = `
 
 import {css as CSS, styled as STYLED} from './fixtures/emotion.macro'
