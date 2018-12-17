@@ -315,5 +315,16 @@ pluginTester({
         babelrc: true,
       },
     },
+    {
+      title: 'Macros are applied in the order respecting plugins order',
+      code: `
+        import Wrap from "./fixtures/jsx-id-prefix.macro";
+
+        const bar = Wrap(<div id="d1"><p id="p1"></p></div>);
+      `,
+      babelOptions: {
+        presets: [{plugins: [require('./fixtures/jsx-id-prefix.plugin')]}],
+      },
+    },
   ],
 })
