@@ -136,9 +136,10 @@ function macrosPlugin(babel, {require: _require = require} = {}) {
 
 // eslint-disable-next-line complexity
 function applyMacros({path, imports, source, state, babel, interopRequire}) {
+  /* istanbul ignore next (pretty much only useful for astexplorer I think) */
   const {
     file: {
-      opts: {filename},
+      opts: {filename = ''},
     },
   } = state
   let hasReferences = false
