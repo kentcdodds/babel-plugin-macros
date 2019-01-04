@@ -138,7 +138,8 @@ function macrosPlugin(babel, {require: _require = require} = {}) {
 function applyMacros({path, imports, source, state, babel, interopRequire}) {
   const {
     file: {
-      opts: {filename},
+      // istanbul ignore next (pretty much only useful for astexplorer I think)
+      opts: {filename = ''},
     },
   } = state
   let hasReferences = false
