@@ -150,6 +150,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "lPadier",
+      "name": "Loïc Padier",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4009640?v=4",
+      "profile": "http://loicpadier.com",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }

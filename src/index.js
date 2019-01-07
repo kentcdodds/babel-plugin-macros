@@ -223,14 +223,20 @@ function getConfig(macro, filename, source) {
       // FWIW, this thing told me that cosmiconfig is 227.1 kb of minified JS
       // so that's probably significant... https://bundlephobia.com/result?p=cosmiconfig@3.1.0
       // Note that cosmiconfig will cache the babel-plugin-macros config 👍
-      const explorer = require('cosmiconfig')('babel-plugin-macros')
-      const loaded = explorer.searchSync(filename, {
+      const explorer = require('cosmiconfig')('babel-plugin-macros', {
+        searchPlaces: [
+          'package.json',
+          `.babel-plugin-macrosrc`,
+          `.babel-plugin-macrosrc.json`,
+          `.babel-plugin-macrosrc.yaml`,
+          `.babel-plugin-macrosrc.yml`,
+          `.babel-plugin-macrosrc.js`,
+          `babel-plugin-macros.config.js`,
+        ],
         packageProp: 'babelMacros',
-        rc: '.babel-plugin-macrosrc',
-        js: 'babel-plugin-macros.config.js',
-        rcExtensions: true,
         sync: true,
       })
+      const loaded = explorer.searchSync(filename)
       if (loaded) {
         return loaded.config[macro.options.configName]
       }
