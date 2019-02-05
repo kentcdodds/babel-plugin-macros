@@ -55,21 +55,20 @@ Incidentally, `eval.macro.js` actually exists in the tests for `babel-plugin-mac
 
 ### Using with create-react-app
 
-`babel-plugin-macros` is currently available to be used with the alpha version of react-scripts 2.0! This is awesome because it allows for babel to be configured in a nice way without having to eject from `create-react-app`!
+`babel-plugin-macros` ships with `react-scripts` 2.0! This is awesome because it allows for babel to be configured in a nice way without having to eject from `create-react-app`!
 
 Before deciding to use this however you should be aware of a few things:
 
 1. Features may be broken or not work as expected
-2. There will be more breaking changes introduced before the final release ⚠️
-3. Documentation for new features is still sparse, so look through the pull requests for how they're expected to work
+2. Documentation for new features is still sparse, so look through the pull requests for how they're expected to work
 
 With that being said you can use all the awesomeness of `babel-plugin-macros` inside `create-react-app` by running one of the following commands based on your situation.
 
 ```
 $ # Create a new application
-$ npx create-react-app@next --scripts-version=2.0.0-next.47d2d941
+$ npx create-react-app my-app
 $ # Upgrade an existing application
-$ yarn upgrade react-scripts@2.0.0-next.47d2d941
+$ yarn upgrade react-scripts
 ```
 
 ### config (EXPERIMENTAL!)
