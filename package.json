@@ -1,7 +1,7 @@
 {
   "name": "babel-plugin-macros",
   "version": "0.0.0-semantically-released",
-  "description": "Enables zero-config, importable babel plugins",
+  "description": "Allows you to build compile-time libraries",
   "main": "dist/index.js",
   "scripts": {
     "add-contributor": "kcd-scripts contributors add",

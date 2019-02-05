@@ -1,7 +1,7 @@
 <div align="center">
 <h1>babel-plugin-macros 🎣</h1>
 
-Enables zero-config, importable babel plugins
+Allows you to build simple compile-time libraries
 
 </div>
 
