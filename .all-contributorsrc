@@ -159,6 +159,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "pshrmn",
+      "name": "Paul Sherman",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1127037?v=4",
+      "profile": "https://www.pshrmn.com",
+      "contributions": [
+        "code"
+      ]
     }
-  ]
+  ],
+  "contributorsPerLine": 7
 }
