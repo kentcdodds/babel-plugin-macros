@@ -42,7 +42,14 @@ function createMacro(macro, options = {}) {
   }
 }
 
-function macrosPlugin(babel, {require: _require = require} = {}) {
+function nodeResolvePath(source, basedir) {
+  return resolve.sync(source, {basedir})
+}
+
+function macrosPlugin(
+  babel,
+  {require: _require = require, resolvePath = nodeResolvePath} = {},
+) {
   function interopRequire(path) {
     // eslint-disable-next-line import/no-dynamic-require
     const o = _require(path)
@@ -80,6 +87,7 @@ function macrosPlugin(babel, {require: _require = require} = {}) {
               state,
               babel,
               interopRequire,
+              resolvePath,
             })
 
             if (!result || !result.keepImports) {
@@ -121,6 +129,7 @@ function macrosPlugin(babel, {require: _require = require} = {}) {
                   state,
                   babel,
                   interopRequire,
+                  resolvePath,
                 })
 
                 if (!result || !result.keepImports) {
@@ -135,7 +144,15 @@ function macrosPlugin(babel, {require: _require = require} = {}) {
 }
 
 // eslint-disable-next-line complexity
-function applyMacros({path, imports, source, state, babel, interopRequire}) {
+function applyMacros({
+  path,
+  imports,
+  source,
+  state,
+  babel,
+  interopRequire,
+  resolvePath,
+}) {
   /* istanbul ignore next (pretty much only useful for astexplorer I think) */
   const {
     file: {
@@ -156,9 +173,7 @@ function applyMacros({path, imports, source, state, babel, interopRequire}) {
   )
 
   const isRelative = source.indexOf('.') === 0
-  const requirePath = resolve.sync(source, {
-    basedir: p.dirname(getFullFilename(filename)),
-  })
+  const requirePath = resolvePath(source, p.dirname(getFullFilename(filename)))
 
   const macro = interopRequire(requirePath)
   if (!macro.isBabelMacro) {
