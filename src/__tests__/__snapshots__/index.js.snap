@@ -27,7 +27,6 @@ const Div = STYLED.div\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const red = "background-color: red;";
-
 const Div = STYLED.div\`undefined\`;
 
 `;
@@ -50,7 +49,7 @@ errorThrower('hi')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-Error: babel-plugin-macros-test-error-thrower/macro: not helpful Learn more: https://www.npmjs.com/package/babel-plugin-macros-test-error-thrower
+Error: not helpful Learn more: https://www.npmjs.com/package/babel-plugin-macros-test-error-thrower
 
 `;
 
@@ -61,7 +60,7 @@ errorThrower('hi')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-Error: babel-plugin-macros-test-error-thrower.macro: not helpful Learn more: https://www.npmjs.com/package/babel-plugin-macros-test-error-thrower.macro
+Error: not helpful Learn more: https://www.npmjs.com/package/babel-plugin-macros-test-error-thrower.macro
 
 `;
 
@@ -92,10 +91,12 @@ exports[`macros macros can set their configName and get their config: macros can
 
 import configured from './configurable.macro'
 
+// eslint-disable-next-line babel/no-unused-expressions
 configured\`stuff\`
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+// eslint-disable-next-line babel/no-unused-expressions
 configured\`stuff\`;
 
 `;
@@ -120,6 +121,7 @@ const red = macro('noop');
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const macro = require('./fixtures/keep-imports.macro');
+
 const red = macro('noop');
 
 `;
@@ -131,15 +133,8 @@ const red = macro('noop')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-"use strict";
-
-var _keepImports = require("./fixtures/keep-imports.macro");
-
-var _keepImports2 = _interopRequireDefault(_keepImports);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var red = (0, _keepImports2.default)('noop');
+import macro from './fixtures/keep-imports.macro';
+const red = macro('noop');
 
 `;
 
@@ -150,7 +145,7 @@ errorThrower('hey')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-Error: ./fixtures/error-thrower.macro: very unhelpful
+Error: very unhelpful
 
 `;
 
@@ -182,7 +177,6 @@ const Div = styled.div\`
 const red = css\`
   background-color: red;
 \`;
-
 const Div = styled.div\`
   composes: \${red}
   color: blue;
@@ -208,7 +202,7 @@ unwrapped('hey')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-Error: The macro imported from "./fixtures/non-wrapped.macro" must be wrapped in "createMacro" which you can get from "babel-plugin-macros". Please refer to the documentation to see how to do this properly: https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/author.md#writing-a-macro
+Error: https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/author.md#writing-a-macro
 
 `;
 
@@ -223,7 +217,6 @@ global.result = result
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const result = ("foobar", 42);
-
 global.result = result;
 
 `;
@@ -238,6 +231,7 @@ exports[`macros when there is an error reading the config, a helpful message is 
 
 import configured from './configurable.macro'
 
+// eslint-disable-next-line babel/no-unused-expressions
 configured\`stuff\`
 
       ↓ ↓ ↓ ↓ ↓ ↓
@@ -250,10 +244,12 @@ exports[`macros when there is no config to load, then no config is passed: when 
 
 import configured from './configurable.macro'
 
+// eslint-disable-next-line babel/no-unused-expressions
 configured\`stuff\`
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+// eslint-disable-next-line babel/no-unused-expressions
 configured\`stuff\`;
 
 `;
@@ -295,7 +291,6 @@ const Div = STYLED.div\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const red = "background-color: red;";
-
 const Div = STYLED.div\`undefined\`;
 
 `;
@@ -315,7 +310,6 @@ const Div = styled.div\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const red = "background-color: red;";
-
 const Div = styled.div\`undefined\`;
 
 `;

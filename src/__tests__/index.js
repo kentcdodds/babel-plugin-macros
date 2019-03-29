@@ -208,7 +208,9 @@ pluginTester({
         const red = macro('noop')
       `,
       babelOptions: {
-        presets: ['babel-preset-env'],
+        plugins: [
+          require.resolve('babel-plugin-transform-es2015-modules-commonjs'),
+        ],
       },
     },
     {

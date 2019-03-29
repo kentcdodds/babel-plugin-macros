@@ -178,7 +178,6 @@ function applyMacros({
   const macro = interopRequire(requirePath)
   if (!macro.isBabelMacro) {
     throw new Error(
-      // eslint-disable-next-line prefer-template
       `The macro imported from "${source}" must be wrapped in "createMacro" ` +
         `which you can get from "babel-plugin-macros". ` +
         `Please refer to the documentation to see how to do this properly: https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/author.md#writing-a-macro`,
