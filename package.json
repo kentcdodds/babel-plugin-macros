@@ -27,7 +27,8 @@
     "babel-macro",
     "babel-plugin-macro",
     "babel-macros",
-    "babel-plugin-macros"
+    "babel-plugin-macros",
+    "babel"
   ],
   "author": "Kent C. Dodds <kent@doddsfamily.us> (http://kentcdodds.com/)",
   "license": "MIT",
