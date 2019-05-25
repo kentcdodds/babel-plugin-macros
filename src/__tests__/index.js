@@ -307,6 +307,58 @@ pluginTester({
       },
     },
     {
+      title: 'when configuration is specified in plugin options',
+      pluginOptions: {
+        configurableMacro: {
+          someConfig: false,
+          somePluginConfig: true,
+        },
+      },
+      fixture: path.join(__dirname, 'fixtures/config/code.js'),
+      teardown() {
+        const configurableMacro = require('./fixtures/config/configurable.macro')
+        expect(configurableMacro.realMacro).toHaveBeenCalledTimes(1)
+        expect(configurableMacro.realMacro).toHaveBeenCalledWith(
+          expect.objectContaining({
+            config: {
+              fileConfig: true,
+              someConfig: false,
+              somePluginConfig: true,
+            },
+          }),
+        )
+        configurableMacro.realMacro.mockClear()
+      },
+    },
+    {
+      title: 'when configuration is specified incorrectly in plugin options',
+      fixture: path.join(__dirname, 'fixtures/config/code.js'),
+      pluginOptions: {
+        configurableMacro: 2,
+      },
+      setup() {
+        return function teardown() {
+          const configurableMacro = require('./fixtures/config/configurable.macro')
+          expect(configurableMacro.realMacro).toHaveBeenCalledTimes(1)
+          expect(configurableMacro.realMacro).not.toHaveBeenCalledWith(
+            expect.objectContaining({
+              config: expect.any,
+            }),
+          )
+          configurableMacro.realMacro.mockClear()
+        }
+      },
+    },
+    {
+      title:
+        'when plugin options configuration cannot be merged with file configuration',
+      error: true,
+      fixture: path.join(__dirname, 'fixtures/primitive-config/code.js'),
+      pluginOptions: {
+        configurableMacro: {},
+      },
+    },
+    {
       title:
         'when a plugin that replaces paths is used, macros still work properly',
       fixture: path.join(

@@ -48,7 +48,7 @@ function nodeResolvePath(source, basedir) {
 
 function macrosPlugin(
   babel,
-  {require: _require = require, resolvePath = nodeResolvePath} = {},
+  {require: _require = require, resolvePath = nodeResolvePath, ...options} = {},
 ) {
   function interopRequire(path) {
     // eslint-disable-next-line import/no-dynamic-require
@@ -88,6 +88,7 @@ function macrosPlugin(
               babel,
               interopRequire,
               resolvePath,
+              options,
             })
 
             if (!result || !result.keepImports) {
@@ -152,6 +153,7 @@ function applyMacros({
   babel,
   interopRequire,
   resolvePath,
+  options,
 }) {
   /* istanbul ignore next (pretty much only useful for astexplorer I think) */
   const {
@@ -183,7 +185,7 @@ function applyMacros({
         `Please refer to the documentation to see how to do this properly: https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/author.md#writing-a-macro`,
     )
   }
-  const config = getConfig(macro, filename, source)
+  const config = getConfig(macro, filename, source, options)
 
   let result
   try {
@@ -228,9 +230,22 @@ function applyMacros({
   return result
 }
 
-// eslint-disable-next-line consistent-return
-function getConfig(macro, filename, source) {
-  if (macro.options.configName) {
+function getConfig(macro, filename, source, options) {
+  const {configName} = macro.options
+  if (configName) {
+    let callOptions, configOptions, configError, configPath
+
+    if (Object.prototype.hasOwnProperty.call(options, configName)) {
+      if (options[configName] && typeof options[configName] !== 'object') {
+        // eslint-disable-next-line no-console
+        console.error(
+          `The macro plugin options' ${configName} property was not an object or null.`,
+        )
+      } else {
+        callOptions = options[configName]
+      }
+    }
+
     try {
       // lazy-loading it here to avoid perf issues of loading it up front.
       // No I did not measure. Yes I'm a bad person.
@@ -240,32 +255,55 @@ function getConfig(macro, filename, source) {
       const explorer = require('cosmiconfig')('babel-plugin-macros', {
         searchPlaces: [
           'package.json',
-          `.babel-plugin-macrosrc`,
-          `.babel-plugin-macrosrc.json`,
-          `.babel-plugin-macrosrc.yaml`,
-          `.babel-plugin-macrosrc.yml`,
-          `.babel-plugin-macrosrc.js`,
-          `babel-plugin-macros.config.js`,
+          '.babel-plugin-macrosrc',
+          '.babel-plugin-macrosrc.json',
+          '.babel-plugin-macrosrc.yaml',
+          '.babel-plugin-macrosrc.yml',
+          '.babel-plugin-macrosrc.js',
+          'babel-plugin-macros.config.js',
         ],
         packageProp: 'babelMacros',
         sync: true,
       })
       const loaded = explorer.searchSync(filename)
       if (loaded) {
-        return loaded.config[macro.options.configName]
+        configOptions = loaded.config[configName]
+        configPath = loaded.filepath
       }
-    } catch (error) {
+    } catch (e) {
+      configError = e
+    }
+
+    if (callOptions === undefined && configOptions === undefined) {
       // eslint-disable-next-line no-console
       console.error(
-        `There was an error trying to load the config "${
-          macro.options.configName
-        }" ` +
+        `There was an error trying to load the config "${configName}" ` +
           `for the macro imported from "${source}. ` +
           `Please see the error thrown for more information.`,
       )
-      throw error
+      if (configError !== undefined) {
+        throw configError
+      }
+    }
+
+    if (
+      configOptions &&
+      callOptions !== undefined &&
+      typeof configOptions !== 'object'
+    ) {
+      throw new Error(
+        `${configPath} specified a ${configName} config of type ${typeof configOptions}, ` +
+          `but the the macros plugin's options.${configName} did contain an object.` +
+          `Both configs must contain objects for their options to be mergeable.`,
+      )
+    }
+
+    return {
+      ...configOptions,
+      ...callOptions,
     }
   }
+  return undefined
 }
 
 /*
