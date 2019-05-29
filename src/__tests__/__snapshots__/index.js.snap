@@ -258,7 +258,7 @@ configured\`stuff\`
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-Error: <PROJECT_ROOT>/src/__tests__/fixtures/primitive-config/babel-plugin-macros.config.js specified a configurableMacro config of type number, but the the macros plugin's options.configurableMacro did contain an object.Both configs must contain objects for their options to be mergeable.
+Error: <PROJECT_ROOT>/src/__tests__/fixtures/primitive-config/babel-plugin-macros.config.js specified a configurableMacro config of type object, but the the macros plugin's options.configurableMacro did contain an object. Both configs must contain objects for their options to be mergeable.
 
 `;
 
