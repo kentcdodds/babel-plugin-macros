@@ -8,7 +8,30 @@ import plugin from '../'
 
 const projectRoot = path.join(__dirname, '../../')
 
-jest.mock('cosmiconfig', () => jest.fn(require.requireActual('cosmiconfig')))
+jest.mock('cosmiconfig', () => {
+  const mockSearchSync = jest.fn()
+  Object.assign(mockSearchSync, {
+    mockReset() {
+      return mockSearchSync.mockImplementation(
+        (filename, configuredCosmiconfig) =>
+          configuredCosmiconfig.searchSync(filename),
+      )
+    },
+  })
+
+  mockSearchSync.mockReset()
+
+  const _cosmiconfigMock = (...args) => ({
+    searchSync(filename) {
+      return mockSearchSync(
+        filename,
+        require.requireActual('cosmiconfig')(...args),
+      )
+    },
+  })
+
+  return Object.assign(_cosmiconfigMock, {mockSearchSync})
+})
 
 beforeAll(() => {
   // copy our mock modules to the node_modules directory
@@ -23,6 +46,7 @@ beforeAll(() => {
 afterEach(() => {
   // eslint-disable-next-line
   require('babel-plugin-macros-test-fake/macro').innerFn.mockClear()
+  cosmiconfigMock.mockSearchSync.mockReset()
 })
 
 expect.addSnapshotSerializer({
@@ -284,7 +308,7 @@ pluginTester({
       error: true,
       fixture: path.join(__dirname, 'fixtures/config/code.js'),
       setup() {
-        cosmiconfigMock.mockImplementationOnce(() => {
+        cosmiconfigMock.mockSearchSync.mockImplementationOnce(() => {
           throw new Error('this is a cosmiconfig error')
         })
         const originalError = console.error
@@ -305,9 +329,7 @@ pluginTester({
       title: 'when there is no config to load, then no config is passed',
       fixture: path.join(__dirname, 'fixtures/config/code.js'),
       setup() {
-        cosmiconfigMock.mockImplementationOnce(() => ({
-          searchSync: () => null,
-        }))
+        cosmiconfigMock.mockSearchSync.mockImplementationOnce(() => null)
         return function teardown() {
           try {
             const configurableMacro = require('./fixtures/config/configurable.macro')
@@ -358,10 +380,11 @@ pluginTester({
         try {
           const configurableMacro = require('./fixtures/config/configurable.macro')
           expect(configurableMacro.realMacro).toHaveBeenCalledTimes(1)
-          expect(configurableMacro.realMacro.mock.calls[0][0].config).toEqual({
-            fileConfig: true,
-            someConfig: true,
-          })
+          expect(configurableMacro.realMacro).not.toHaveBeenCalledWith(
+            expect.objectContaining({
+              config: expect.any,
+            }),
+          )
           configurableMacro.realMacro.mockClear()
         } catch (e) {
           console.error(e)

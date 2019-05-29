@@ -18,6 +18,26 @@ class MacroError extends Error {
   }
 }
 
+let _configExplorer = null
+function getConfigExporer() {
+  return (_configExplorer =
+    _configExplorer ||
+    // Lazy load cosmiconfig since it is a relatively large bundle
+    require('cosmiconfig')('babel-plugin-macros', {
+      searchPlaces: [
+        'package.json',
+        '.babel-plugin-macrosrc',
+        '.babel-plugin-macrosrc.json',
+        '.babel-plugin-macrosrc.yaml',
+        '.babel-plugin-macrosrc.yml',
+        '.babel-plugin-macrosrc.js',
+        'babel-plugin-macros.config.js',
+      ],
+      packageProp: 'babelMacros',
+      sync: true,
+    }))
+}
+
 function createMacro(macro, options = {}) {
   if (options.configName === 'options') {
     throw new Error(
@@ -232,19 +252,7 @@ function applyMacros({
 
 function getConfigFromFile(configName, filename) {
   try {
-    const loaded = require('cosmiconfig')('babel-plugin-macros', {
-      searchPlaces: [
-        'package.json',
-        '.babel-plugin-macrosrc',
-        '.babel-plugin-macrosrc.json',
-        '.babel-plugin-macrosrc.yaml',
-        '.babel-plugin-macrosrc.yml',
-        '.babel-plugin-macrosrc.js',
-        'babel-plugin-macros.config.js',
-      ],
-      packageProp: 'babelMacros',
-      sync: true,
-    }).searchSync(filename)
+    const loaded = getConfigExporer().searchSync(filename)
 
     if (loaded) {
       return {
