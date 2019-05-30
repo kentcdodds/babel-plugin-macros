@@ -168,7 +168,19 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "conartist6",
+      "name": "Conrad Buck",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/540777?v=4",
+      "profile": "http://burningpotato.com",
+      "contributions": [
+        "code",
+        "test",
+        "doc"
+      ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 7,
+  "repoHost": "https://github.com"
 }
