@@ -221,6 +221,47 @@ global.result = result;
 
 `;
 
+exports[`macros when configuration is specified in plugin options: when configuration is specified in plugin options 1`] = `
+
+import configured from './configurable.macro'
+
+// eslint-disable-next-line babel/no-unused-expressions
+configured\`stuff\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+// eslint-disable-next-line babel/no-unused-expressions
+configured\`stuff\`;
+
+`;
+
+exports[`macros when configuration is specified incorrectly in plugin options: when configuration is specified incorrectly in plugin options 1`] = `
+
+import configured from './configurable.macro'
+
+// eslint-disable-next-line babel/no-unused-expressions
+configured\`stuff\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+// eslint-disable-next-line babel/no-unused-expressions
+configured\`stuff\`;
+
+`;
+
+exports[`macros when plugin options configuration cannot be merged with file configuration: when plugin options configuration cannot be merged with file configuration 1`] = `
+
+import configured from './configurable.macro'
+
+// eslint-disable-next-line babel/no-unused-expressions
+configured\`stuff\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+Error: <PROJECT_ROOT>/src/__tests__/fixtures/primitive-config/babel-plugin-macros.config.js specified a configurableMacro config of type object, but the the macros plugin's options.configurableMacro did contain an object. Both configs must contain objects for their options to be mergeable.
+
+`;
+
 exports[`macros when there is an error reading the config, a helpful message is logged 1`] = `
 Array [
   There was an error trying to load the config "configurableMacro" for the macro imported from "./configurable.macro. Please see the error thrown for more information.,

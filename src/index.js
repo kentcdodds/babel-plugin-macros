@@ -18,6 +18,26 @@ class MacroError extends Error {
   }
 }
 
+let _configExplorer = null
+function getConfigExporer() {
+  return (_configExplorer =
+    _configExplorer ||
+    // Lazy load cosmiconfig since it is a relatively large bundle
+    require('cosmiconfig')('babel-plugin-macros', {
+      searchPlaces: [
+        'package.json',
+        '.babel-plugin-macrosrc',
+        '.babel-plugin-macrosrc.json',
+        '.babel-plugin-macrosrc.yaml',
+        '.babel-plugin-macrosrc.yml',
+        '.babel-plugin-macrosrc.js',
+        'babel-plugin-macros.config.js',
+      ],
+      packageProp: 'babelMacros',
+      sync: true,
+    }))
+}
+
 function createMacro(macro, options = {}) {
   if (options.configName === 'options') {
     throw new Error(
@@ -48,7 +68,7 @@ function nodeResolvePath(source, basedir) {
 
 function macrosPlugin(
   babel,
-  {require: _require = require, resolvePath = nodeResolvePath} = {},
+  {require: _require = require, resolvePath = nodeResolvePath, ...options} = {},
 ) {
   function interopRequire(path) {
     // eslint-disable-next-line import/no-dynamic-require
@@ -88,6 +108,7 @@ function macrosPlugin(
               babel,
               interopRequire,
               resolvePath,
+              options,
             })
 
             if (!result || !result.keepImports) {
@@ -152,6 +173,7 @@ function applyMacros({
   babel,
   interopRequire,
   resolvePath,
+  options,
 }) {
   /* istanbul ignore next (pretty much only useful for astexplorer I think) */
   const {
@@ -183,7 +205,7 @@ function applyMacros({
         `Please refer to the documentation to see how to do this properly: https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/author.md#writing-a-macro`,
     )
   }
-  const config = getConfig(macro, filename, source)
+  const config = getConfig(macro, filename, source, options)
 
   let result
   try {
@@ -228,44 +250,76 @@ function applyMacros({
   return result
 }
 
-// eslint-disable-next-line consistent-return
-function getConfig(macro, filename, source) {
-  if (macro.options.configName) {
-    try {
-      // lazy-loading it here to avoid perf issues of loading it up front.
-      // No I did not measure. Yes I'm a bad person.
-      // FWIW, this thing told me that cosmiconfig is 227.1 kb of minified JS
-      // so that's probably significant... https://bundlephobia.com/result?p=cosmiconfig@3.1.0
-      // Note that cosmiconfig will cache the babel-plugin-macros config 👍
-      const explorer = require('cosmiconfig')('babel-plugin-macros', {
-        searchPlaces: [
-          'package.json',
-          `.babel-plugin-macrosrc`,
-          `.babel-plugin-macrosrc.json`,
-          `.babel-plugin-macrosrc.yaml`,
-          `.babel-plugin-macrosrc.yml`,
-          `.babel-plugin-macrosrc.js`,
-          `babel-plugin-macros.config.js`,
-        ],
-        packageProp: 'babelMacros',
-        sync: true,
-      })
-      const loaded = explorer.searchSync(filename)
-      if (loaded) {
-        return loaded.config[macro.options.configName]
+function getConfigFromFile(configName, filename) {
+  try {
+    const loaded = getConfigExporer().searchSync(filename)
+
+    if (loaded) {
+      return {
+        options: loaded.config[configName],
+        path: loaded.filepath,
       }
-    } catch (error) {
+    }
+  } catch (e) {
+    return {error: e}
+  }
+  return {}
+}
+
+function getConfigFromOptions(configName, options) {
+  if (options.hasOwnProperty(configName)) {
+    if (options[configName] && typeof options[configName] !== 'object') {
       // eslint-disable-next-line no-console
       console.error(
-        `There was an error trying to load the config "${
-          macro.options.configName
-        }" ` +
+        `The macro plugin options' ${configName} property was not an object or null.`,
+      )
+    } else {
+      return {options: options[configName]}
+    }
+  }
+  return {}
+}
+
+function getConfig(macro, filename, source, options) {
+  const {configName} = macro.options
+  if (configName) {
+    const fileConfig = getConfigFromFile(configName, filename)
+    const optionsConfig = getConfigFromOptions(configName, options)
+
+    if (
+      optionsConfig.options === undefined &&
+      fileConfig.options === undefined
+    ) {
+      // eslint-disable-next-line no-console
+      console.error(
+        `There was an error trying to load the config "${configName}" ` +
           `for the macro imported from "${source}. ` +
           `Please see the error thrown for more information.`,
       )
-      throw error
+      if (fileConfig.error !== undefined) {
+        throw fileConfig.error
+      }
+    }
+
+    if (
+      fileConfig.options !== undefined &&
+      optionsConfig.options !== undefined &&
+      typeof fileConfig.options !== 'object'
+    ) {
+      throw new Error(
+        `${fileConfig.path} specified a ${configName} config of type ` +
+          `${typeof optionsConfig.options}, but the the macros plugin's ` +
+          `options.${configName} did contain an object. Both configs must ` +
+          `contain objects for their options to be mergeable.`,
+      )
+    }
+
+    return {
+      ...optionsConfig.options,
+      ...fileConfig.options,
     }
   }
+  return undefined
 }
 
 /*

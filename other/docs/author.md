@@ -4,9 +4,9 @@
 
 Is this your first time working with ASTs? Here are some resources:
 
-* [Writing custom Babel and ESLint plugins with ASTs](https://youtu.be/VBscbcm2Mok?list=PLV5CVI1eNcJgNqzNwcs4UKrlJdhfDjshf): A 53 minute talk by [@kentcdodds](https://twitter.com/kentcdodds)
-* [babel-handbook](https://github.com/thejameskyle/babel-handbook): A guided handbook on how to use Babel and how to create plugins for Babel by [@thejameskyle](https://twitter.com/thejameskyle)
-* [Code Transformation and Linting](https://kentcdodds.com/workshops/#code-transformation-and-linting): A workshop (recording available on Frontend Masters) with exercises of making custom Babel and ESLint plugins
+- [Writing custom Babel and ESLint plugins with ASTs](https://youtu.be/VBscbcm2Mok?list=PLV5CVI1eNcJgNqzNwcs4UKrlJdhfDjshf): A 53 minute talk by [@kentcdodds](https://twitter.com/kentcdodds)
+- [babel-handbook](https://github.com/thejameskyle/babel-handbook): A guided handbook on how to use Babel and how to create plugins for Babel by [@thejameskyle](https://twitter.com/thejameskyle)
+- [Code Transformation and Linting](https://kentcdodds.com/workshops/#code-transformation-and-linting): A workshop (recording available on Frontend Masters) with exercises of making custom Babel and ESLint plugins
 
 ## Writing a macro
 
@@ -164,43 +164,53 @@ This is a string used as import declaration's source - i.e. `'./my.macro'`.
 
 #### config (EXPERIMENTAL!)
 
-There is an experimental feature that allows users to configure your macro. We
-use [`cosmiconfig`][cosmiconfig] to read a `babel-plugin-macros` configuration which
+There is an experimental feature that allows users to configure your macro.
+
+To specify that your plugin is configurable, you pass a `configName` to `createMacro`.
+
+A configuration is created from data combined from two sources:
+We use [`cosmiconfig`][cosmiconfig] to read a `babel-plugin-macros` configuration which
 can be located in any of the following files up the directories from the
 importing file:
 
-* `.babel-plugin-macrosrc`
-* `.babel-plugin-macrosrc.json`
-* `.babel-plugin-macrosrc.yaml`
-* `.babel-plugin-macrosrc.yml`
-* `.babel-plugin-macrosrc.js`
-* `babel-plugin-macros.config.js`
-* `babelMacros` in `package.json`
+- `.babel-plugin-macrosrc`
+- `.babel-plugin-macrosrc.json`
+- `.babel-plugin-macrosrc.yaml`
+- `.babel-plugin-macrosrc.yml`
+- `.babel-plugin-macrosrc.js`
+- `babel-plugin-macros.config.js`
+- `babelMacros` in `package.json`
 
-To specify that your plugin is configurable, you pass a `configName` to
-`createMacro`:
+The content of the config will be merged with the content of the babel macros plugin
+options. Config options take priority.
 
-```javascript
-const {createMacro} = require('babel-plugin-macros')
-const configName = 'taggedTranslations'
-module.exports = createMacro(taggedTranslationsMacro, {configName})
-function taggedTranslationsMacro({references, state, babel, config}) {
-  // config would be taggedTranslations portion of the config as loaded from `cosmiconfig`
-}
-```
-
-Then to configure this, users would do something like this:
+All together specifying and using the config might look like this:
 
 ```javascript
-// babel-plugin-macros.config.js
+// .babel-plugin-macros.config.js
 module.exports = {
-  taggedTranslations: {
-    someConfig: {},
-  },
+  taggedTranslations: { locale: 'en_US' }
+}
+
+// .babel.config.js
+module.exports = {
+  plugins: [
+    ['macros': {
+      taggedTranslations: { locale: 'en_GB' }
+    }]
+  ]
+}
+
+// taggedTranslations.macro.js
+const {createMacro} = require('babel-plugin-macros')
+module.exports = createMacro(taggedTranslationsMacro, {configName: 'taggedTranslations'})
+function taggedTranslationsMacro({references, state, babel, config}) {
+  const { locale = 'en' } = config;
 }
 ```
 
-And the `config` object you would receive would be: `{someConfig: {}}`.
+Note that in the above example if both files were sepcified the final locale value would
+be `en_US`, since that is the value in the plugin config file.
 
 ### Keeping imports
 
