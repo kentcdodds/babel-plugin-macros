@@ -360,7 +360,7 @@ pluginTester({
           expect(configurableMacro.realMacro).toHaveBeenCalledTimes(1)
           expect(configurableMacro.realMacro.mock.calls[0][0].config).toEqual({
             fileConfig: true,
-            someConfig: false,
+            someConfig: true,
             somePluginConfig: true,
           })
           configurableMacro.realMacro.mockClear()

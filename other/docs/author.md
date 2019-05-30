@@ -182,7 +182,7 @@ importing file:
 - `babelMacros` in `package.json`
 
 The content of the config will be merged with the content of the babel macros plugin
-options. Plugin options take priority.
+options. Config options take priority.
 
 All together specifying and using the config might look like this:
 
@@ -209,8 +209,8 @@ function taggedTranslationsMacro({references, state, babel, config}) {
 }
 ```
 
-Note that in the above example if both files were sepcified the finale locale value would
-be `en_GB`, since that is the value in the plugin options.
+Note that in the above example if both files were sepcified the final locale value would
+be `en_US`, since that is the value in the plugin config file.
 
 ### Keeping imports
 

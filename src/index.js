@@ -315,8 +315,8 @@ function getConfig(macro, filename, source, options) {
     }
 
     return {
-      ...fileConfig.options,
       ...optionsConfig.options,
+      ...fileConfig.options,
     }
   }
   return undefined
