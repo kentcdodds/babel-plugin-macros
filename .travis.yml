@@ -1,16 +1,19 @@
-os:
-  - linux
-  - windows
 sudo: false
 language: node_js
-cache:
-  directories:
-    - ~/.npm
+cache: npm
 notifications:
   email: false
 node_js: '10'
-install: npm install
-script: npm run validate
-after_success: kcd-scripts travis-after-success
+jobs:
+  include:
+    - stage: test
+      os: linux
+      install: npm install
+      script: npm run validate
+      after_success: kcd-scripts travis-after-success
+    - stage: test
+      os: windows
+      install: npm install
+      script: npm run validate
 branches:
   only: master
