@@ -1,3 +1,6 @@
+os:
+  - linux
+  - windows
 sudo: false
 language: node_js
 cache:
