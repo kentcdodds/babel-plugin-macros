@@ -1,16 +1,22 @@
-os:
-  - linux
-  - windows
 sudo: false
 language: node_js
-cache:
-  directories:
-    - ~/.npm
+cache: npm
 notifications:
   email: false
 node_js: '10'
-install: npm install
-script: npm run validate
-after_success: kcd-scripts travis-after-success
+jobs:
+  include:
+    - stage: test
+      os: linux
+      install: npm install
+      script: npm run validate
+      after_success: kcd-scripts travis-after-success
+    - stage: test
+      os: windows
+      install: npm install
+      script: npm run validate
+      # Travis does not support secrets on Windows yet so we test only external PRs where the secrets are not exposed
+      # https://travis-ci.community/t/current-known-issues-please-read-this-before-posting-a-new-topic/264
+      if: head_repo != "kentcdodds/babel-plugin-macros"
 branches:
   only: master
