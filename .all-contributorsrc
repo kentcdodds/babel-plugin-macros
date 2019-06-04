@@ -179,6 +179,15 @@
         "test",
         "doc"
       ]
+    },
+    {
+      "login": "InvictusMB",
+      "name": "InvictusMB",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3091209?v=4",
+      "profile": "https://github.com/InvictusMB",
+      "contributions": [
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
