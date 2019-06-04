@@ -76,6 +76,16 @@ function macrosPlugin(
     return o && o.__esModule && o.default ? o.default : o
   }
 
+  function getImportedName(specifier) {
+    switch (specifier.type) {
+      case 'ImportNamespaceSpecifier':
+      case 'ImportDefaultSpecifier':
+        return 'default'
+      default:
+        return specifier.imported.name
+    }
+  }
+
   return {
     name: 'macros',
     visitor: {
@@ -94,10 +104,7 @@ function macrosPlugin(
             }
             const imports = path.node.specifiers.map(s => ({
               localName: s.local.name,
-              importedName:
-                s.type === 'ImportDefaultSpecifier'
-                  ? 'default'
-                  : s.imported.name,
+              importedName: getImportedName(s),
             }))
             const source = path.node.source.value
             const result = applyMacros({

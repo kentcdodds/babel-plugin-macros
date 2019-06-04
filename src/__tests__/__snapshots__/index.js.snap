@@ -320,7 +320,7 @@ const x = 79;
 
 `;
 
-exports[`macros works with import: works with import 1`] = `
+exports[`macros works with default import: works with default import 1`] = `
 
 import myEval from './fixtures/eval.macro'
 const x = myEval\`34 + 45\`
@@ -328,6 +328,38 @@ const x = myEval\`34 + 45\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const x = 79;
+
+`;
+
+exports[`macros works with namespace import: works with namespace import 1`] = `
+
+import * as foo from './fixtures/namespace-proxy.macro'
+
+export const x = foo.bar(42)
+export const y = foo.baz(42)
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _baz from "some-module/dist/baz";
+import _bar from "some-module/dist/bar";
+export const x = _bar(42);
+export const y = _baz(42);
+
+`;
+
+exports[`macros does not distinguish namespace from default import: does not distinguish namespace from default import 1`] = `
+
+import foo from './fixtures/namespace-proxy.macro'
+
+export const x = foo.bar(42)
+export const y = foo.baz(42)
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import _baz from "some-module/dist/baz";
+import _bar from "some-module/dist/bar";
+export const x = _bar(42);
+export const y = _baz(42);
 
 `;
 

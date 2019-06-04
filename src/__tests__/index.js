@@ -103,10 +103,28 @@ pluginTester({
       `,
     },
     {
-      title: 'works with import',
+      title: 'works with default import',
       code: `
         import myEval from './fixtures/eval.macro'
         const x = myEval\`34 + 45\`
+      `,
+    },
+    {
+      title: 'works with namespace import',
+      code: `
+        import * as foo from './fixtures/namespace-proxy.macro'
+        
+        export const x = foo.bar(42)
+        export const y = foo.baz(42)
+      `,
+    },
+    {
+      title: 'does not distinguish namespace from default import',
+      code: `
+        import foo from './fixtures/namespace-proxy.macro'
+        
+        export const x = foo.bar(42)
+        export const y = foo.baz(42)
       `,
     },
     {
