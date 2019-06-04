@@ -15,5 +15,8 @@ jobs:
       os: windows
       install: npm install
       script: npm run validate
+      # Travis does not support secrets on Windows yet so we test only external PRs where the secrets are not exposed
+      # https://travis-ci.community/t/current-known-issues-please-read-this-before-posting-a-new-topic/264
+      if: head_repo != "kentcdodds/babel-plugin-macros"
 branches:
   only: master
