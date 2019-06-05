@@ -151,6 +151,7 @@ function macrosPlugin(
                   babel,
                   interopRequire,
                   resolvePath,
+                  options,
                 })
 
                 if (!result || !result.keepImports) {

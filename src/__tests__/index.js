@@ -371,6 +371,31 @@ pluginTester({
       },
     },
     {
+      title: 'when configuration is specified in plugin options',
+      pluginOptions: {
+        configurableMacro: {
+          someConfig: false,
+          somePluginConfig: true,
+        },
+      },
+      fixture: path.join(__dirname, 'fixtures/config/cjs-code.js'),
+      teardown() {
+        try {
+          const configurableMacro = require('./fixtures/config/configurable.macro')
+          expect(configurableMacro.realMacro).toHaveBeenCalledTimes(1)
+          expect(configurableMacro.realMacro.mock.calls[0][0].config).toEqual({
+            fileConfig: true,
+            someConfig: true,
+            somePluginConfig: true,
+          })
+          configurableMacro.realMacro.mockClear()
+        } catch (e) {
+          console.error(e)
+          throw e
+        }
+      },
+    },
+    {
       title: 'when configuration is specified incorrectly in plugin options',
       fixture: path.join(__dirname, 'fixtures/config/code.js'),
       pluginOptions: {
