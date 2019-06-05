@@ -235,6 +235,20 @@ configured\`stuff\`;
 
 `;
 
+exports[`macros when configuration is specified in plugin options: when configuration is specified in plugin options 2`] = `
+
+const configured = require('./configurable.macro')
+
+// eslint-disable-next-line babel/no-unused-expressions
+configured\`stuff\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+// eslint-disable-next-line babel/no-unused-expressions
+configured\`stuff\`;
+
+`;
+
 exports[`macros when configuration is specified incorrectly in plugin options: when configuration is specified incorrectly in plugin options 1`] = `
 
 import configured from './configurable.macro'
