@@ -55,6 +55,8 @@ Incidentally, `eval.macro.js` actually exists in the tests for `babel-plugin-mac
 
 ### Using with create-react-app
 
+> [Checkout the CRA Macro Example repo](https://github.com/kentcdodds/cra-macro-example)
+
 `babel-plugin-macros` ships with `react-scripts` 2.0! This is awesome because it allows for babel to be configured in a nice way without having to eject from `create-react-app`!
 
 Before deciding to use this however you should be aware of a few things:
