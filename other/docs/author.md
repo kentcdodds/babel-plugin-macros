@@ -10,6 +10,10 @@ Is this your first time working with ASTs? Here are some resources:
 
 ## Writing a macro
 
+> You might appreciate
+> [this example repo](https://github.com/kentcdodds/cra-macro-example)
+> which shows how to write and use macros in a create-react-app application.
+
 A macro is a JavaScript module that exports a function. Here's a simple example:
 
 ```javascript
