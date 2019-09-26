@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://codefund.io/properties/448/visit-sponsor">
+    <img src="https://codefund.io/properties/448/sponsor" />
+  </a>
+</p>
+
 <div align="center">
 <h1>babel-plugin-macros 🎣</h1>
 
