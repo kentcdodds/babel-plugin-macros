@@ -22,7 +22,10 @@ function emotionMacro({references, babel}) {
     if (styledRef.parentPath.parentPath.type === 'TaggedTemplateExpression') {
       const quasi = styledRef.parentPath.parentPath.get('quasi')
       const val = quasi.evaluate().value.trim()
-      const replacement = t.templateLiteral([t.templateElement(val)], [])
+      const replacement = t.templateLiteral(
+        [t.templateElement({raw: val, cooked: val})],
+        [],
+      )
       quasi.replaceWith(replacement)
     }
   })

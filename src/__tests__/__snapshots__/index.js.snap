@@ -27,7 +27,8 @@ const Div = STYLED.div\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const red = "background-color: red;";
-const Div = STYLED.div\`undefined\`;
+const Div = STYLED.div\`composes: background-color: red;
+  color: blue;\`;
 
 `;
 
@@ -49,7 +50,7 @@ errorThrower('hi')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-Error: not helpful Learn more: https://www.npmjs.com/package/babel-plugin-macros-test-error-thrower
+Error: babel-plugin-macros-test-error-thrower/macro: not helpful Learn more: https://www.npmjs.com/package/babel-plugin-macros-test-error-thrower
 
 `;
 
@@ -60,7 +61,7 @@ errorThrower('hi')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-Error: not helpful Learn more: https://www.npmjs.com/package/babel-plugin-macros-test-error-thrower.macro
+Error: babel-plugin-macros-test-error-thrower.macro: not helpful Learn more: https://www.npmjs.com/package/babel-plugin-macros-test-error-thrower.macro
 
 `;
 
@@ -133,8 +134,15 @@ const red = macro('noop')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import macro from './fixtures/keep-imports.macro';
-const red = macro('noop');
+"use strict";
+
+var _keepImports = require("./fixtures/keep-imports.macro");
+
+var _keepImports2 = _interopRequireDefault(_keepImports);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const red = (0, _keepImports2.default)('noop');
 
 `;
 
@@ -145,7 +153,7 @@ errorThrower('hey')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-Error: very unhelpful
+Error: ./fixtures/error-thrower.macro: very unhelpful
 
 `;
 
@@ -202,7 +210,7 @@ unwrapped('hey')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-Error: https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/author.md#writing-a-macro
+Error: The macro imported from "./fixtures/non-wrapped.macro" must be wrapped in "createMacro" which you can get from "babel-plugin-macros". Please refer to the documentation to see how to do this properly: https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/docs/author.md#writing-a-macro
 
 `;
 
@@ -346,7 +354,8 @@ const Div = STYLED.div\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const red = "background-color: red;";
-const Div = STYLED.div\`undefined\`;
+const Div = STYLED.div\`composes: background-color: red;
+  color: blue;\`;
 
 `;
 
@@ -365,7 +374,8 @@ const Div = styled.div\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const red = "background-color: red;";
-const Div = styled.div\`undefined\`;
+const Div = styled.div\`composes: background-color: red;
+  color: blue;\`;
 
 `;
 

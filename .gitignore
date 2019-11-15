@@ -4,4 +4,4 @@ dist
 .opt-in
 .opt-out
 package-lock.json
-.eslintcache
+yarn.lock

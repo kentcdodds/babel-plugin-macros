@@ -23,7 +23,7 @@ function getConfigExporer() {
   return (_configExplorer =
     _configExplorer ||
     // Lazy load cosmiconfig since it is a relatively large bundle
-    require('cosmiconfig')('babel-plugin-macros', {
+    require('cosmiconfig').cosmiconfigSync('babel-plugin-macros', {
       searchPlaces: [
         'package.json',
         '.babel-plugin-macrosrc',
@@ -34,7 +34,6 @@ function getConfigExporer() {
         'babel-plugin-macros.config.js',
       ],
       packageProp: 'babelMacros',
-      sync: true,
     }))
 }
 
@@ -253,7 +252,7 @@ function applyMacros({
 
 function getConfigFromFile(configName, filename) {
   try {
-    const loaded = getConfigExporer().searchSync(filename)
+    const loaded = getConfigExporer().search(filename)
 
     if (loaded) {
       return {

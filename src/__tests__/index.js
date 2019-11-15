@@ -1,6 +1,5 @@
-/* eslint no-console:0 */
 import path from 'path'
-import cosmiconfigMock from 'cosmiconfig'
+import {cosmiconfigSync as cosmiconfigSyncMock} from 'cosmiconfig'
 import cpy from 'cpy'
 import babel from '@babel/core'
 import pluginTester from 'babel-plugin-tester'
@@ -9,28 +8,13 @@ import plugin from '../'
 const projectRoot = path.join(__dirname, '../../')
 
 jest.mock('cosmiconfig', () => {
-  const mockSearchSync = jest.fn()
-  Object.assign(mockSearchSync, {
-    mockReset() {
-      return mockSearchSync.mockImplementation(
-        (filename, configuredCosmiconfig) =>
-          configuredCosmiconfig.searchSync(filename),
-      )
-    },
-  })
-
-  mockSearchSync.mockReset()
-
-  const _cosmiconfigMock = (...args) => ({
-    searchSync(filename) {
-      return mockSearchSync(
-        filename,
-        require.requireActual('cosmiconfig')(...args),
-      )
-    },
-  })
-
-  return Object.assign(_cosmiconfigMock, {mockSearchSync})
+  const cosmiconfigExports = jest.requireActual('cosmiconfig')
+  const actualCosmiconfigSync = cosmiconfigExports.cosmiconfigSync
+  function fakeCosmiconfigSync(...args) {
+    fakeCosmiconfigSync.explorer = actualCosmiconfigSync(...args)
+    return fakeCosmiconfigSync.explorer
+  }
+  return {...cosmiconfigExports, cosmiconfigSync: fakeCosmiconfigSync}
 })
 
 beforeAll(() => {
@@ -43,10 +27,13 @@ beforeAll(() => {
   })
 })
 
+beforeEach(() => {
+  jest.spyOn(console, 'error').mockImplementation(() => {})
+})
+
 afterEach(() => {
-  // eslint-disable-next-line
-  require('babel-plugin-macros-test-fake/macro').innerFn.mockClear()
-  cosmiconfigMock.mockSearchSync.mockReset()
+  console.error.mockRestore()
+  jest.clearAllMocks()
 })
 
 expect.addSnapshotSerializer({
@@ -308,18 +295,20 @@ pluginTester({
       error: true,
       fixture: path.join(__dirname, 'fixtures/config/code.js'),
       setup() {
-        cosmiconfigMock.mockSearchSync.mockImplementationOnce(() => {
-          throw new Error('this is a cosmiconfig error')
-        })
-        const originalError = console.error
-        console.error = jest.fn()
+        jest
+          .spyOn(cosmiconfigSyncMock.explorer, 'search')
+          .mockImplementationOnce(() => {
+            throw new Error('this is a cosmiconfig error')
+          })
+        jest.spyOn(console, 'error').mockImplementationOnce(() => {})
         return function teardown() {
           try {
             expect(console.error).toHaveBeenCalledTimes(1)
             expect(console.error.mock.calls[0]).toMatchSnapshot()
-            console.error = originalError
+            console.error.mockClear()
           } catch (e) {
             console.error(e)
+            console.error.mockClear()
             throw e
           }
         }
@@ -329,7 +318,11 @@ pluginTester({
       title: 'when there is no config to load, then no config is passed',
       fixture: path.join(__dirname, 'fixtures/config/code.js'),
       setup() {
-        cosmiconfigMock.mockSearchSync.mockImplementationOnce(() => null)
+        jest
+          .spyOn(cosmiconfigSyncMock.explorer, 'search')
+          .mockImplementationOnce(() => {
+            return null
+          })
         return function teardown() {
           try {
             const configurableMacro = require('./fixtures/config/configurable.macro')
@@ -450,3 +443,5 @@ pluginTester({
     },
   ],
 })
+
+/* eslint no-console:0 */
