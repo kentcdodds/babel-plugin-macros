@@ -214,6 +214,28 @@ Error: The macro imported from "./fixtures/non-wrapped.macro" must be wrapped in
 
 `;
 
+exports[`macros when a custom isMacrosName option is used on a import: when a custom isMacrosName option is used on a import 1`] = `
+
+import myEval from './fixtures/eval-macro.js'
+const x = myEval\`34 + 45\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const x = 79;
+
+`;
+
+exports[`macros when a custom isMacrosName option is used on a require: when a custom isMacrosName option is used on a require 1`] = `
+
+const evaler = require('./fixtures/eval-macro.js')
+const x = evaler\`34 + 45\`
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+const x = 79;
+
+`;
+
 exports[`macros when a plugin that replaces paths is used, macros still work properly: when a plugin that replaces paths is used, macros still work properly 1`] = `
 
 import myEval from '../eval.macro'
