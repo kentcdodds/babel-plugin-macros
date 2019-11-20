@@ -197,6 +197,16 @@
       "contributions": [
         "fundingFinding"
       ]
+    },
+    {
+      "login": "futagoza",
+      "name": "Futago-za Ryuu",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1943570?v=4",
+      "profile": "http://futagoza.github.io/",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
