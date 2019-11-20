@@ -19,7 +19,7 @@ Allows you to build simple compile-time libraries
 [![downloads][downloads-badge]][npmchart]
 [![MIT License][license-badge]][license]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-20-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-21-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome][prs-badge]][prs]
 [![Donate][donate-badge]][donate]
 [![Code of Conduct][coc-badge]][coc]
@@ -375,6 +375,7 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="http://burningpotato.com"><img src="https://avatars1.githubusercontent.com/u/540777?v=4" width="100px;" alt="Conrad Buck"/><br /><sub><b>Conrad Buck</b></sub></a><br /><a href="https://github.com/kentcdodds/babel-plugin-macros/commits?author=conartist6" title="Code">💻</a> <a href="https://github.com/kentcdodds/babel-plugin-macros/commits?author=conartist6" title="Tests">⚠️</a> <a href="https://github.com/kentcdodds/babel-plugin-macros/commits?author=conartist6" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/InvictusMB"><img src="https://avatars3.githubusercontent.com/u/3091209?v=4" width="100px;" alt="InvictusMB"/><br /><sub><b>InvictusMB</b></sub></a><br /><a href="https://github.com/kentcdodds/babel-plugin-macros/commits?author=InvictusMB" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://codefund.io"><img src="https://avatars2.githubusercontent.com/u/12481?v=4" width="100px;" alt="Eric Berry"/><br /><sub><b>Eric Berry</b></sub></a><br /><a href="#fundingFinding-coderberry" title="Funding Finding">🔍</a></td>
+    <td align="center"><a href="http://futagoza.github.io/"><img src="https://avatars1.githubusercontent.com/u/1943570?v=4" width="100px;" alt="Futago-za Ryuu"/><br /><sub><b>Futago-za Ryuu</b></sub></a><br /><a href="https://github.com/kentcdodds/babel-plugin-macros/commits?author=futagoza" title="Code">💻</a> <a href="https://github.com/kentcdodds/babel-plugin-macros/commits?author=futagoza" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
