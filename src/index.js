@@ -3,6 +3,7 @@ const resolve = require('resolve')
 // const printAST = require('ast-pretty-print')
 
 const macrosRegex = /[./]macro(\.js)?$/
+const testMacrosRegex = v => macrosRegex.test(v)
 
 // https://stackoverflow.com/a/32749533/971592
 class MacroError extends Error {
@@ -67,7 +68,12 @@ function nodeResolvePath(source, basedir) {
 
 function macrosPlugin(
   babel,
-  {require: _require = require, resolvePath = nodeResolvePath, ...options} = {},
+  {
+    require: _require = require,
+    resolvePath = nodeResolvePath,
+    isMacrosName = testMacrosRegex,
+    ...options
+  } = {},
 ) {
   function interopRequire(path) {
     // eslint-disable-next-line import/no-dynamic-require
@@ -84,7 +90,7 @@ function macrosPlugin(
             const isMacros = looksLike(path, {
               node: {
                 source: {
-                  value: v => macrosRegex.test(v),
+                  value: v => isMacrosName(v),
                 },
               },
             })
@@ -124,7 +130,7 @@ function macrosPlugin(
                       name: 'require',
                     },
                     arguments: args =>
-                      args.length === 1 && macrosRegex.test(args[0].value),
+                      args.length === 1 && isMacrosName(args[0].value),
                   },
                 },
               })

@@ -411,6 +411,30 @@ pluginTester({
       },
     },
     {
+      title: 'when a custom isMacrosName option is used on a import',
+      pluginOptions: {
+        isMacrosName(v) {
+          return v.endsWith('-macro.js')
+        },
+      },
+      code: `
+        import myEval from './fixtures/eval-macro.js'
+        const x = myEval\`34 + 45\`
+      `,
+    },
+    {
+      title: 'when a custom isMacrosName option is used on a require',
+      pluginOptions: {
+        isMacrosName(v) {
+          return v.endsWith('-macro.js')
+        },
+      },
+      code: `
+        const evaler = require('./fixtures/eval-macro.js')
+        const x = evaler\`34 + 45\`
+      `,
+    },
+    {
       title:
         'when plugin options configuration cannot be merged with file configuration',
       error: true,
