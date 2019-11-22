@@ -73,10 +73,10 @@ $ # Upgrade an existing application
 $ yarn upgrade react-scripts
 ```
 
-### config (EXPERIMENTAL!)
+### config
 
-There is an experimental feature that allows you to configure your macro. We
-use [`cosmiconfig`][cosmiconfig] to read a `babel-plugin-macros` configuration which
+There is a feature that allows you to configure your macro. We use
+[`cosmiconfig`][cosmiconfig] to read a `babel-plugin-macros` configuration which
 can be located in any of the following files up the directories from the
 importing file:
 
