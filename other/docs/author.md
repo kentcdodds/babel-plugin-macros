@@ -166,9 +166,9 @@ you're given. For that check out [the babel handbook][babel-handbook].
 
 This is a string used as import declaration's source - i.e. `'./my.macro'`.
 
-#### config (EXPERIMENTAL!)
+#### config
 
-There is an experimental feature that allows users to configure your macro.
+There is a feature that allows users to configure your macro.
 
 To specify that your plugin is configurable, you pass a `configName` to `createMacro`.
 
