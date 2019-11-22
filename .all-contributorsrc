@@ -207,6 +207,15 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "lucleray",
+      "name": "Luc",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6616955?v=4",
+      "profile": "https://luc.im",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
