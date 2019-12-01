@@ -216,8 +216,18 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "wintercounter",
+      "name": "Victor Vincent",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/963776?v=4",
+      "profile": "http://wintercounter.me",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
-  "repoHost": "https://github.com"
+  "repoHost": "https://github.com",
+  "skipCi": true
 }
