@@ -63,7 +63,10 @@ function createMacro(macro, options = {}) {
 }
 
 function nodeResolvePath(source, basedir) {
-  return resolve.sync(source, {basedir})
+  return resolve.sync(source, {
+    basedir,
+    paths: [p.resolve(__dirname, '../../')]
+  })
 }
 
 function macrosPlugin(
