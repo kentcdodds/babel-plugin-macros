@@ -225,6 +225,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "mvasilkov",
+      "name": "я котик пур-пур",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/140257?v=4",
+      "profile": "http://mvasilkov.ovh",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
