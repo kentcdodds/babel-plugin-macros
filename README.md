@@ -130,10 +130,10 @@ you could use `babel-plugin-macros` for, like:
 ## Installation
 
 This module is distributed via [npm][npm] which is bundled with [node][node] and
-should be installed as one of your project's `devDependencies`:
+should be installed as one of your project's `dependencies`:
 
 ```
-npm install --save-dev babel-plugin-macros
+npm install babel-plugin-macros
 ```
 
 ## Usage
@@ -320,10 +320,6 @@ Explicit is often a better pattern than implicit because it requires others to
 understand how things are globally configured. This is in this spirit are
 `babel-plugin-macros` designed. However, some things _do_ need to be implicit,
 and those kinds of babel plugins can't be turned into macros.
-
-### Should macros be dependencies or devDependencies?
-
-Macros are processed at build-time and not required at runtime. They should be devDependencies.
 
 ## Inspiration
 
