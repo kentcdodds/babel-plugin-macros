@@ -14,6 +14,18 @@
 }
 ```
 
+### Via [`babel.config.js`](https://babeljs.io/docs/en/configuration#babelconfigjs)
+
+**babel.config.js**
+
+```javascript
+module.exports = function (api) {
+  return {
+    plugins: ['macros'],
+  }
+}
+```
+
 ### Via CLI
 
 ```shell
