@@ -9,12 +9,7 @@ function emotionMacro({references, babel}) {
   references.css.forEach(cssRef => {
     if (cssRef.parentPath.type === 'TaggedTemplateExpression') {
       cssRef.parentPath.replaceWith(
-        t.stringLiteral(
-          cssRef.parentPath
-            .get('quasi')
-            .evaluate()
-            .value.trim(),
-        ),
+        t.stringLiteral(cssRef.parentPath.get('quasi').evaluate().value.trim()),
       )
     }
   })
