@@ -1,24 +1,22 @@
-sudo: false
 language: node_js
 cache: npm
 notifications:
   email: false
-node_js: '10'
+node_js:
+  - 10.0.0
+  - 12
+  - node
+install: npm install
+script:
+  - npm run validate
+  - npx codecov@3
+branches:
+  only:
+    - master
+    - beta
+
 jobs:
   include:
-    - stage: test
-      name: test on windows
-      os: windows
-      install: npm install
-      script: npm run validate
-      # Travis does not support secrets on Windows yet so we test only external PRs where the secrets are not exposed
-      # https://travis-ci.community/t/current-known-issues-please-read-this-before-posting-a-new-topic/264
-      if: type = pull_request AND head_repo != repo
-    - stage: test and publish
-      name: test on linux and publish
-      os: linux
-      install: npm install
-      script: npm run validate
-      after_success: kcd-scripts travis-after-success
-branches:
-  only: master
+    - stage: release
+      node_js: 12
+      script: kcd-scripts travis-release
