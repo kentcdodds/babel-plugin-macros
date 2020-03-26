@@ -23,9 +23,9 @@
 ## The problem
 
 Check out
-<a href="https://babeljs.io/blog/2017/09/11/zero-config-with-babel-macros" rel="nofollow">this
-guest post</a> on the Babel.js blog for a complete write up on the problem,
-motivation, and solution.
+[this guest post](https://babeljs.io/blog/2017/09/11/zero-config-with-babel-macros)
+on the Babel.js blog for a complete write up on the problem, motivation, and
+solution.
 
 Currently, each babel plugin in the babel ecosystem requires that you configure
 it individually. This is fine for things like language features, but can be
@@ -433,11 +433,11 @@ MIT
 [downloads-badge]: https://img.shields.io/npm/dm/babel-plugin-macros.svg?style=flat-square
 [npmtrends]: http://www.npmtrends.com/babel-plugin-macros
 [license-badge]: https://img.shields.io/npm/l/babel-plugin-macros.svg?style=flat-square
-[license]: https://github.com/kentcdodds/babel-plugin-preval/blob/master/LICENSE
+[license]: https://github.com/kentcdodds/babel-plugin-macros/blob/master/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
-[coc]: https://github.com/kentcdodds/babel-plugin-preval/blob/master/other/CODE_OF_CONDUCT.md
+[coc]: https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/CODE_OF_CONDUCT.md
 [emojis]: https://github.com/all-contributors/all-contributors#emoji-key
 [all-contributors]: https://github.com/all-contributors/all-contributors
 
