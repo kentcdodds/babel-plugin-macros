@@ -1,30 +1,31 @@
 <div align="center">
 <h1>babel-plugin-macros 🎣</h1>
 
-Allows you to build simple compile-time libraries
-
+<p>Allows you to build simple compile-time libraries</p>
 </div>
 
-<hr />
+---
 
+<!-- prettier-ignore-start -->
 [![Build Status][build-badge]][build]
 [![Code Coverage][coverage-badge]][coverage]
 [![version][version-badge]][package]
-[![downloads][downloads-badge]][npmchart]
+[![downloads][downloads-badge]][npmtrends]
 [![MIT License][license-badge]][license]
 
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-22-orange.svg?style=flat-square)](#contributors)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![PRs Welcome][prs-badge]][prs]
-[![Donate][donate-badge]][donate]
 [![Code of Conduct][coc-badge]][coc]
-
-[![Watch on GitHub][github-watch-badge]][github-watch]
-[![Star on GitHub][github-star-badge]][github-star]
-[![Tweet][twitter-badge]][twitter]
+<!-- prettier-ignore-end -->
 
 ## The problem
 
-Check out <a href="https://babeljs.io/blog/2017/09/11/zero-config-with-babel-macros" rel="nofollow">this guest post</a> on the Babel.js blog for a complete write up on the problem, motivation, and solution.
+Check out
+[this guest post](https://babeljs.io/blog/2017/09/11/zero-config-with-babel-macros)
+on the Babel.js blog for a complete write up on the problem, motivation, and
+solution.
 
 Currently, each babel plugin in the babel ecosystem requires that you configure
 it individually. This is fine for things like language features, but can be
@@ -119,10 +120,12 @@ you could use `babel-plugin-macros` for, like:
   - [In what order are macros executed?](#in-what-order-are-macros-executed)
   - [Does it work with function calls only?](#does-it-work-with-function-calls-only)
   - [How about implicit optimizations at compile time?](#how-about-implicit-optimizations-at-compile-time)
-  - [Should macros be dependencies or devDependencies?](#should-macros-be-dependencies-or-devdependencies)
 - [Inspiration](#inspiration)
 - [Other Solutions](#other-solutions)
-- [Contributors](#contributors)
+- [Issues](#issues)
+  - [🐛 Bugs](#-bugs)
+  - [💡 Feature Requests](#-feature-requests)
+- [Contributors ✨](#contributors-)
 - [LICENSE](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -149,9 +152,9 @@ Are you trying to use `babel-plugin-macros`? Go to
 
 ### Author docs
 
-Are you trying to make your own macros that works with `babel-plugin-macros`? Go to
-[`other/docs/author.md`](other/docs/author.md).
-(you should probably read the user docs too).
+Are you trying to make your own macros that works with `babel-plugin-macros`? Go
+to [`other/docs/author.md`](other/docs/author.md). (you should probably read the
+user docs too).
 
 ### Caveats
 
@@ -159,9 +162,16 @@ Are you trying to make your own macros that works with `babel-plugin-macros`? Go
 
 > **Note:** This issue is not present when used in Create React App.
 
-Most of the time you'll probably be using this with the babel cache enabled in webpack to rebuild faster. If your macro function is **not pure** which gets different output with same code (e.g., IO side effects) it will cause recompile mechanism fail. Unfortunately you'll also experience this problem while developing your macro as well. If there's not a change to the source code that's being transpiled, then babel will use the cache rather than running your macro again.
+Most of the time you'll probably be using this with the babel cache enabled in
+webpack to rebuild faster. If your macro function is **not pure** which gets
+different output with same code (e.g., IO side effects) it will cause recompile
+mechanism fail. Unfortunately you'll also experience this problem while
+developing your macro as well. If there's not a change to the source code that's
+being transpiled, then babel will use the cache rather than running your macro
+again.
 
-For now, to force recompile the code you can simply add a cache busting comment in the file:
+For now, to force recompile the code you can simply add a cache busting comment
+in the file:
 
 ```diff
 import macro from 'non-pure.macro';
@@ -171,10 +181,14 @@ import macro from 'non-pure.macro';
 macro('parameters');
 ```
 
-This problem is still being worked on and is not unique to `babel-plugin-macros`. For more details and workarounds, please check related issues below:
+This problem is still being worked on and is not unique to
+`babel-plugin-macros`. For more details and workarounds, please check related
+issues below:
 
-- babel-plugin-preval: [How to force recompile? #19](https://github.com/kentcdodds/babel-plugin-preval/issues/19)
-- graphql.macro: [Recompile problem (babel cache) #6](https://github.com/evenchange4/graphql.macro/issues/6)
+- babel-plugin-preval:
+  [How to force recompile? #19](https://github.com/kentcdodds/babel-plugin-preval/issues/19)
+- graphql.macro:
+  [Recompile problem (babel cache) #6](https://github.com/evenchange4/graphql.macro/issues/6)
 
 ## FAQ
 
@@ -182,7 +196,8 @@ This problem is still being worked on and is not unique to `babel-plugin-macros`
 
 You can write your own without publishing them to `npm`, but if you'd like to
 see existing macros you can add to your project, then take a look at the
-[Awesome babel macros](https://github.com/jgierer12/awesome-babel-macros) repository.
+[Awesome babel macros](https://github.com/jgierer12/awesome-babel-macros)
+repository.
 
 Please add any you don't see listed!
 
@@ -305,7 +320,8 @@ const val = <Eval>7 * 6</Eval>
 
 Really, anything...
 
-See the [testing snapshot](src/__tests__/__snapshots__/index.js.snap) for more examples.
+See the [testing snapshot](src/__tests__/__snapshots__/index.js.snap) for more
+examples.
 
 ### How about implicit optimizations at compile time?
 
@@ -333,7 +349,25 @@ Thank you to [@phpnode](https://github.com/phpnode) for donating the npm package
 
 - [sweetjs](http://sweetjs.org/)
 
-## Contributors
+## Issues
+
+_Looking to contribute? Look for the [Good First Issue][good-first-issue]
+label._
+
+### 🐛 Bugs
+
+Please file an issue for bugs, missing documentation, or unexpected behavior.
+
+[**See Bugs**][bugs]
+
+### 💡 Feature Requests
+
+Please file an issue to suggest new features. Vote on feature requests by adding
+a 👍. This helps maintainers prioritize what to work on.
+
+[**See Feature Requests**][requests]
+
+## Contributors ✨
 
 Thanks goes to these people ([emoji key][emojis]):
 
@@ -377,6 +411,7 @@ Thanks goes to these people ([emoji key][emojis]):
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
@@ -386,7 +421,8 @@ Contributions of any kind welcome!
 
 MIT
 
-[npm]: https://www.npmjs.com/
+<!-- prettier-ignore-start -->
+[npm]: https://www.npmjs.com
 [node]: https://nodejs.org
 [build-badge]: https://img.shields.io/travis/kentcdodds/babel-plugin-macros.svg?style=flat-square
 [build]: https://travis-ci.org/kentcdodds/babel-plugin-macros
@@ -395,23 +431,17 @@ MIT
 [version-badge]: https://img.shields.io/npm/v/babel-plugin-macros.svg?style=flat-square
 [package]: https://www.npmjs.com/package/babel-plugin-macros
 [downloads-badge]: https://img.shields.io/npm/dm/babel-plugin-macros.svg?style=flat-square
-[npmchart]: http://npmcharts.com/compare/babel-plugin-macros
+[npmtrends]: http://www.npmtrends.com/babel-plugin-macros
 [license-badge]: https://img.shields.io/npm/l/babel-plugin-macros.svg?style=flat-square
-[license]: LICENSE
+[license]: https://github.com/kentcdodds/babel-plugin-macros/blob/master/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
-[donate-badge]: https://img.shields.io/badge/$-support-green.svg?style=flat-square
-[donate]: http://kcd.im/donate
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
-[coc]: other/CODE_OF_CONDUCT.md
-[github-watch-badge]: https://img.shields.io/github/watchers/kentcdodds/babel-plugin-macros.svg?style=social
-[github-watch]: https://github.com/kentcdodds/babel-plugin-macros/watchers
-[github-star-badge]: https://img.shields.io/github/stars/kentcdodds/babel-plugin-macros.svg?style=social
-[github-star]: https://github.com/kentcdodds/babel-plugin-macros/stargazers
-[twitter]: https://twitter.com/intent/tweet?text=Check%20out%20babel-plugin-macros!%20https://github.com/kentcdodds/babel-plugin-macros%20%F0%9F%91%8D
-[twitter-badge]: https://img.shields.io/twitter/url/https/github.com/kentcdodds/babel-plugin-macros.svg?style=social
-[emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
-[all-contributors]: https://github.com/kentcdodds/all-contributors
+[coc]: https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/CODE_OF_CONDUCT.md
+[emojis]: https://github.com/all-contributors/all-contributors#emoji-key
+[all-contributors]: https://github.com/all-contributors/all-contributors
+
 [preval]: https://github.com/kentcdodds/babel-plugin-preval
 [cra]: https://github.com/facebookincubator/create-react-app
 [cra-issue]: https://github.com/facebookincubator/create-react-app/issues/2730
+<!-- prettier-ignore-end -->

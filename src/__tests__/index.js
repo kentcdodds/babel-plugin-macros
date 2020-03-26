@@ -67,9 +67,9 @@ pluginTester({
       title: 'does nothing to code that does not import macro',
       snapshot: false,
       code: `
-        import foo from "./some-file-without-macro";
+        import foo from './some-file-without-macro'
 
-        const bar = require("./some-other-file-without-macro");
+        const bar = require('./some-other-file-without-macro')
       `,
     },
     {

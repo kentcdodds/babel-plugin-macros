@@ -67,7 +67,7 @@ function nodeResolvePath(source, basedir) {
     basedir,
     // This is here to support the package being globally installed
     // read more: https://github.com/kentcdodds/babel-plugin-macros/pull/138
-    paths: [p.resolve(__dirname, '../../')]
+    paths: [p.resolve(__dirname, '../../')],
   })
 }
 

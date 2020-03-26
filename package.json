@@ -4,18 +4,12 @@
   "description": "Allows you to build compile-time libraries",
   "main": "dist/index.js",
   "scripts": {
-    "add-contributor": "kcd-scripts contributors add",
     "build": "kcd-scripts build",
     "lint": "kcd-scripts lint",
+    "setup": "npm install && npm run validate -s",
     "test": "kcd-scripts test",
-    "test:update": "npm test -- --updateSnapshot",
-    "validate": "kcd-scripts validate",
-    "setup": "npm install && npm run validate -s"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "kcd-scripts pre-commit"
-    }
+    "test:update": "npm test -- --updateSnapshot --coverage",
+    "validate": "kcd-scripts validate"
   },
   "files": [
     "dist"
@@ -29,22 +23,22 @@
     "babel-macros",
     "babel-plugin-macros"
   ],
-  "author": "Kent C. Dodds <kent@doddsfamily.us> (http://kentcdodds.com/)",
+  "author": "Kent C. Dodds <me@kentcdodds.com> (https://kentcdodds.com)",
   "license": "MIT",
   "dependencies": {
-    "@babel/runtime": "^7.7.2",
+    "@babel/runtime": "^7.9.2",
     "cosmiconfig": "^6.0.0",
-    "resolve": "^1.12.0"
+    "resolve": "^1.15.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.2",
-    "@babel/parser": "^7.7.3",
-    "@babel/types": "^7.7.2",
+    "@babel/core": "^7.9.0",
+    "@babel/parser": "^7.9.3",
+    "@babel/types": "^7.9.0",
     "ast-pretty-print": "^2.0.1",
-    "babel-plugin-tester": "^7.0.4",
+    "babel-plugin-tester": "^9.0.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "cpy": "^7.3.0",
-    "kcd-scripts": "^1.11.0"
+    "cpy": "^8.1.0",
+    "kcd-scripts": "^5.6.0"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js"
@@ -61,10 +55,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kentcdodds/babel-plugin-macros.git"
+    "url": "https://github.com/kentcdodds/babel-plugin-macros"
   },
   "bugs": {
     "url": "https://github.com/kentcdodds/babel-plugin-macros/issues"
   },
-  "homepage": "https://github.com/kentcdodds/babel-plugin-macros#readme"
+  "homepage": "https://github.com/kentcdodds/babel-plugin-macros#readme",
+  "engines": {
+    "node": ">=10",
+    "npm": ">=6"
+  }
 }

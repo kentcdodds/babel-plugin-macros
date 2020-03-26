@@ -8,7 +8,12 @@ const bar = Wrap(<div id="d1"><p id="p1"></p></div>);
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const bar = Wrap(<div id="plugin-macro-d1"><p id="plugin-macro-p1"></p></div>);
+const bar = Wrap(
+  <div id="plugin-macro-d1">
+    <p id="plugin-macro-p1"></p>
+  </div>,
+)
+
 
 `;
 
@@ -26,9 +31,10 @@ const Div = STYLED.div\`
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const red = "background-color: red;";
+const red = 'background-color: red;'
 const Div = STYLED.div\`composes: background-color: red;
-  color: blue;\`;
+  color: blue;\`
+
 
 `;
 
@@ -39,7 +45,8 @@ const x = <MyEval>34 + 45</MyEval>
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const x = 79;
+const x = 79
+
 
 `;
 
@@ -73,7 +80,8 @@ const bar = 42;
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const bar = 42;
+const bar = 42
+
 
 `;
 
@@ -98,7 +106,8 @@ configured\`stuff\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 // eslint-disable-next-line babel/no-unused-expressions
-configured\`stuff\`;
+configured\`stuff\`
+
 
 `;
 
@@ -109,8 +118,9 @@ const red = macro('noop');
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import macro from './fixtures/keep-imports.macro';
-const red = macro('noop');
+import macro from './fixtures/keep-imports.macro'
+const red = macro('noop')
+
 
 `;
 
@@ -121,9 +131,10 @@ const red = macro('noop');
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const macro = require('./fixtures/keep-imports.macro');
+const macro = require('./fixtures/keep-imports.macro')
 
-const red = macro('noop');
+const red = macro('noop')
+
 
 `;
 
@@ -134,15 +145,18 @@ const red = macro('noop')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-"use strict";
+'use strict'
 
-var _keepImports = require("./fixtures/keep-imports.macro");
+var _keepImports = require('./fixtures/keep-imports.macro')
 
-var _keepImports2 = _interopRequireDefault(_keepImports);
+var _keepImports2 = _interopRequireDefault(_keepImports)
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {default: obj}
+}
 
-const red = (0, _keepImports2.default)('noop');
+const red = (0, _keepImports2.default)('noop')
+
 
 `;
 
@@ -184,11 +198,12 @@ const Div = styled.div\`
 
 const red = css\`
   background-color: red;
-\`;
+\`
 const Div = styled.div\`
   composes: \${red}
   color: blue;
-\`;
+\`
+
 
 `;
 
@@ -199,7 +214,8 @@ fakeMacro('hi')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-fakeMacro('hi');
+fakeMacro('hi')
+
 
 `;
 
@@ -221,7 +237,8 @@ const x = myEval\`34 + 45\`
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const x = 79;
+const x = 79
+
 
 `;
 
@@ -232,7 +249,8 @@ const x = evaler\`34 + 45\`
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const x = 79;
+const x = 79
+
 
 `;
 
@@ -246,8 +264,9 @@ global.result = result
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const result = ("foobar", 42);
-global.result = result;
+const result = ('foobar', 42)
+global.result = result
+
 
 `;
 
@@ -261,7 +280,8 @@ configured\`stuff\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 // eslint-disable-next-line babel/no-unused-expressions
-configured\`stuff\`;
+configured\`stuff\`
+
 
 `;
 
@@ -275,7 +295,8 @@ configured\`stuff\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 // eslint-disable-next-line babel/no-unused-expressions
-configured\`stuff\`;
+configured\`stuff\`
+
 
 `;
 
@@ -289,7 +310,8 @@ configured\`stuff\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 // eslint-disable-next-line babel/no-unused-expressions
-configured\`stuff\`;
+configured\`stuff\`
+
 
 `;
 
@@ -335,7 +357,8 @@ configured\`stuff\`
       ↓ ↓ ↓ ↓ ↓ ↓
 
 // eslint-disable-next-line babel/no-unused-expressions
-configured\`stuff\`;
+configured\`stuff\`
+
 
 `;
 
@@ -346,7 +369,8 @@ const x = myEval('34 + 45')
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const x = 79;
+const x = 79
+
 
 `;
 
@@ -357,7 +381,8 @@ const x = myEval\`34 + 45\`
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const x = 79;
+const x = 79
+
 
 `;
 
@@ -375,9 +400,10 @@ const Div = STYLED.div\`
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const red = "background-color: red;";
+const red = 'background-color: red;'
 const Div = STYLED.div\`composes: background-color: red;
-  color: blue;\`;
+  color: blue;\`
+
 
 `;
 
@@ -395,9 +421,10 @@ const Div = styled.div\`
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const red = "background-color: red;";
+const red = 'background-color: red;'
 const Div = styled.div\`composes: background-color: red;
-  color: blue;\`;
+  color: blue;\`
+
 
 `;
 
@@ -408,6 +435,7 @@ const x = evaler\`34 + 45\`
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-const x = 79;
+const x = 79
+
 
 `;
