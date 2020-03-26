@@ -6,6 +6,12 @@ node_js:
   - 10.0.0
   - 12
   - node
+os:
+  - linux
+  - windows
+# Travis does not support secrets on Windows yet so we test only external PRs where the secrets are not exposed
+# https://travis-ci.community/t/current-known-issues-please-read-this-before-posting-a-new-topic/264
+if: os = linux OR (type = pull_request AND head_repo != repo)
 install: npm install
 script:
   - npm run validate
@@ -19,4 +25,6 @@ jobs:
   include:
     - stage: release
       node_js: 12
+      # Build release on linux
+      os: linux
       script: kcd-scripts travis-release
