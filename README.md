@@ -425,7 +425,7 @@ MIT
 [npm]: https://www.npmjs.com
 [node]: https://nodejs.org
 [build-badge]: https://img.shields.io/travis/kentcdodds/babel-plugin-macros.svg?style=flat-square
-[build]: https://travis-ci.org/kentcdodds/babel-plugin-macros
+[build]: https://travis-ci.com/kentcdodds/babel-plugin-macros
 [coverage-badge]: https://img.shields.io/codecov/c/github/kentcdodds/babel-plugin-macros.svg?style=flat-square
 [coverage]: https://codecov.io/github/kentcdodds/babel-plugin-macros
 [version-badge]: https://img.shields.io/npm/v/babel-plugin-macros.svg?style=flat-square
