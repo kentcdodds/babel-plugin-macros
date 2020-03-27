@@ -425,7 +425,7 @@ MIT
 [npm]: https://www.npmjs.com
 [node]: https://nodejs.org
 [build-badge]: https://img.shields.io/travis/kentcdodds/babel-plugin-macros.svg?style=flat-square
-[build]: https://travis-ci.org/kentcdodds/babel-plugin-macros
+[build]: https://travis-ci.com/kentcdodds/babel-plugin-macros
 [coverage-badge]: https://img.shields.io/codecov/c/github/kentcdodds/babel-plugin-macros.svg?style=flat-square
 [coverage]: https://codecov.io/github/kentcdodds/babel-plugin-macros
 [version-badge]: https://img.shields.io/npm/v/babel-plugin-macros.svg?style=flat-square
@@ -440,6 +440,10 @@ MIT
 [coc]: https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/CODE_OF_CONDUCT.md
 [emojis]: https://github.com/all-contributors/all-contributors#emoji-key
 [all-contributors]: https://github.com/all-contributors/all-contributors
+[bugs]: https://github.com/kentcdodds/babel-plugin-macros/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Acreated-desc+label%3Abug
+[requests]: https://github.com/kentcdodds/babel-plugin-macros/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc+label%3Aenhancement
+[good-first-issue]: https://github.com/kentcdodds/babel-plugin-macros/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc+label%3Aenhancement+label%3A%22good+first+issue%22
+
 
 [preval]: https://github.com/kentcdodds/babel-plugin-preval
 [cra]: https://github.com/facebookincubator/create-react-app
