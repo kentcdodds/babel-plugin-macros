@@ -311,7 +311,7 @@ with `babel-plugin-macros`. However, you can cheat a bit by running
 hack and is not great for performance, but in most cases it's fast enough™️.
 
 Luckily, [@Zemnmez](https://github.com/Zemnmez) created
-[`do-async`](https://github.com/Zemnmez/do-sync) which makes doing this much more
+[`do-sync`](https://github.com/Zemnmez/do-sync) which makes doing this much more
 straightforward:
 
 ```javascript
