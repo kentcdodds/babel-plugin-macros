@@ -303,6 +303,35 @@ There is currently no way to get code coverage for your macro this way however.
 If you want code coverage, you'll have to call your macro yourself.
 Contributions to improve this experience are definitely welcome!
 
+## Async logic
+
+Unfortunately, babel plugins are synchronous so you can't do anything asynchronous
+with `babel-plugin-macros`. However, you can cheat a bit by running
+`child_process`'s `spawnSync` to synchronously execute a file. It's definitely a
+hack and is not great for performance, but in most cases it's fast enough™️.
+
+Luckily, [@Zemnmez](https://github.com/Zemnmez) created
+[`do-async`](https://github.com/Zemnmez/do-sync) which makes doing this much more
+straightforward:
+
+```javascript
+const {doSync} = require('do-sync')
+const {createMacro, MacroError} = require('babel-plugin-macros')
+
+module.exports = createMacro(myMacro)
+
+const getTheFlowers = doSync(async (arg1, arg2) => {
+  const dep = require('some-dependency')
+  const flowers = await dep(arg1, arg2.stuff)
+  return flowers
+})
+
+function myMacro({references, state, babel}) {
+  const flowers = getTheFlowers('...', {stuff: '...'})
+  // ... more sync stuff
+}
+```
+
 [preval]: https://github.com/kentcdodds/babel-plugin-preval
 [babel-handbook]:
   https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md
