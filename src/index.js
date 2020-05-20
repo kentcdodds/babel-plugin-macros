@@ -20,7 +20,7 @@ class MacroError extends Error {
 }
 
 let _configExplorer = null
-function getConfigExporer() {
+function getConfigExplorer() {
   return (_configExplorer =
     _configExplorer ||
     // Lazy load cosmiconfig since it is a relatively large bundle
@@ -263,7 +263,7 @@ function applyMacros({
 
 function getConfigFromFile(configName, filename) {
   try {
-    const loaded = getConfigExporer().search(filename)
+    const loaded = getConfigExplorer().search(filename)
 
     if (loaded) {
       return {
