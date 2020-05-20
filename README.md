@@ -14,7 +14,7 @@
 [![MIT License][license-badge]][license]
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-25-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-26-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![PRs Welcome][prs-badge]][prs]
 [![Code of Conduct][coc-badge]][coc]
@@ -407,6 +407,7 @@ Thanks goes to these people ([emoji key][emojis]):
     <td align="center"><a href="http://wintercounter.me"><img src="https://avatars2.githubusercontent.com/u/963776?v=4" width="100px;" alt=""/><br /><sub><b>Victor Vincent</b></sub></a><br /><a href="https://github.com/kentcdodds/babel-plugin-macros/commits?author=wintercounter" title="Code">💻</a></td>
     <td align="center"><a href="http://mvasilkov.ovh"><img src="https://avatars3.githubusercontent.com/u/140257?v=4" width="100px;" alt=""/><br /><sub><b>я котик пур-пур</b></sub></a><br /><a href="https://github.com/kentcdodds/babel-plugin-macros/commits?author=mvasilkov" title="Documentation">📖</a></td>
     <td align="center"><a href="http://armandososa.com"><img src="https://avatars0.githubusercontent.com/u/139577?v=4" width="100px;" alt=""/><br /><sub><b>Armando Sosa</b></sub></a><br /><a href="https://github.com/kentcdodds/babel-plugin-macros/commits?author=soska" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/matvp91"><img src="https://avatars3.githubusercontent.com/u/12699796?v=4" width="100px;" alt=""/><br /><sub><b>Matthias</b></sub></a><br /><a href="https://github.com/kentcdodds/babel-plugin-macros/commits?author=matvp91" title="Code">💻</a></td>
   </tr>
 </table>
 
