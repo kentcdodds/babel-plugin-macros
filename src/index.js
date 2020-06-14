@@ -229,7 +229,6 @@ function applyMacros({
      *
      * See: https://github.com/kentcdodds/import-all.macro/issues/7
      */
-    console.log(state.file.ast);
     traverse(state.file.ast, {
       Identifier() {},
     });
