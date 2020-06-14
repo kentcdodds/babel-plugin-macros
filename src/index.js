@@ -1,5 +1,6 @@
 const p = require('path')
 const resolve = require('resolve')
+const traverse = require("@babel/traverse").default
 // const printAST = require('ast-pretty-print')
 
 const macrosRegex = /[./]macro(\.js)?$/
@@ -228,7 +229,7 @@ function applyMacros({
      *
      * See: https://github.com/kentcdodds/import-all.macro/issues/7
      */
-    state.file.scope.path.traverse({
+    traverse(state.file.ast, {
       Identifier() {},
     })
 
