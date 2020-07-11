@@ -225,7 +225,7 @@ function taggedTranslationsMacro({references, state, babel, config}) {
 }
 ```
 
-Note that in the above example if both files were sepcified the final locale
+Note that in the above example if both files were specified, the final locale
 value would be `en_US`, since that is the value in the plugin config file.
 
 ### Keeping imports
