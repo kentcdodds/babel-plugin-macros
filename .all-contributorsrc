@@ -265,6 +265,15 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "VictorArowo",
+      "name": "Victor Arowo",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/25545108?v=4",
+      "profile": "http://victorarowo.com",
+      "contributions": [
+        "doc"
+      ]
     }
   ]
 }
