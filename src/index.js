@@ -1,9 +1,9 @@
 const p = require('path')
 const resolve = require('resolve')
-const traverse = require("@babel/traverse").default
+const traverse = require('@babel/traverse').default
 // const printAST = require('ast-pretty-print')
 
-const macrosRegex = /[./]macro(\.js)?$/
+const macrosRegex = /[./]macro(\.c?js)?$/
 const testMacrosRegex = v => macrosRegex.test(v)
 
 // https://stackoverflow.com/a/32749533/971592
