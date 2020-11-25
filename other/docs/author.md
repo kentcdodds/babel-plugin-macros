@@ -56,15 +56,17 @@ There are two parts to the `babel-plugin-macros` API:
 
 The way that `babel-plugin-macros` determines whether to run a macro is based on
 the source string of the `import` or `require` statement. It must match this
-regex: `/[./]macro(\.js)?$/` for example:
+regex: `/[./]macro(\.c?js)?$/` for example:
 
 _matches_:
 
 ```
 'my.macro'
 'my.macro.js'
+'my.macro.cjs'
 'my/macro'
 'my/macro.js'
+'my/macro.cjs'
 ```
 
 _does not match_:
@@ -305,8 +307,8 @@ Contributions to improve this experience are definitely welcome!
 
 ## Async logic
 
-Unfortunately, babel plugins are synchronous so you can't do anything asynchronous
-with `babel-plugin-macros`. However, you can cheat a bit by running
+Unfortunately, babel plugins are synchronous so you can't do anything
+asynchronous with `babel-plugin-macros`. However, you can cheat a bit by running
 `child_process`'s `spawnSync` to synchronously execute a file. It's definitely a
 hack and is not great for performance, but in most cases it's fast enough™️.
 
