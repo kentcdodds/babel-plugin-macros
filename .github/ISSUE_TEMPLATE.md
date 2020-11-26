@@ -13,11 +13,12 @@ learn how: http://kcd.im/pull-request
 
 - `babel-plugin-macros` version:
 - `node` version:
-- `npm` (or `yarn`) version:
+- `npm` version:
 
 Relevant code or config
 
 ```javascript
+
 ```
 
 What you did:

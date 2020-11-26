@@ -1,4 +1,4 @@
-const {createMacro} = require('../../../../')
+const {createMacro} = require('../../..')
 
 const configName = 'configurableMacro'
 const realMacro = jest.fn()

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`macros Macros are applied in the order respecting plugins order: Macros are applied in the order respecting plugins order 1`] = `
+exports[`unknown plugin Macros are applied in the order respecting plugins order: Macros are applied in the order respecting plugins order 1`] = `
 
 import Wrap from "./fixtures/jsx-id-prefix.macro";
 
@@ -17,7 +17,7 @@ const bar = Wrap(
 
 `;
 
-exports[`macros Supports named imports: Supports named imports 1`] = `
+exports[`unknown plugin Supports named imports: Supports named imports 1`] = `
 
 import {css as CSS, styled as STYLED} from './fixtures/emotion.macro'
 const red = CSS\`
@@ -38,7 +38,7 @@ const Div = STYLED.div\`composes: background-color: red;
 
 `;
 
-exports[`macros Works as a JSXElement: Works as a JSXElement 1`] = `
+exports[`unknown plugin Works as a JSXElement: Works as a JSXElement 1`] = `
 
 import MyEval from './fixtures/eval.macro'
 const x = <MyEval>34 + 45</MyEval>
@@ -50,7 +50,7 @@ const x = 79
 
 `;
 
-exports[`macros appends the npm URL for errors thrown by node modules with a slash: appends the npm URL for errors thrown by node modules with a slash 1`] = `
+exports[`unknown plugin appends the npm URL for errors thrown by node modules with a slash: appends the npm URL for errors thrown by node modules with a slash 1`] = `
 
 import errorThrower from 'babel-plugin-macros-test-error-thrower/macro'
 errorThrower('hi')
@@ -61,7 +61,7 @@ Error: babel-plugin-macros-test-error-thrower/macro: not helpful Learn more: htt
 
 `;
 
-exports[`macros appends the npm URL for errors thrown by node modules: appends the npm URL for errors thrown by node modules 1`] = `
+exports[`unknown plugin appends the npm URL for errors thrown by node modules: appends the npm URL for errors thrown by node modules 1`] = `
 
 import errorThrower from 'babel-plugin-macros-test-error-thrower.macro'
 errorThrower('hi')
@@ -72,7 +72,7 @@ Error: babel-plugin-macros-test-error-thrower.macro: not helpful Learn more: htt
 
 `;
 
-exports[`macros does nothing but remove macros if it is unused: does nothing but remove macros if it is unused 1`] = `
+exports[`unknown plugin does nothing but remove macros if it is unused: does nothing but remove macros if it is unused 1`] = `
 
 import foo from "./fixtures/eval.macro";
 
@@ -85,7 +85,7 @@ const bar = 42
 
 `;
 
-exports[`macros forwards MacroErrors thrown by the macro: forwards MacroErrors thrown by the macro 1`] = `
+exports[`unknown plugin forwards MacroErrors thrown by the macro: forwards MacroErrors thrown by the macro 1`] = `
 
 import errorThrower from './fixtures/macro-error-thrower.macro'
 errorThrower('hey')
@@ -96,7 +96,7 @@ MacroError: very helpful
 
 `;
 
-exports[`macros macros can set their configName and get their config: macros can set their configName and get their config 1`] = `
+exports[`unknown plugin macros can set their configName and get their config: macros can set their configName and get their config 1`] = `
 
 import configured from './configurable.macro'
 
@@ -111,7 +111,7 @@ configured\`stuff\`
 
 `;
 
-exports[`macros optionally keep imports (import declaration): optionally keep imports (import declaration) 1`] = `
+exports[`unknown plugin optionally keep imports (import declaration): optionally keep imports (import declaration) 1`] = `
 
 import macro from './fixtures/keep-imports.macro'
 const red = macro('noop');
@@ -124,7 +124,7 @@ const red = macro('noop')
 
 `;
 
-exports[`macros optionally keep imports (variable assignment): optionally keep imports (variable assignment) 1`] = `
+exports[`unknown plugin optionally keep imports (variable assignment): optionally keep imports (variable assignment) 1`] = `
 
 const macro = require('./fixtures/keep-imports.macro')
 const red = macro('noop');
@@ -138,7 +138,7 @@ const red = macro('noop')
 
 `;
 
-exports[`macros optionally keep imports in combination with babel-preset-env (#80): optionally keep imports in combination with babel-preset-env (#80) 1`] = `
+exports[`unknown plugin optionally keep imports in combination with babel-preset-env (#80): optionally keep imports in combination with babel-preset-env (#80) 1`] = `
 
 import macro from './fixtures/keep-imports.macro'
 const red = macro('noop')
@@ -160,7 +160,7 @@ const red = (0, _keepImports2.default)('noop')
 
 `;
 
-exports[`macros prepends the relative path for errors thrown by the macro: prepends the relative path for errors thrown by the macro 1`] = `
+exports[`unknown plugin prepends the relative path for errors thrown by the macro: prepends the relative path for errors thrown by the macro 1`] = `
 
 import errorThrower from './fixtures/error-thrower.macro'
 errorThrower('hey')
@@ -171,7 +171,7 @@ Error: ./fixtures/error-thrower.macro: very unhelpful
 
 `;
 
-exports[`macros raises an error if macro does not exist: raises an error if macro does not exist 1`] = `
+exports[`unknown plugin raises an error if macro does not exist: raises an error if macro does not exist 1`] = `
 
 import foo from './some-macros-that-doesnt-even-need-to-exist.macro'
 export default 'something else'
@@ -182,7 +182,7 @@ Error: Cannot find module './some-macros-that-doesnt-even-need-to-exist.macro' f
 
 `;
 
-exports[`macros supports compiled macros (\`__esModule\` + \`export default\`): supports compiled macros (\`__esModule\` + \`export default\`) 1`] = `
+exports[`unknown plugin supports compiled macros (\`__esModule\` + \`export default\`): supports compiled macros (\`__esModule\` + \`export default\`) 1`] = `
 
 import {css, styled} from './fixtures/emotion-esm.macro'
 const red = css\`
@@ -207,7 +207,7 @@ const Div = styled.div\`
 
 `;
 
-exports[`macros supports macros from node_modules: supports macros from node_modules 1`] = `
+exports[`unknown plugin supports macros from node_modules: supports macros from node_modules 1`] = `
 
 import fakeMacro from 'babel-plugin-macros-test-fake/macro'
 fakeMacro('hi')
@@ -219,7 +219,7 @@ fakeMacro('hi')
 
 `;
 
-exports[`macros throws an error if the macro is not properly wrapped: throws an error if the macro is not properly wrapped 1`] = `
+exports[`unknown plugin throws an error if the macro is not properly wrapped: throws an error if the macro is not properly wrapped 1`] = `
 
 import unwrapped from './fixtures/non-wrapped.macro'
 unwrapped('hey')
@@ -230,7 +230,7 @@ Error: The macro imported from "./fixtures/non-wrapped.macro" must be wrapped in
 
 `;
 
-exports[`macros when a custom isMacrosName option is used on a import: when a custom isMacrosName option is used on a import 1`] = `
+exports[`unknown plugin when a custom isMacrosName option is used on a import: when a custom isMacrosName option is used on a import 1`] = `
 
 import myEval from './fixtures/eval-macro.js'
 const x = myEval\`34 + 45\`
@@ -242,7 +242,7 @@ const x = 79
 
 `;
 
-exports[`macros when a custom isMacrosName option is used on a require: when a custom isMacrosName option is used on a require 1`] = `
+exports[`unknown plugin when a custom isMacrosName option is used on a require: when a custom isMacrosName option is used on a require 1`] = `
 
 const evaler = require('./fixtures/eval-macro.js')
 const x = evaler\`34 + 45\`
@@ -254,7 +254,7 @@ const x = 79
 
 `;
 
-exports[`macros when a plugin that replaces paths is used, macros still work properly: when a plugin that replaces paths is used, macros still work properly 1`] = `
+exports[`unknown plugin when a plugin that replaces paths is used, macros still work properly: when a plugin that replaces paths is used, macros still work properly 1`] = `
 
 import myEval from '../eval.macro'
 
@@ -270,7 +270,7 @@ global.result = result
 
 `;
 
-exports[`macros when configuration is specified in plugin options: when configuration is specified in plugin options 1`] = `
+exports[`unknown plugin when configuration is specified in plugin options: when configuration is specified in plugin options 1`] = `
 
 import configured from './configurable.macro'
 
@@ -285,7 +285,7 @@ configured\`stuff\`
 
 `;
 
-exports[`macros when configuration is specified in plugin options: when configuration is specified in plugin options 2`] = `
+exports[`unknown plugin when configuration is specified in plugin options: when configuration is specified in plugin options 2`] = `
 
 const configured = require('./configurable.macro')
 
@@ -300,7 +300,7 @@ configured\`stuff\`
 
 `;
 
-exports[`macros when configuration is specified incorrectly in plugin options: when configuration is specified incorrectly in plugin options 1`] = `
+exports[`unknown plugin when configuration is specified incorrectly in plugin options: when configuration is specified incorrectly in plugin options 1`] = `
 
 import configured from './configurable.macro'
 
@@ -315,7 +315,7 @@ configured\`stuff\`
 
 `;
 
-exports[`macros when plugin options configuration cannot be merged with file configuration: when plugin options configuration cannot be merged with file configuration 1`] = `
+exports[`unknown plugin when plugin options configuration cannot be merged with file configuration: when plugin options configuration cannot be merged with file configuration 1`] = `
 
 import configured from './configurable.macro'
 
@@ -328,13 +328,13 @@ Error: <PROJECT_ROOT>/src/__tests__/fixtures/primitive-config/babel-plugin-macro
 
 `;
 
-exports[`macros when there is an error reading the config, a helpful message is logged 1`] = `
+exports[`unknown plugin when there is an error reading the config, a helpful message is logged 1`] = `
 Array [
   There was an error trying to load the config "configurableMacro" for the macro imported from "./configurable.macro. Please see the error thrown for more information.,
 ]
 `;
 
-exports[`macros when there is an error reading the config, a helpful message is logged: when there is an error reading the config, a helpful message is logged 1`] = `
+exports[`unknown plugin when there is an error reading the config, a helpful message is logged: when there is an error reading the config, a helpful message is logged 1`] = `
 
 import configured from './configurable.macro'
 
@@ -347,7 +347,7 @@ Error: this is a cosmiconfig error
 
 `;
 
-exports[`macros when there is no config to load, then no config is passed: when there is no config to load, then no config is passed 1`] = `
+exports[`unknown plugin when there is no config to load, then no config is passed: when there is no config to load, then no config is passed 1`] = `
 
 import configured from './configurable.macro'
 
@@ -362,7 +362,7 @@ configured\`stuff\`
 
 `;
 
-exports[`macros works with function calls: works with function calls 1`] = `
+exports[`unknown plugin works with function calls: works with function calls 1`] = `
 
 import myEval from './fixtures/eval.macro'
 const x = myEval('34 + 45')
@@ -374,7 +374,7 @@ const x = 79
 
 `;
 
-exports[`macros works with import: works with import 1`] = `
+exports[`unknown plugin works with import: works with import 1`] = `
 
 import myEval from './fixtures/eval.macro'
 const x = myEval\`34 + 45\`
@@ -386,7 +386,7 @@ const x = 79
 
 `;
 
-exports[`macros works with require destructuring and aliasing: works with require destructuring and aliasing 1`] = `
+exports[`unknown plugin works with require destructuring and aliasing: works with require destructuring and aliasing 1`] = `
 
 const {css: CSS, styled: STYLED} = require('./fixtures/emotion.macro')
 const red = CSS\`
@@ -407,7 +407,7 @@ const Div = STYLED.div\`composes: background-color: red;
 
 `;
 
-exports[`macros works with require destructuring: works with require destructuring 1`] = `
+exports[`unknown plugin works with require destructuring: works with require destructuring 1`] = `
 
 const {css, styled} = require('./fixtures/emotion.macro')
 const red = css\`
@@ -428,7 +428,7 @@ const Div = styled.div\`composes: background-color: red;
 
 `;
 
-exports[`macros works with require: works with require 1`] = `
+exports[`unknown plugin works with require: works with require 1`] = `
 
 const evaler = require('./fixtures/eval.macro')
 const x = evaler\`34 + 45\`

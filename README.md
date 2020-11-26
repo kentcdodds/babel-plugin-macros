@@ -12,10 +12,7 @@
 [![version][version-badge]][package]
 [![downloads][downloads-badge]][npmtrends]
 [![MIT License][license-badge]][license]
-
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-28-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![All Contributors][all-contributors-badge]](#contributors-)
 [![PRs Welcome][prs-badge]][prs]
 [![Code of Conduct][coc-badge]][coc]
 <!-- prettier-ignore-end -->
@@ -133,10 +130,10 @@ you could use `babel-plugin-macros` for, like:
 ## Installation
 
 This module is distributed via [npm][npm] which is bundled with [node][node] and
-should be installed as one of your project's `dependencies`:
+should be installed as one of your project's `devDependencies`:
 
 ```
-npm install babel-plugin-macros
+npm install --save-dev babel-plugin-macros
 ```
 
 ## Usage
@@ -232,7 +229,7 @@ When that code is run, the `scope` function does some pretty nifty things:
 
 **Node:**
 
-<img alt="Node console scoping add100" src="https://github.com/mattphillips/babel-plugin-console/raw/53536cba919d5be49d4f66d957769c07ca7a4207/assets/add100-node.png" width="372">
+<img alt="Node console scoping add100" src="https://github.com/mattphillips/babel-plugin-console/raw/53536cba919d5be49d4f66d957769c07ca7a4207/assets/add100-node.png" width="372" />
 
 Instead, let's use the macro it's shipped with like this:
 
@@ -415,6 +412,7 @@ Thanks goes to these people ([emoji key][emojis]):
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification.
@@ -427,8 +425,8 @@ MIT
 <!-- prettier-ignore-start -->
 [npm]: https://www.npmjs.com
 [node]: https://nodejs.org
-[build-badge]: https://img.shields.io/travis/kentcdodds/babel-plugin-macros.svg?style=flat-square
-[build]: https://travis-ci.com/kentcdodds/babel-plugin-macros
+[build-badge]: https://img.shields.io/github/workflow/status/kentcdodds/babel-plugin-macros/validate?logo=github&style=flat-square
+[build]: https://github.com/kentcdodds/babel-plugin-macros/actions?query=workflow%3Avalidate
 [coverage-badge]: https://img.shields.io/codecov/c/github/kentcdodds/babel-plugin-macros.svg?style=flat-square
 [coverage]: https://codecov.io/github/kentcdodds/babel-plugin-macros
 [version-badge]: https://img.shields.io/npm/v/babel-plugin-macros.svg?style=flat-square
@@ -436,19 +434,15 @@ MIT
 [downloads-badge]: https://img.shields.io/npm/dm/babel-plugin-macros.svg?style=flat-square
 [npmtrends]: http://www.npmtrends.com/babel-plugin-macros
 [license-badge]: https://img.shields.io/npm/l/babel-plugin-macros.svg?style=flat-square
-[license]: https://github.com/kentcdodds/babel-plugin-macros/blob/master/LICENSE
+[license]: https://github.com/kentcdodds/babel-plugin-macros/blob/main/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
-[coc]: https://github.com/kentcdodds/babel-plugin-macros/blob/master/other/CODE_OF_CONDUCT.md
+[coc]: https://github.com/kentcdodds/babel-plugin-macros/blob/main/CODE_OF_CONDUCT.md
 [emojis]: https://github.com/all-contributors/all-contributors#emoji-key
 [all-contributors]: https://github.com/all-contributors/all-contributors
+[all-contributors-badge]: https://img.shields.io/github/all-contributors/kentcdodds/babel-plugin-macros?color=orange&style=flat-square
 [bugs]: https://github.com/kentcdodds/babel-plugin-macros/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Acreated-desc+label%3Abug
 [requests]: https://github.com/kentcdodds/babel-plugin-macros/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc+label%3Aenhancement
 [good-first-issue]: https://github.com/kentcdodds/babel-plugin-macros/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc+label%3Aenhancement+label%3A%22good+first+issue%22
-
-
-[preval]: https://github.com/kentcdodds/babel-plugin-preval
-[cra]: https://github.com/facebookincubator/create-react-app
-[cra-issue]: https://github.com/facebookincubator/create-react-app/issues/2730
 <!-- prettier-ignore-end -->

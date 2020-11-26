@@ -74,6 +74,9 @@ function nodeResolvePath(source, basedir) {
 
 function macrosPlugin(
   babel,
+  // istanbul doesn't like the default of an object for the plugin options
+  // but I think older versions of babel didn't always pass options
+  // istanbul ignore next
   {
     require: _require = require,
     resolvePath = nodeResolvePath,
