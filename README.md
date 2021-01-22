@@ -445,4 +445,7 @@ MIT
 [bugs]: https://github.com/kentcdodds/babel-plugin-macros/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Acreated-desc+label%3Abug
 [requests]: https://github.com/kentcdodds/babel-plugin-macros/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc+label%3Aenhancement
 [good-first-issue]: https://github.com/kentcdodds/babel-plugin-macros/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc+label%3Aenhancement+label%3A%22good+first+issue%22
+[preval]: https://github.com/kentcdodds/babel-plugin-preval
+[cra]: https://github.com/facebook/create-react-app
+[cra-issue]: https://github.com/facebook/create-react-app/issues/2730
 <!-- prettier-ignore-end -->
