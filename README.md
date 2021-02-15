@@ -186,6 +186,8 @@ issues below:
   [How to force recompile? #19](https://github.com/kentcdodds/babel-plugin-preval/issues/19)
 - graphql.macro:
   [Recompile problem (babel cache) #6](https://github.com/evenchange4/graphql.macro/issues/6)
+- twin.macro: 
+  [Can't change taliwind config #37](https://github.com/ben-rogerson/twin.macro/discussions/37)
 
 ## FAQ
 
