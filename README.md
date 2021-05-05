@@ -412,6 +412,7 @@ Thanks goes to these people ([emoji key][emojis]):
   </tr>
   <tr>
     <td align="center"><a href="https://twitter.com/alexandermchan"><img src="https://avatars.githubusercontent.com/u/1864372?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Alex Chan</b></sub></a><br /><a href="https://github.com/kentcdodds/babel-plugin-macros/commits?author=alexanderchan" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://probablyup.com"><img src="https://avatars.githubusercontent.com/u/570070?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Evan Jacobs</b></sub></a><br /><a href="https://github.com/kentcdodds/babel-plugin-macros/commits?author=probablyup" title="Code">💻</a></td>
   </tr>
 </table>
 
