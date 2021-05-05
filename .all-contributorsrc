@@ -283,6 +283,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "probablyup",
+      "name": "Evan Jacobs",
+      "avatar_url": "https://avatars.githubusercontent.com/u/570070?v=4",
+      "profile": "https://probablyup.com",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
