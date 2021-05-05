@@ -65,6 +65,7 @@ function createMacro(macro, options = {}) {
 function nodeResolvePath(source, basedir) {
   return resolve.sync(source, {
     basedir,
+    extensions: ['.js', '.ts', '.tsx', '.mjs', '.cjs', '.jsx'],
     // This is here to support the package being globally installed
     // read more: https://github.com/kentcdodds/babel-plugin-macros/pull/138
     paths: [p.resolve(__dirname, '../../')],
