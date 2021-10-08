@@ -207,6 +207,18 @@ const Div = styled.div\`
 
 `;
 
+exports[`unknown plugin supports macros from node_modules with scope: supports macros from node_modules with scope 1`] = `
+
+import fakeMacro from '@scope/package/macro'
+fakeMacro('hi')
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+fakeMacro('hi')
+
+
+`;
+
 exports[`unknown plugin supports macros from node_modules: supports macros from node_modules 1`] = `
 
 import fakeMacro from 'babel-plugin-macros-test-fake/macro'

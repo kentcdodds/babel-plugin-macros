@@ -203,6 +203,33 @@ pluginTester({
       },
     },
     {
+      title: 'supports macros from node_modules with scope',
+      code: `
+        import fakeMacro from '@scope/package/macro'
+        fakeMacro('hi')
+      `,
+      teardown() {
+        try {
+          // kinda abusing the babel-plugin-tester API here
+          // to make an extra assertion
+          // eslint-disable-next-line
+          const fakeMacro = require('@scope/package/macro')
+          expect(fakeMacro.innerFn).toHaveBeenCalledTimes(1)
+          expect(fakeMacro.innerFn).toHaveBeenCalledWith({
+            references: expect.any(Object),
+            source: expect.stringContaining('@scope/package/macro'),
+            state: expect.any(Object),
+            babel: expect.any(Object),
+            isBabelMacrosCall: true,
+          })
+          expect(fakeMacro.innerFn.mock.calls[0].babel).toBe(babel)
+        } catch (e) {
+          console.error(e)
+          throw e
+        }
+      },
+    },
+    {
       title: 'optionally keep imports (variable assignment)',
       code: `
         const macro = require('./fixtures/keep-imports.macro')
