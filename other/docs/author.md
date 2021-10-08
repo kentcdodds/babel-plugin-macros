@@ -216,7 +216,7 @@ module.exports = {
       },
     ],
   ],
-};
+}
 
 
 // taggedTranslations.macro.js
