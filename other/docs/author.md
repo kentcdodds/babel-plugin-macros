@@ -210,12 +210,14 @@ module.exports = {
 module.exports = {
   plugins: [
     [
-      ('macros': {
-        taggedTranslations: {locale: 'en_GB'},
-      }),
+      "macros",
+      {
+        taggedTranslations: { locale: "en_GB" },
+      },
     ],
   ],
-}
+};
+
 
 // taggedTranslations.macro.js
 const {createMacro} = require('babel-plugin-macros')
