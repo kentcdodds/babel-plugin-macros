@@ -97,9 +97,9 @@ $ yarn upgrade react-scripts
 ### config
 
 There is a feature that allows you to configure your macro. We use
-[`cosmiconfig`][cosmiconfig] to read a `babel-plugin-macros` configuration which
-can be located in any of the following files up the directories from the
-importing file:
+[`lilconfig`][lilconfig] to read a `babel-plugin-macros` configuration which can
+be located in any of the following files up the directories from the importing
+file:
 
 - `.babel-plugin-macrosrc`
 - `.babel-plugin-macrosrc.json`
@@ -123,5 +123,5 @@ module.exports = {
 }
 ```
 
-[cosmiconfig]: https://www.npmjs.com/package/cosmiconfig
+[lilconfig]: https://www.npmjs.com/package/lilconfig
 [styled-components]: https://www.styled-components.com/docs/tooling#babel-macro
