@@ -343,7 +343,7 @@ configured\`stuff\`
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-Error: this is a cosmiconfig error
+Error: this is a lilconfig error
 
 `;
 

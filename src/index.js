@@ -2,6 +2,8 @@ const p = require('path')
 const resolve = require('resolve')
 // const printAST = require('ast-pretty-print')
 
+const {lilconfigSync} = require('lilconfig')
+
 const macrosRegex = /[./]macro(\.c?js)?$/
 const testMacrosRegex = v => macrosRegex.test(v)
 
@@ -19,12 +21,17 @@ class MacroError extends Error {
   }
 }
 
+function loadYaml(filepath, content) {
+  // Lazy load yaml since it is a relatively large bundle
+  const yaml = require('yaml')
+  return yaml.parse(content)
+}
+
 let _configExplorer = null
 function getConfigExplorer() {
   return (_configExplorer =
     _configExplorer ||
-    // Lazy load cosmiconfig since it is a relatively large bundle
-    require('cosmiconfig').cosmiconfigSync('babel-plugin-macros', {
+    lilconfigSync('babel-plugin-macros', {
       searchPlaces: [
         'package.json',
         '.babel-plugin-macrosrc',
@@ -35,6 +42,12 @@ function getConfigExplorer() {
         'babel-plugin-macros.config.js',
       ],
       packageProp: 'babelMacros',
+      loaders: {
+        '.yaml': loadYaml,
+        '.yml': loadYaml,
+        // loader for files with no extension
+        noExt: loadYaml,
+      },
     }))
 }
 

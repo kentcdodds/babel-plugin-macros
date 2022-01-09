@@ -183,9 +183,9 @@ To specify that your plugin is configurable, you pass a `configName` to
 `createMacro`.
 
 A configuration is created from data combined from two sources: We use
-[`cosmiconfig`][cosmiconfig] to read a `babel-plugin-macros` configuration which
-can be located in any of the following files up the directories from the
-importing file:
+[`lilconfig`][lilconfig] to read a `babel-plugin-macros` configuration which can
+be located in any of the following files up the directories from the importing
+file:
 
 - `.babel-plugin-macrosrc`
 - `.babel-plugin-macrosrc.json`
@@ -210,14 +210,13 @@ module.exports = {
 module.exports = {
   plugins: [
     [
-      "macros",
+      'macros',
       {
-        taggedTranslations: { locale: "en_GB" },
+        taggedTranslations: {locale: 'en_GB'},
       },
     ],
   ],
 }
-
 
 // taggedTranslations.macro.js
 const {createMacro} = require('babel-plugin-macros')
@@ -343,4 +342,4 @@ function myMacro({references, state, babel}) {
 [keyword]: https://docs.npmjs.com/files/package.json#keywords
 [npm-babel-plugin-macros]:
   https://www.npmjs.com/browse/keyword/babel-plugin-macros
-[cosmiconfig]: https://www.npmjs.com/package/cosmiconfig
+[lilconfig]: https://www.npmjs.com/package/lilconfig

@@ -1,5 +1,5 @@
 import path from 'path'
-import {cosmiconfigSync as cosmiconfigSyncMock} from 'cosmiconfig'
+import {lilconfigSync as lilconfigSyncMock} from 'lilconfig'
 import cpy from 'cpy'
 import babel from '@babel/core'
 import pluginTester from 'babel-plugin-tester'
@@ -7,14 +7,14 @@ import plugin from '../'
 
 const projectRoot = path.join(__dirname, '../../')
 
-jest.mock('cosmiconfig', () => {
-  const cosmiconfigExports = jest.requireActual('cosmiconfig')
-  const actualCosmiconfigSync = cosmiconfigExports.cosmiconfigSync
-  function fakeCosmiconfigSync(...args) {
-    fakeCosmiconfigSync.explorer = actualCosmiconfigSync(...args)
-    return fakeCosmiconfigSync.explorer
+jest.mock('lilconfig', () => {
+  const lilconfigExports = jest.requireActual('lilconfig')
+  const actualLilconfigSync = lilconfigExports.lilconfigSync
+  function fakeLilconfigSync(...args) {
+    fakeLilconfigSync.explorer = actualLilconfigSync(...args)
+    return fakeLilconfigSync.explorer
   }
-  return {...cosmiconfigExports, cosmiconfigSync: fakeCosmiconfigSync}
+  return {...lilconfigExports, lilconfigSync: fakeLilconfigSync}
 })
 
 beforeAll(() => {
@@ -296,9 +296,9 @@ pluginTester({
       fixture: path.join(__dirname, 'fixtures/config/code.js'),
       setup() {
         jest
-          .spyOn(cosmiconfigSyncMock.explorer, 'search')
+          .spyOn(lilconfigSyncMock.explorer, 'search')
           .mockImplementationOnce(() => {
-            throw new Error('this is a cosmiconfig error')
+            throw new Error('this is a lilconfig error')
           })
         jest.spyOn(console, 'error').mockImplementationOnce(() => {})
         return function teardown() {
@@ -319,7 +319,7 @@ pluginTester({
       fixture: path.join(__dirname, 'fixtures/config/code.js'),
       setup() {
         jest
-          .spyOn(cosmiconfigSyncMock.explorer, 'search')
+          .spyOn(lilconfigSyncMock.explorer, 'search')
           .mockImplementationOnce(() => {
             return null
           })
