@@ -4,7 +4,6 @@
   "description": "Allows you to build compile-time libraries",
   "main": "src/index.js",
   "scripts": {
-    "build": "kcd-scripts build",
     "lint": "kcd-scripts lint",
     "setup": "npm install && npm run validate -s",
     "test": "kcd-scripts test",
