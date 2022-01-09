@@ -36,7 +36,6 @@
     "@babel/types": "^7.12.7",
     "ast-pretty-print": "^2.0.1",
     "babel-plugin-tester": "^10.0.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "cpy": "^8.1.1",
     "kcd-scripts": "^7.1.0"
   },
