@@ -165,7 +165,7 @@ import {foo as FooMacro} from './my.macro'
 
 </details>
 
-From here, it's just a matter of doing doing stuff with the `BabelPath`s that
+From here, it's just a matter of doing stuff with the `BabelPath`s that
 you're given. For that check out [the babel handbook][babel-handbook].
 
 > One other thing to note is that after your macro has run, babel-plugin-macros
