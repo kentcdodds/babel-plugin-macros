@@ -1,13 +1,57 @@
-const p = require('path')
-const resolve = require('resolve')
+import p from 'path'
+import resolve from 'resolve'
 // const printAST = require('ast-pretty-print')
+import type {cosmiconfigSync} from 'cosmiconfig'
+import type {NodePath, Node} from '@babel/traverse'
+import {
+  ImportDefaultSpecifier,
+  ImportNamespaceSpecifier,
+  ImportSpecifier,
+  Identifier,
+  StringLiteral,
+  VariableDeclarator,
+  isArrayPattern,
+  isAssignmentPattern,
+  isMemberExpression,
+  isObjectPattern,
+  isRestElement,
+  isTSParameterProperty,
+  isTSAsExpression,
+  isTSNonNullExpression,
+  isIdentifier,
+  isTypeParameter,
+  isJSXAttribute,
+  isJSXClosingElement,
+  isJSXIdentifier,
+  isJSXNamespacedName,
+  isJSXOpeningElement,
+  isPlaceholder,
+  isV8IntrinsicIdentifier,
+  is,
+  isTSTypeParameter,
+  isObjectExpression,
+  isObjectTypeAnnotation,
+  Expression,
+  CallExpression,
+  PatternLike,
+  PrivateName,
+  ArgumentPlaceholder,
+  JSXNamespacedName,
+  SpreadElement,
+  RecordExpression,
+  ObjectTypeAnnotation,
+  ObjectPattern,
+  ObjectExpression,
+  LVal,
+  ImportDeclaration,
+} from '@babel/types'
 
 const macrosRegex = /[./]macro(\.c?js)?$/
-const testMacrosRegex = v => macrosRegex.test(v)
+const testMacrosRegex = (v: string) => macrosRegex.test(v)
 
 // https://stackoverflow.com/a/32749533/971592
-class MacroError extends Error {
-  constructor(message) {
+export class MacroError extends Error {
+  constructor(message: string) {
     super(message)
     this.name = 'MacroError'
     /* istanbul ignore else */
@@ -19,26 +63,49 @@ class MacroError extends Error {
   }
 }
 
-let _configExplorer = null
-function getConfigExplorer() {
-  return (_configExplorer =
-    _configExplorer ||
-    // Lazy load cosmiconfig since it is a relatively large bundle
-    require('cosmiconfig').cosmiconfigSync('babel-plugin-macros', {
-      searchPlaces: [
-        'package.json',
-        '.babel-plugin-macrosrc',
-        '.babel-plugin-macrosrc.json',
-        '.babel-plugin-macrosrc.yaml',
-        '.babel-plugin-macrosrc.yml',
-        '.babel-plugin-macrosrc.js',
-        'babel-plugin-macros.config.js',
-      ],
-      packageProp: 'babelMacros',
-    }))
+type MacroWrapperArgs = Record<string, unknown> & {
+  source: string
+  isBabelMacrosCall?: boolean
 }
 
-function createMacro(macro, options = {}) {
+let _configExplorer: CosmicConfig
+
+function getConfigExplorer() {
+  return (_configExplorer = _configExplorer || loadCosmicConfig())
+}
+
+type CosmicConfig = ReturnType<typeof cosmiconfigSync>
+
+function loadCosmicConfig(): CosmicConfig {
+  // Lazy load cosmiconfig since it is a relatively large bundle
+  const pkg = require('cosmiconfig')
+
+  const sync: typeof cosmiconfigSync = pkg.cosmiconfigSync
+
+  const out = sync('babel-plugin-macros', {
+    searchPlaces: [
+      'package.json',
+      '.babel-plugin-macrosrc',
+      '.babel-plugin-macrosrc.json',
+      '.babel-plugin-macrosrc.yaml',
+      '.babel-plugin-macrosrc.yml',
+      '.babel-plugin-macrosrc.js',
+      'babel-plugin-macros.config.js',
+    ],
+    packageProp: 'babelMacros',
+  })
+
+  return out
+}
+
+type CreateMacroOptions = {
+  configName: string
+}
+
+export function createMacro(
+  macro: (args: MacroWrapperArgs) => unknown,
+  options: Partial<CreateMacroOptions> = {},
+) {
   if (options.configName === 'options') {
     throw new Error(
       `You cannot use the configName "options". It is reserved for babel-plugin-macros.`,
@@ -48,7 +115,7 @@ function createMacro(macro, options = {}) {
   macroWrapper.options = options
   return macroWrapper
 
-  function macroWrapper(args) {
+  function macroWrapper(args: MacroWrapperArgs) {
     const {source, isBabelMacrosCall} = args
     if (!isBabelMacrosCall) {
       throw new MacroError(
@@ -62,7 +129,7 @@ function createMacro(macro, options = {}) {
   }
 }
 
-function nodeResolvePath(source, basedir) {
+function nodeResolvePath(source: string, basedir: string) {
   return resolve.sync(source, {
     basedir,
     extensions: ['.js', '.ts', '.tsx', '.mjs', '.cjs', '.jsx'],
@@ -72,8 +139,23 @@ function nodeResolvePath(source, basedir) {
   })
 }
 
-function macrosPlugin(
-  babel,
+type ProgramState = {
+  file: {
+    opts: {filename?: string}
+    scope: {
+      path: NodePath
+    }
+  }
+}
+
+type MacrosPluginOptions = {
+  require?: NodeRequire
+  resolvePath?(source: string, basedir: string): string
+  isMacrosName?(v: string): boolean
+}
+
+export function macrosPlugin(
+  babel: unknown,
   // istanbul doesn't like the default of an object for the plugin options
   // but I think older versions of babel didn't always pass options
   // istanbul ignore next
@@ -82,9 +164,9 @@ function macrosPlugin(
     resolvePath = nodeResolvePath,
     isMacrosName = testMacrosRegex,
     ...options
-  } = {},
+  }: MacrosPluginOptions = {},
 ) {
-  function interopRequire(path) {
+  function interopRequire(path: string) {
     // eslint-disable-next-line import/no-dynamic-require
     const o = _require(path)
     return o && o.__esModule && o.default ? o.default : o
@@ -93,26 +175,38 @@ function macrosPlugin(
   return {
     name: 'macros',
     visitor: {
-      Program(progPath, state) {
+      Program(progPath: NodePath, state: ProgramState) {
         progPath.traverse({
           ImportDeclaration(path) {
             const isMacros = looksLike(path, {
               node: {
                 source: {
-                  value: v => isMacrosName(v),
+                  value: (v: string) => isMacrosName(v),
                 },
               },
             })
             if (!isMacros) {
               return
             }
-            const imports = path.node.specifiers.map(s => ({
-              localName: s.local.name,
-              importedName:
-                s.type === 'ImportDefaultSpecifier'
-                  ? 'default'
-                  : s.imported.name,
-            }))
+            const imports = path.node.specifiers.map(s => {
+              if (isImportDefaultSpecifier(s)) {
+                return {
+                  localName: s.local.name,
+                  importedName: 'default',
+                }
+              } else if (isImportSpecifier(s)) {
+                const identifier = s.imported
+                if (isStringLiteral(s.imported)) {
+                  throw new Error('Not sure what to do')
+                }
+                return {
+                  localName: s.local.name,
+                  importedName: s.imported.name,
+                }
+              } else {
+                throw new Error('Not sure how to handle this situation')
+              }
+            })
             const source = path.node.source.value
             const result = applyMacros({
               path,
@@ -130,7 +224,7 @@ function macrosPlugin(
             }
           },
           VariableDeclaration(path) {
-            const isMacros = child =>
+            const isMacros = (child: NodePath<VariableDeclarator>) =>
               looksLike(child, {
                 node: {
                   init: {
@@ -138,7 +232,7 @@ function macrosPlugin(
                       type: 'Identifier',
                       name: 'require',
                     },
-                    arguments: args =>
+                    arguments: (args: {value: string}[]) =>
                       args.length === 1 && isMacrosName(args[0].value),
                   },
                 },
@@ -148,15 +242,29 @@ function macrosPlugin(
               .get('declarations')
               .filter(isMacros)
               .forEach(child => {
-                const imports = child.node.id.name
-                  ? [{localName: child.node.id.name, importedName: 'default'}]
-                  : child.node.id.properties.map(property => ({
-                      localName: property.value.name,
-                      importedName: property.key.name,
-                    }))
+                const imports = getImports(child)
 
                 const call = child.get('init')
-                const source = call.node.arguments[0].value
+
+                if (
+                  !call.isCallExpression() &&
+                  !call.isNewExpression() &&
+                  !call.isOptionalCallExpression()
+                ) {
+                  throw new Error('Expecting arguments')
+                }
+
+                const node = call.node
+
+                const firstArgument = node.arguments[0]
+
+                if (!isExpressionWithValue(firstArgument)) {
+                  throw new Error(
+                    "Don't know how to get source of expression without value",
+                  )
+                }
+
+                const source = firstArgument.value
                 const result = applyMacros({
                   path: call,
                   imports,
@@ -179,6 +287,120 @@ function macrosPlugin(
   }
 }
 
+type ExpressionWithValue = Expression & {
+  value: string
+}
+
+function isExpressionWithValue(
+  expression:
+    | ArgumentPlaceholder
+    | JSXNamespacedName
+    | SpreadElement
+    | Expression,
+): expression is ExpressionWithValue {
+  return Object.prototype.hasOwnProperty.call(expression, 'value')
+}
+
+type Import = {
+  importedName: string
+  localName: string
+}
+
+function getImports(child: NodePath<VariableDeclarator>): Import | Import[] {
+  const id = child.node.id
+
+  if (isIdentifier(id) && id.name) {
+    return [{localName: id.name, importedName: 'default'}]
+  } else if (isObjectPattern(id)) {
+    return id.properties.map(property => {
+      if (isRestElement(property)) {
+        throw new Error("Don't know how to handle this")
+      }
+
+      const {key, value} = property
+
+      if (!isExpressionWithName(key)) {
+        throw new Error('Key is not named')
+      }
+
+      if (!isExpressionWithName(value)) {
+        throw new Error('Value is not named')
+      }
+
+      return {
+        importedName: key.name,
+        localName: value.name,
+      }
+    })
+  } else {
+    throw new Error('Not sure how to handle this')
+  }
+}
+
+type ExpressionWithName = Expression & {
+  name: any
+}
+
+function isExpressionWithName(
+  expression: Expression | PatternLike | PrivateName,
+): expression is ExpressionWithName {
+  return Object.hasOwnProperty.call(expression, 'name')
+}
+
+function isImportDefaultSpecifier(
+  specifier:
+    | ImportDefaultSpecifier
+    | ImportNamespaceSpecifier
+    | ImportSpecifier,
+): specifier is ImportDefaultSpecifier {
+  return specifier.type === 'ImportDefaultSpecifier'
+}
+
+function isImportSpecifier(
+  specifier:
+    | ImportDefaultSpecifier
+    | ImportNamespaceSpecifier
+    | ImportSpecifier,
+): specifier is ImportSpecifier {
+  return specifier.type === 'ImportSpecifier'
+}
+
+function isStringLiteral(
+  node: Identifier | StringLiteral,
+): node is StringLiteral {
+  return node.type === 'StringLiteral'
+}
+
+type MacroRequireFunctionOptions = {
+  references: Record<string, NodePath<Node>[]>
+  source: string
+  state: ProgramState
+  babel: unknown
+  config: unknown
+  isBabelMacrosCall: true
+}
+
+type InteropRequireFunction = ((
+  arg: MacroRequireFunctionOptions,
+) => ApplyMacrosResult) & {isBabelMacro: boolean}
+
+type ApplyMacrosOptions = {
+  path: NodePath
+  imports: Import | Import[] | undefined
+  source: string
+  state: ProgramState
+  babel: unknown
+  interopRequire(path: string): InteropRequireFunction
+  resolvePath(source: string, basedir: string): string
+  options: {}
+}
+
+type ApplyMacrosResult =
+  | {
+      keepImports: boolean
+    }
+  | undefined
+
 // eslint-disable-next-line complexity
 function applyMacros({
   path,
@@ -189,24 +411,33 @@ function applyMacros({
   interopRequire,
   resolvePath,
   options,
-}) {
+}: ApplyMacrosOptions): ApplyMacrosResult {
+  if (!imports) {
+    throw new Error('no imports to reduce')
+  }
+
+  const importArray = Array.isArray(imports) ? imports : [imports]
+
   /* istanbul ignore next (pretty much only useful for astexplorer I think) */
   const {
     file: {
       opts: {filename = ''},
     },
   } = state
+
   let hasReferences = false
-  const referencePathsByImportName = imports.reduce(
+  const referencePathsByImportName = importArray.reduce(
     (byName, {importedName, localName}) => {
       const binding = path.scope.getBinding(localName)
+
+      if (!binding) return byName
 
       byName[importedName] = binding.referencePaths
       hasReferences = hasReferences || Boolean(byName[importedName].length)
 
       return byName
     },
-    {},
+    {} as Record<string, NodePath<Node>[]>,
   )
 
   const isRelative = source.indexOf('.') === 0
@@ -244,7 +475,9 @@ function applyMacros({
       config,
       isBabelMacrosCall: true,
     })
-  } catch (error) {
+  } catch (err) {
+    const error = err as Error
+
     if (error.name === 'MacroError') {
       throw error
     }
@@ -341,14 +574,15 @@ function getConfig(macro, filename, source, options) {
  because this is hard to test
  and not worth it...
  */
-function getFullFilename(filename) {
+function getFullFilename(filename: string) {
   if (p.isAbsolute(filename)) {
     return filename
   }
   return p.join(process.cwd(), filename)
 }
 
-function looksLike(a, b) {
+type Val = Record<string, unknown>
+function looksLike(a: Val, b: Val): boolean {
   return (
     a &&
     b &&
@@ -358,18 +592,14 @@ function looksLike(a, b) {
       if (typeof bVal === 'function') {
         return bVal(aVal)
       }
-      return isPrimitive(bVal) ? bVal === aVal : looksLike(aVal, bVal)
+      return isPrimitive(bVal as Val)
+        ? bVal === aVal
+        : looksLike(aVal as Val, bVal as Val)
     })
   )
 }
 
-function isPrimitive(val) {
+function isPrimitive(val: Val) {
   // eslint-disable-next-line
   return val == null || /^[sbn]/.test(typeof val)
 }
-
-module.exports = macrosPlugin
-Object.assign(module.exports, {
-  createMacro,
-  MacroError,
-})
