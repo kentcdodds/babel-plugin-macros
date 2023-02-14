@@ -4,4 +4,4 @@ import {createMacro} from '../../..'
 export const configName = 'configurableMacro'
 export const realMacro = jest.fn()
 
-export default createMacro(realMacro, ({configName} = {}))
+export default createMacro(realMacro, {configName})

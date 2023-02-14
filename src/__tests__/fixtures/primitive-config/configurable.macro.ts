@@ -1,10 +1,7 @@
-const {createMacro} = require('../../..')
+import { createMacro } from '../../..'
 
-const configName = 'configurableMacro'
-const realMacro = jest.fn()
-module.exports = createMacro(realMacro, {configName})
-// for testing purposes only
-Object.assign(module.exports, {
-  realMacro,
-  configName,
-})
+// exports for testing purposes only:
+export const configName = 'configurableMacro'
+export const realMacro = jest.fn()
+
+export default createMacro(realMacro, { configName })

@@ -1,7 +1,5 @@
-const {createMacro} = require('../../')
+import {createMacro} from '../../'
 
-module.exports = createMacro(keepImportMacro)
-
-function keepImportMacro() {
+export default createMacro(function keepImportMacro() {
   return {keepImports: true}
-}
+})

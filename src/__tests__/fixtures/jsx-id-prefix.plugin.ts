@@ -1,19 +1,23 @@
 // babel-plugin adding `plugin-` prefix to each "id" JSX attribute
-module.exports = main
+import {NodePath} from '@babel/core'
+import {BabelType} from 'babel-plugin-tester'
 
-function main({types: t}) {
+export default function main({types: t}: BabelType) {
   return {
     visitor: {
       // intentionally traversing from Program,
       // if it matches JSXAttribute here the issue won't be reproduced
-      Program(progPath) {
+      Program(progPath: NodePath) {
         progPath.traverse({
-          JSXAttribute(path) {
+          JSXAttribute(path: NodePath) {
             const name = path.get('name')
-            if (t.isJSXIdentifier(name) && name.node.name === 'id') {
+            if (t.isJSXIdentifier(name) && name.name === 'id') { /// DANGER! CODE CHANGE!
               const value = path.get('value')
+              if (Array.isArray(value)) {
+                throw new Error("Value path is an array. Don't know how to handle this")
+              }
               if (t.isStringLiteral(value))
-                value.replaceWith(t.stringLiteral(`plugin-${value.node.value}`))
+                value.replaceWith(t.stringLiteral(`plugin-${value.value}`)) /// DANGER! CODE CHANGE!
             }
           },
         })

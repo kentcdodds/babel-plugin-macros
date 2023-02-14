@@ -8,7 +8,6 @@
     "build:lib": "vite build --config vite.lib.config.js --mode development",
     "build:types": "tsc --declaration --emitDeclarationOnly -p tsconfig.dist.json --skipLibCheck && tsc-alias -p tsconfig.json && mv dist/index.d.ts dist/lib.umd.d.ts",
     "check:types": "tsc --noEmit -p tsconfig.json; if [ $? -eq 0 ]; then echo 8J+OiSBUeXBlcyBhcmUgZ29vZCEKCg== | base64 -d; else exit 1; fi",
-    "confgen": "npx confgen@latest @lib --name BabelPluginMacros typescript vite dist:lib",
     "fix:format": "prettier --write src",
     "lint": "kcd-scripts lint",
     "setup": "npm install && npm run validate -s",

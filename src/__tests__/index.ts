@@ -1,19 +1,29 @@
 import path from 'path'
-import {cosmiconfigSync as cosmiconfigSyncMock} from 'cosmiconfig'
+import {cosmiconfigSync} from 'cosmiconfig'
+import * as CosmicConfig from 'cosmiconfig'
 import cpy from 'cpy'
 import babel from '@babel/core'
 import pluginTester from 'babel-plugin-tester'
 import plugin from '../'
+import {expect, jest} from '@jest/globals';
+
+const cosmiconfigSyncMock: ComsicConfigSyncMock = cosmiconfigSync
 
 const projectRoot = path.join(__dirname, '../../')
 
+type ComsicConfigSyncMock = typeof cosmiconfigSync & {
+  explorer?: ReturnType<typeof cosmiconfigSync>
+}
+
 jest.mock('cosmiconfig', () => {
-  const cosmiconfigExports = jest.requireActual('cosmiconfig')
-  const actualCosmiconfigSync = cosmiconfigExports.cosmiconfigSync
-  function fakeCosmiconfigSync(...args) {
+  const cosmiconfigExports = jest.requireActual('cosmiconfig') as typeof CosmicConfig
+  const actualCosmiconfigSync = cosmiconfigSync
+
+  const fakeCosmiconfigSync: ComsicConfigSyncMock = (...args: Parameters<typeof cosmiconfigSync>) => {
     fakeCosmiconfigSync.explorer = actualCosmiconfigSync(...args)
     return fakeCosmiconfigSync.explorer
   }
+
   return {...cosmiconfigExports, cosmiconfigSync: fakeCosmiconfigSync}
 })
 
@@ -31,13 +41,15 @@ beforeEach(() => {
   jest.spyOn(console, 'error').mockImplementation(() => {})
 })
 
+type MockedConsoleError = jest.MockedFunction<typeof console.error>
+
 afterEach(() => {
-  console.error.mockRestore()
+  (console.error as MockedConsoleError).mockRestore()
   jest.clearAllMocks()
 })
 
 expect.addSnapshotSerializer({
-  print(val) {
+  print(val: string) {
     return (
       val
         .split(projectRoot)
@@ -47,7 +59,7 @@ expect.addSnapshotSerializer({
         .replace(/Error:[^:]*:/, 'Error:')
     )
   },
-  test(val) {
+  test(val: unknown) {
     return typeof val === 'string'
   },
 })
@@ -60,7 +72,7 @@ pluginTester({
     parserOpts: {
       plugins: ['jsx'],
     },
-    generatorOpts: {quotes: 'double'},
+    generatorOpts: { jsescOption: { quotes: 'double'}},
   },
   tests: [
     {
@@ -322,6 +334,9 @@ pluginTester({
       error: true,
       fixture: path.join(__dirname, 'fixtures/config/code.js'),
       setup() {
+        if (!cosmiconfigSyncMock.explorer) {
+          throw new Error('No explorer, was cosmiconfigSync supposed to have been called?')
+        }
         jest
           .spyOn(cosmiconfigSyncMock.explorer, 'search')
           .mockImplementationOnce(() => {
@@ -331,11 +346,12 @@ pluginTester({
         return function teardown() {
           try {
             expect(console.error).toHaveBeenCalledTimes(1)
-            expect(console.error.mock.calls[0]).toMatchSnapshot()
-            console.error.mockClear()
+            const firstCall = (console.error as MockedConsoleError).mock.calls[0]
+            expect(firstCall).toMatchSnapshot()
+            ;(console.error as MockedConsoleError).mockClear()
           } catch (e) {
             console.error(e)
-            console.error.mockClear()
+            ;(console.error as MockedConsoleError).mockClear()
             throw e
           }
         }
@@ -345,6 +361,9 @@ pluginTester({
       title: 'when there is no config to load, then no config is passed',
       fixture: path.join(__dirname, 'fixtures/config/code.js'),
       setup() {
+        if (!cosmiconfigSyncMock.explorer) {
+          throw new Error('No explorer, was cosmiconfigSync supposed to have been called?')
+        }
         jest
           .spyOn(cosmiconfigSyncMock.explorer, 'search')
           .mockImplementationOnce(() => {
@@ -440,7 +459,7 @@ pluginTester({
     {
       title: 'when a custom isMacrosName option is used on a import',
       pluginOptions: {
-        isMacrosName(v) {
+        isMacrosName(v: string) {
           return v.endsWith('-macro.js')
         },
       },
@@ -452,7 +471,7 @@ pluginTester({
     {
       title: 'when a custom isMacrosName option is used on a require',
       pluginOptions: {
-        isMacrosName(v) {
+        isMacrosName(v: string) {
           return v.endsWith('-macro.js')
         },
       },

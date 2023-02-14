@@ -45,6 +45,12 @@ import {
   LVal,
   ImportDeclaration,
 } from '@babel/types'
+import * as BabelCoreNamespace from '@babel/core';
+import * as BabelTypesNamespace from '@babel/types'
+import type { PluginObj, PluginPass } from '@babel/core'
+
+type BabelCore = typeof BabelCoreNamespace
+type BabelTypes = typeof BabelTypesNamespace
 
 const macrosRegex = /[./]macro(\.c?js)?$/
 const testMacrosRegex = (v: string) => macrosRegex.test(v)
@@ -63,7 +69,7 @@ export class MacroError extends Error {
   }
 }
 
-type MacroWrapperArgs = Record<string, unknown> & {
+type MacroFunctionArgs = Record<string, unknown> & {
   source: string
   isBabelMacrosCall?: boolean
 }
@@ -98,12 +104,34 @@ function loadCosmicConfig(): CosmicConfig {
   return out
 }
 
+export type CreateMacroFunctionArgs = {
+  babel: BabelCore
+  references: Record<string, NodePath[]> & {default: NodePath[]}
+  state: unknown
+}
+
 type CreateMacroOptions = {
   configName: string
 }
 
+type MacroWrapperOptionsArgs = {
+  source: string,
+  isBabelMacrosCall?: boolean
+  babel: BabelCore
+  references: Record<string, NodePath[]> & {default: NodePath[]}
+  state: PluginPass
+}
+
+type MacroWrapperTemplateArgs = TemplateStringsArray
+
+type MacroWrapperArgs = MacroWrapperOptionsArgs | MacroWrapperTemplateArgs
+
+function isTemplateLiteralArgs(args: MacroWrapperArgs): args is MacroWrapperTemplateArgs {
+  return Array.isArray(args)
+}
+
 export function createMacro(
-  macro: (args: MacroWrapperArgs) => unknown,
+  macro: (args: CreateMacroFunctionArgs) => unknown,
   options: Partial<CreateMacroOptions> = {},
 ) {
   if (options.configName === 'options') {
@@ -115,7 +143,10 @@ export function createMacro(
   macroWrapper.options = options
   return macroWrapper
 
-  function macroWrapper(args: MacroWrapperArgs) {
+  function macroWrapper(args: MacroWrapperOptionsArgs) {
+    if (isTemplateLiteralArgs(args)) {
+      throw new Error("Not expecting args to be a template array, even though that's a thing in the tests?")
+    }
     const {source, isBabelMacrosCall} = args
     if (!isBabelMacrosCall) {
       throw new MacroError(
@@ -139,23 +170,16 @@ function nodeResolvePath(source: string, basedir: string) {
   })
 }
 
-type ProgramState = {
-  file: {
-    opts: {filename?: string}
-    scope: {
-      path: NodePath
-    }
-  }
-}
-
-type MacrosPluginOptions = {
+type MacrosPluginOptions = Record<string, unknown> & {
   require?: NodeRequire
   resolvePath?(source: string, basedir: string): string
   isMacrosName?(v: string): boolean
 }
 
-export function macrosPlugin(
-  babel: unknown,
+export type Babel = typeof BabelCoreNamespace;
+
+export default function macrosPlugin(
+  babel: Babel,
   // istanbul doesn't like the default of an object for the plugin options
   // but I think older versions of babel didn't always pass options
   // istanbul ignore next
@@ -165,7 +189,7 @@ export function macrosPlugin(
     isMacrosName = testMacrosRegex,
     ...options
   }: MacrosPluginOptions = {},
-) {
+): PluginObj {
   function interopRequire(path: string) {
     // eslint-disable-next-line import/no-dynamic-require
     const o = _require(path)
@@ -175,7 +199,7 @@ export function macrosPlugin(
   return {
     name: 'macros',
     visitor: {
-      Program(progPath: NodePath, state: ProgramState) {
+      Program: (progPath, state) => {
         progPath.traverse({
           ImportDeclaration(path) {
             const isMacros = looksLike(path, {
@@ -374,25 +398,30 @@ function isStringLiteral(
 type MacroRequireFunctionOptions = {
   references: Record<string, NodePath<Node>[]>
   source: string
-  state: ProgramState
-  babel: unknown
+  state: PluginPass
+  babel: BabelCore
   config: unknown
   isBabelMacrosCall: true
 }
 
 type InteropRequireFunction = ((
   arg: MacroRequireFunctionOptions,
-) => ApplyMacrosResult) & {isBabelMacro: boolean}
+) => ApplyMacrosResult) & {
+  isBabelMacro: boolean,
+  options: {
+    configName?: string
+  }
+}
 
 type ApplyMacrosOptions = {
   path: NodePath
   imports: Import | Import[] | undefined
   source: string
-  state: ProgramState
-  babel: unknown
+  state: PluginPass
+  babel: BabelCore
   interopRequire(path: string): InteropRequireFunction
   resolvePath(source: string, basedir: string): string
-  options: {}
+  options: Record<string, unknown>
 }
 
 type ApplyMacrosResult =
@@ -421,7 +450,7 @@ function applyMacros({
   /* istanbul ignore next (pretty much only useful for astexplorer I think) */
   const {
     file: {
-      opts: {filename = ''},
+      opts: { filename },
     },
   } = state
 
@@ -441,7 +470,7 @@ function applyMacros({
   )
 
   const isRelative = source.indexOf('.') === 0
-  const requirePath = resolvePath(source, p.dirname(getFullFilename(filename)))
+  const requirePath = resolvePath(source, p.dirname(getFullFilename(filename ?? '')))
 
   const macro = interopRequire(requirePath)
   if (!macro.isBabelMacro) {
@@ -498,7 +527,7 @@ function applyMacros({
   return result
 }
 
-function getConfigFromFile(configName, filename) {
+function getConfigFromFile(configName: string, filename: string) {
   try {
     const loaded = getConfigExplorer().search(filename)
 
@@ -514,7 +543,7 @@ function getConfigFromFile(configName, filename) {
   return {}
 }
 
-function getConfigFromOptions(configName, options) {
+function getConfigFromOptions(configName: string, options: Record<string,unknown>) {
   if (options.hasOwnProperty(configName)) {
     if (options[configName] && typeof options[configName] !== 'object') {
       // eslint-disable-next-line no-console
@@ -522,16 +551,16 @@ function getConfigFromOptions(configName, options) {
         `The macro plugin options' ${configName} property was not an object or null.`,
       )
     } else {
-      return {options: options[configName]}
+      return {options: options[configName] as {}}
     }
   }
   return {}
 }
 
-function getConfig(macro, filename, source, options) {
+function getConfig(macro: InteropRequireFunction, filename: string | null | undefined, source: string, options: Record<string,unknown>) {
   const {configName} = macro.options
   if (configName) {
-    const fileConfig = getConfigFromFile(configName, filename)
+    const fileConfig = getConfigFromFile(configName, filename ?? "")
     const optionsConfig = getConfigFromOptions(configName, options)
 
     if (
@@ -581,8 +610,7 @@ function getFullFilename(filename: string) {
   return p.join(process.cwd(), filename)
 }
 
-type Val = Record<string, unknown>
-function looksLike(a: Val, b: Val): boolean {
+function looksLike(a: any, b: any): boolean {
   return (
     a &&
     b &&
@@ -592,14 +620,14 @@ function looksLike(a: Val, b: Val): boolean {
       if (typeof bVal === 'function') {
         return bVal(aVal)
       }
-      return isPrimitive(bVal as Val)
+      return isPrimitive(bVal)
         ? bVal === aVal
-        : looksLike(aVal as Val, bVal as Val)
+        : looksLike(aVal, bVal)
     })
   )
 }
 
-function isPrimitive(val: Val) {
+function isPrimitive(val: unknown) {
   // eslint-disable-next-line
   return val == null || /^[sbn]/.test(typeof val)
 }

@@ -1,54 +1,106 @@
-const {parse} = require('@babel/parser')
+import {parse} from '@babel/parser'
+import {Node, NodePath} from '@babel/traverse'
+import {Expression, Statement, VariableDeclaration} from '@babel/types'
 // const printAST = require('ast-pretty-print')
-const {createMacro} = require('../../')
+import {createMacro} from '../../'
 
-module.exports = createMacro(evalMacro)
-
-function evalMacro({references, state}) {
+export default createMacro(function evalMacro({references, state}) {
   references.default.forEach(referencePath => {
-    if (referencePath.parentPath.type === 'TaggedTemplateExpression') {
-      asTag(referencePath.parentPath.get('quasi'), state)
-    } else if (referencePath.parentPath.type === 'CallExpression') {
-      asFunction(referencePath.parentPath.get('arguments'), state)
-    } else if (referencePath.parentPath.type === 'JSXOpeningElement') {
-      asJSX(
-        {
-          attributes: referencePath.parentPath.get('attributes'),
-          children: referencePath.parentPath.parentPath.get('children'),
-        },
-        state,
-      )
+    if (referencePath.parentPath?.type === 'TaggedTemplateExpression') {
+      asTag(referencePath.parentPath?.get('quasi'))
+    } else if (referencePath.parentPath?.type === 'CallExpression') {
+      const args = referencePath.parentPath?.get('arguments')
+      if (!Array.isArray(args)) {
+        throw new Error('Was expecting array')
+      }
+      asFunction(args)
+    } else if (referencePath.parentPath?.type === 'JSXOpeningElement') {
+      asJSX({
+        attributes: referencePath.parentPath?.get('attributes'),
+        children: referencePath.parentPath?.parentPath?.get('children'),
+      })
     } else {
       // TODO: throw a helpful error message
     }
   })
+})
+
+function asTag(quasiPath: NodePath | NodePath[]) {
+  if (Array.isArray(quasiPath)) {
+    throw new Error("Don't know how to handle arrays")
+  }
+
+  const parentQuasi = quasiPath.parentPath?.get('quasi')
+
+  if (!parentQuasi) {
+    throw new Error('No quasi path on parent')
+  }
+
+  if (Array.isArray(parentQuasi)) {
+    throw new Error("Don't know how to handle arrays")
+  }
+  const value = parentQuasi.evaluate().value
+  quasiPath.parentPath?.replaceWith(evalToAST(value))
 }
 
-function asTag(quasiPath) {
-  const value = quasiPath.parentPath.get('quasi').evaluate().value
-  quasiPath.parentPath.replaceWith(evalToAST(value))
-}
-
-function asFunction(argumentsPaths) {
+function asFunction(argumentsPaths: NodePath[]) {
   const value = argumentsPaths[0].evaluate().value
-  argumentsPaths[0].parentPath.replaceWith(evalToAST(value))
+  argumentsPaths[0].parentPath?.replaceWith(evalToAST(value))
+}
+
+type NodeWithValue = Node & {
+  value: any
+}
+
+function isNodeWithValue(node: Node): node is NodeWithValue {
+  return Object.prototype.hasOwnProperty.call(node, 'value')
 }
 
 // eslint-disable-next-line no-unused-vars
-function asJSX({attributes, children}) {
+function asJSX({
+  attributes,
+  children,
+}: {
+  attributes: NodePath | NodePath[]
+  children: NodePath | NodePath[] | undefined
+}) {
   // It's a shame you cannot use evaluate() with JSX
-  const value = children[0].node.value
-  children[0].parentPath.replaceWith(evalToAST(value))
+  if (!Array.isArray(children)) {
+    throw new Error("Don't know how to handle single children")
+  }
+  const firstChild = children[0]
+  if (!isNodeWithValue(firstChild.node)) {
+    throw new Error("Don't know to handle nodes without values")
+  }
+  const value = firstChild.node.value
+  firstChild.parentPath?.replaceWith(evalToAST(value))
 }
 
-function evalToAST(value) {
-  let x
+function evalToAST(value: Expression | null | undefined): Expression {
+  let x: Record<string, unknown> = {}
   // eslint-disable-next-line
   eval(`x = ${value}`)
   return thingToAST(x)
 }
 
-function thingToAST(object) {
+function isVariableDeclaration(
+  statement: Statement,
+): statement is VariableDeclaration {
+  return statement.type === 'VariableDeclaration'
+}
+
+function thingToAST(object: Record<string, unknown>) {
   const fileNode = parse(`var x = ${JSON.stringify(object)}`)
-  return fileNode.program.body[0].declarations[0].init
+  const firstStatement = fileNode.program.body[0]
+
+  if (!isVariableDeclaration(firstStatement)) {
+    throw new Error('Only know how to handle VariableDeclarations')
+  }
+
+  const initDeclaration = firstStatement.declarations[0].init
+
+  if (!initDeclaration) {
+    throw new Error('Was expecting expression')
+  }
+  return initDeclaration
 }
