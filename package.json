@@ -4,6 +4,11 @@
   "description": "Allows you to build compile-time libraries",
   "main": "src/index.js",
   "scripts": {
+    "build": "rm -rf dist/* && yarn build:lib && yarn build:types",
+    "build:lib": "vite build --config vite.lib.config.js --mode development",
+    "build:types": "tsc --declaration --emitDeclarationOnly -p tsconfig.dist.json --skipLibCheck && tsc-alias -p tsconfig.json && mv dist/index.d.ts dist/lib.umd.d.ts",
+    "check:types": "tsc --noEmit -p tsconfig.json; if [ $? -eq 0 ]; then echo 8J+OiSBUeXBlcyBhcmUgZ29vZCEKCg== | base64 -d; else exit 1; fi",
+    "fix:format": "prettier --write src",
     "lint": "kcd-scripts lint",
     "setup": "npm install && npm run validate -s",
     "test": "kcd-scripts test",
@@ -33,11 +38,14 @@
     "@babel/parser": "^7.12.7",
     "@babel/plugin-transform-modules-commonjs": "^7.16.7",
     "@babel/types": "^7.12.7",
+    "@types/cosmiconfig": "^6.0.0",
     "ast-pretty-print": "^2.0.1",
     "babel-plugin-tester": "^10.0.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "cpy": "^8.1.1",
-    "kcd-scripts": "^7.1.0"
+    "kcd-scripts": "^7.1.0",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.1"
   },
   "eslintConfig": {
     "extends": "./node_modules/kcd-scripts/eslint.js"

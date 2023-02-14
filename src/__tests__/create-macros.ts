@@ -1,4 +1,4 @@
-const {createMacro} = require('../')
+import {createMacro} from '..'
 
 test('throws error if it is not transpiled', () => {
   const untranspiledMacro = createMacro(() => {})
