@@ -21,6 +21,7 @@ class MacroError extends Error {
 
 let _configExplorer = null
 function getConfigExplorer() {
+  // eslint-disable-next-line logical-assignment-operators
   return (_configExplorer =
     _configExplorer ||
     // Lazy load cosmiconfig since it is a relatively large bundle

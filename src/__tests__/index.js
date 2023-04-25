@@ -68,7 +68,6 @@ pluginTester({
       snapshot: false,
       code: `
         import foo from './some-file-without-macro'
-
         const bar = require('./some-other-file-without-macro')
       `,
     },

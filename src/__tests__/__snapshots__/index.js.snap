@@ -132,7 +132,6 @@ const red = macro('noop');
       ↓ ↓ ↓ ↓ ↓ ↓
 
 const macro = require('./fixtures/keep-imports.macro')
-
 const red = macro('noop')
 
 
@@ -148,13 +147,10 @@ const red = macro('noop')
 'use strict'
 
 var _keepImports = require('./fixtures/keep-imports.macro')
-
 var _keepImports2 = _interopRequireDefault(_keepImports)
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {default: obj}
 }
-
 const red = (0, _keepImports2.default)('noop')
 
 
@@ -341,7 +337,7 @@ Error: <PROJECT_ROOT>/src/__tests__/fixtures/primitive-config/babel-plugin-macro
 `;
 
 exports[`unknown plugin when there is an error reading the config, a helpful message is logged 1`] = `
-Array [
+[
   There was an error trying to load the config "configurableMacro" for the macro imported from "./configurable.macro. Please see the error thrown for more information.,
 ]
 `;
